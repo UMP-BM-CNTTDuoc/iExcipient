@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iExcipient_WebApp", "iExcipient\iExcipient_WebApp.csproj", "{D497C80A-4A49-4B8B-A705-E06B0DEA8C72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryIE", "ClassLibraryIE\ClassLibraryIE.csproj", "{E5DB9B1C-20FC-4DAB-AE91-5AE6BC02667E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iExcipient_Form", "iExcipient_Form\iExcipient_Form.csproj", "{1E72A7CE-3470-462E-B58B-06DC06E0110D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D497C80A-4A49-4B8B-A705-E06B0DEA8C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D497C80A-4A49-4B8B-A705-E06B0DEA8C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D497C80A-4A49-4B8B-A705-E06B0DEA8C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D497C80A-4A49-4B8B-A705-E06B0DEA8C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5DB9B1C-20FC-4DAB-AE91-5AE6BC02667E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5DB9B1C-20FC-4DAB-AE91-5AE6BC02667E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5DB9B1C-20FC-4DAB-AE91-5AE6BC02667E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5DB9B1C-20FC-4DAB-AE91-5AE6BC02667E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E72A7CE-3470-462E-B58B-06DC06E0110D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E72A7CE-3470-462E-B58B-06DC06E0110D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E72A7CE-3470-462E-B58B-06DC06E0110D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E72A7CE-3470-462E-B58B-06DC06E0110D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
