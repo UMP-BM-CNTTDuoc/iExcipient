@@ -15,7 +15,7 @@ namespace ClassLibraryIE
             /*
             public bool InsertQuyDinh(QuyDinh item)
             {
-                // Input: QuyDinh item
+                // Input: QuyDinh item (DTO)
                 // Output: bool
             }
             public bool InsertThanhPhan(ThanhPhan item)
@@ -132,23 +132,27 @@ namespace ClassLibraryIE
                 // Output: List<ChucNang>
             }
             
+            // Lấy toàn bộ quan hệ ThànhPhan - ChucNang
             public List<ThanhPhan_ChucNang> GetDSThanhPhan_ChucNang()
             {
                 // Input: không
                 // Output: List<ThanhPhan_ChucNang>
             }
 
+            // Lấy toàn bộ quan hệ ThànhPhan - DangBaoChe
             public List<ThanhPhan_DangBaoChe> GetDSThanhPhan_DangBaoChe()
             {
                 // Input: không
                 // Output: List<ThanhPhan_DangBaoChe>
             }
 
+            // Lấy toàn bộ quan hệ ThànhPhan - ChatLienQuan
             public List<ThanhPhan_ChatLienQuan> GetDSThanhPhan_ChatLienQuan()
             {
                 // Input: không
                 // Output: List<ThanhPhan_ChatLienQuan>
             }
+
             */
         }
 
@@ -205,7 +209,6 @@ namespace ClassLibraryIE
                 // Input: int idChucNang, string tenChucNang, string moTa
                 // Output: bool
             }
-            
             */
         }
         #endregion
@@ -237,25 +240,6 @@ namespace ClassLibraryIE
                 // Input: int idChucNang
                 // Output: bool
             }
-
-            public bool DeleteThanhPhan_ChucNang_ByThanhPhan(int idThanhPhan)
-            {
-                // Input: int idThanhPhan
-                // Output: bool
-            }
-
-            public bool DeleteThanhPhan_DangBaoChe_ByThanhPhan(int idThanhPhan)
-            {
-                // Input: int idThanhPhan
-                // Output: bool
-            }
-
-            public bool DeleteThanhPhan_ChatLienQuan_ByThanhPhan(int idThanhPhan)
-            {
-                // Input: int idThanhPhan
-                // Output: bool
-            }
-
             */
         }
 

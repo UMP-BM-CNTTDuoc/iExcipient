@@ -44,6 +44,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Danhmuc\DanhMucChucNang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucChucNang.Designer.cs">
+      <DependentUpon>DanhMucChucNang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucDangBaoChe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucDangBaoChe.Designer.cs">
+      <DependentUpon>DanhMucDangBaoChe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucQuyDinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucQuyDinh.Designer.cs">
+      <DependentUpon>DanhMucQuyDinh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucThanhPhan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucThanhPhan.Designer.cs">
+      <DependentUpon>DanhMucThanhPhan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChatLienQuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChatLienQuan.Designer.cs">
+      <DependentUpon>QuanHeThanhPhan_ChatLienQuan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChucNang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChucNang.Designer.cs">
+      <DependentUpon>QuanHeThanhPhan_ChucNang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_DangBaoChe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_DangBaoChe.Designer.cs">
+      <DependentUpon>QuanHeThanhPhan_DangBaoChe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChatLienQuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChatLienQuan.Designer.cs">
+      <DependentUpon>Import_ThanhPhan_ChatLienQuan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChucNang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChucNang.Designer.cs">
+      <DependentUpon>Import_ThanhPhan_ChucNang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.Designer.cs">
+      <DependentUpon>Import_ThanhPhan_DangBaoChe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tracuu\Tracuu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Tracuu\Tracuu.Designer.cs">
+      <DependentUpon>Tracuu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +118,39 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Danhmuc\DanhMucChucNang.resx">
+      <DependentUpon>DanhMucChucNang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Danhmuc\DanhMucDangBaoChe.resx">
+      <DependentUpon>DanhMucDangBaoChe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Danhmuc\DanhMucQuyDinh.resx">
+      <DependentUpon>DanhMucQuyDinh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Danhmuc\DanhMucThanhPhan.resx">
+      <DependentUpon>DanhMucThanhPhan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_ChatLienQuan.resx">
+      <DependentUpon>QuanHeThanhPhan_ChatLienQuan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_ChucNang.resx">
+      <DependentUpon>QuanHeThanhPhan_ChucNang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_DangBaoChe.resx">
+      <DependentUpon>QuanHeThanhPhan_DangBaoChe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_ChatLienQuan.resx">
+      <DependentUpon>Import_ThanhPhan_ChatLienQuan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_ChucNang.resx">
+      <DependentUpon>Import_ThanhPhan_ChucNang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.resx">
+      <DependentUpon>Import_ThanhPhan_DangBaoChe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tracuu\Tracuu.resx">
+      <DependentUpon>Tracuu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +176,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
