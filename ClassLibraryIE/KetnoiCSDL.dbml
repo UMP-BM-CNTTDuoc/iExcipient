@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iExcipient" Class="KetnoiCSDLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=103.140.249.152;Initial Catalog=iExcipient;Persist Security Info=True;User ID=iExcipientUser" SettingsObjectName="ClassLibraryIE.Properties.Settings" SettingsPropertyName="iExcipientConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.d_Chucnang" Member="d_Chucnangs">
+    <Type Name="d_Chucnang">
+      <Column Name="IDChucnang" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Tenchucnang" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Motachucnang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="d_Chucnang_r_Thanhphan_Chucnang" Member="r_Thanhphan_Chucnangs" ThisKey="IDChucnang" OtherKey="IDChucnang" Type="r_Thanhphan_Chucnang" />
+    </Type>
+  </Table>
+  <Table Name="dbo.r_Thanhphan_Dangbaoche" Member="r_Thanhphan_Dangbaoches">
+    <Type Name="r_Thanhphan_Dangbaoche">
+      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDDangbaoche" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="d_Dangbaoche_r_Thanhphan_Dangbaoche" Member="d_Dangbaoche" ThisKey="IDDangbaoche" OtherKey="IDDangbaoche" Type="d_Dangbaoche" IsForeignKey="true" />
+      <Association Name="d_Thanhphan_r_Thanhphan_Dangbaoche" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.d_Dangbaoche" Member="d_Dangbaoches">
+    <Type Name="d_Dangbaoche">
+      <Column Name="IDDangbaoche" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenDangbaoche" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="d_Dangbaoche_r_Thanhphan_Dangbaoche" Member="r_Thanhphan_Dangbaoches" ThisKey="IDDangbaoche" OtherKey="IDDangbaoche" Type="r_Thanhphan_Dangbaoche" />
+    </Type>
+  </Table>
+  <Table Name="dbo.d_Quydinh" Member="d_Quydinhs">
+    <Type Name="d_Quydinh">
+      <Column Name="IDQuydinh" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AnnexII" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AnnexIII" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AnnexIV" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AnnexV" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AnnexVI" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DieuKienSuDung" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Ghichu" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="d_Thanhphan_d_Quydinh" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.d_Thanhphan" Member="d_Thanhphans">
+    <Type Name="d_Thanhphan">
+      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten_INN" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Ten_INCI" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Ten_IUPAC" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="CAS_No" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CongThucHoaHoc" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="KhoiLuongPhanTu" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CauTrucPhanTu" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="TinhChatVatLy" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MoTa" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="BaoQuan" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ChatLienQuan" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TLTK" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NgayTao" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayCapNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="d_Thanhphan_r_Thanhphan_Dangbaoche" Member="r_Thanhphan_Dangbaoches" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Thanhphan_Dangbaoche" />
+      <Association Name="d_Thanhphan_d_Quydinh" Member="d_Quydinhs" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Quydinh" />
+      <Association Name="d_Thanhphan_r_Chatlienquan" Member="r_Chatlienquans" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Chatlienquan" />
+      <Association Name="d_Thanhphan_r_Chatlienquan1" Member="r_Chatlienquans1" ThisKey="IDThanhphan" OtherKey="IDThanhphanLienquan" Type="r_Chatlienquan" />
+      <Association Name="d_Thanhphan_r_Thanhphan_Chucnang" Member="r_Thanhphan_Chucnangs" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Thanhphan_Chucnang" />
+    </Type>
+  </Table>
+  <Table Name="dbo.r_Chatlienquan" Member="r_Chatlienquans">
+    <Type Name="r_Chatlienquan">
+      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDThanhphanLienquan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="d_Thanhphan_r_Chatlienquan" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
+      <Association Name="d_Thanhphan_r_Chatlienquan1" Member="d_Thanhphan1" ThisKey="IDThanhphanLienquan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.r_Thanhphan_Chucnang" Member="r_Thanhphan_Chucnangs">
+    <Type Name="r_Thanhphan_Chucnang">
+      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDChucnang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="d_Chucnang_r_Thanhphan_Chucnang" Member="d_Chucnang" ThisKey="IDChucnang" OtherKey="IDChucnang" Type="d_Chucnang" IsForeignKey="true" />
+      <Association Name="d_Thanhphan_r_Thanhphan_Chucnang" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
