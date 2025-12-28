@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassIE.cs" />
+    <Compile Include="KetnoiCSDL.cs">
+      <DependentUpon>KetnoiCSDL.dbml</DependentUpon>
+    </Compile>
     <Compile Include="KetnoiCSDL.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

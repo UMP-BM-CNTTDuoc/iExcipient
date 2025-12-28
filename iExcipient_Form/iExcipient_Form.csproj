@@ -176,7 +176,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibraryIE\ClassLibraryIE.csproj">
+      <Project>{e5db9b1c-20fc-4dab-ae91-5ae6bc02667e}</Project>
+      <Name>ClassLibraryIE</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
