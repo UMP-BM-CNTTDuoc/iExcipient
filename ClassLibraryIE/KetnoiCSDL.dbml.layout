@@ -44,49 +44,49 @@
         <elementListCompartment Id="14ed5ca1-4963-4cbb-bcf0-aed77d68d54e" absoluteBounds="6.515, 6.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.63389322916667); (3.59375 : 2.63389322916667); (3.59375 : 3.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.63389322916667); (3.59375 : 2.63389322916667); (3.59375 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KetnoiCSDLDataContext/d_Dangbaoche/d_Dangbaoche_r_Thanhphan_Dangbaoche" />
       <nodes>
         <classShapeMoniker Id="1ee806a7-410b-40ee-a52c-3913ce721a86" />
         <classShapeMoniker Id="770b5d50-2070-407a-82e8-6005a7d66513" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.84699625651042); (3.5 : 4.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.84699625651042); (3.5 : 4.84699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KetnoiCSDLDataContext/d_Thanhphan/d_Thanhphan_r_Thanhphan_Dangbaoche" />
       <nodes>
         <classShapeMoniker Id="0104b1a7-f1db-4282-baca-7b5433d5bfcf" />
         <classShapeMoniker Id="770b5d50-2070-407a-82e8-6005a7d66513" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 8.3189111328125); (1.75 : 11.2700512695312); (3.5 : 11.2700512695312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 8.3189111328125); (1.75 : 11.2700512695312); (3.5 : 11.2700512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KetnoiCSDLDataContext/d_Thanhphan/d_Thanhphan_d_Quydinh" />
       <nodes>
         <classShapeMoniker Id="0104b1a7-f1db-4282-baca-7b5433d5bfcf" />
         <classShapeMoniker Id="60cf577c-4370-43fc-a404-6a530ad50132" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.72199625651042); (3.5 : 6.72199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.72199625651042); (3.5 : 6.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KetnoiCSDLDataContext/d_Thanhphan/d_Thanhphan_r_Chatlienquan" />
       <nodes>
         <classShapeMoniker Id="0104b1a7-f1db-4282-baca-7b5433d5bfcf" />
         <classShapeMoniker Id="060ffea6-3871-4927-8a16-93198d3f2b1e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.36099812825521); (3.5 : 6.36099812825521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.36099812825521); (3.5 : 6.36099812825521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KetnoiCSDLDataContext/d_Thanhphan/d_Thanhphan_r_Chatlienquan1" />
       <nodes>
         <classShapeMoniker Id="0104b1a7-f1db-4282-baca-7b5433d5bfcf" />
         <classShapeMoniker Id="060ffea6-3871-4927-8a16-93198d3f2b1e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.65625 : 2.1362939453125); (5.65625 : 5.96875); (6.5 : 5.96875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.65625 : 2.1362939453125); (5.65625 : 5.96875); (6.5 : 5.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KetnoiCSDLDataContext/d_Chucnang/d_Chucnang_r_Thanhphan_Chucnang" />
       <nodes>
         <classShapeMoniker Id="ce59d468-1ae6-45a7-ae1c-9b6c35afb914" />
         <classShapeMoniker Id="e53d4573-ab3f-489b-bdd7-f80150e00fe6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 7.85020182291667); (7.5 : 7.85020182291667); (7.5 : 7.06899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 7.85020182291667); (7.5 : 7.85020182291667); (7.5 : 7.06899251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/KetnoiCSDLDataContext/d_Thanhphan/d_Thanhphan_r_Thanhphan_Chucnang" />
       <nodes>
         <classShapeMoniker Id="0104b1a7-f1db-4282-baca-7b5433d5bfcf" />
