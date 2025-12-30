@@ -209,6 +209,7 @@
             this.comboBoxTenThanhPhan.Name = "comboBoxTenThanhPhan";
             this.comboBoxTenThanhPhan.Size = new System.Drawing.Size(455, 28);
             this.comboBoxTenThanhPhan.TabIndex = 43;
+            this.comboBoxTenThanhPhan.SelectedIndexChanged += new System.EventHandler(this.comboBoxTenThanhPhan_SelectedIndexChanged);
             // 
             // textBoxIDThanhPhan
             // 
@@ -251,6 +252,7 @@
             this.buttonSua.TabIndex = 14;
             this.buttonSua.Text = "Sửa";
             this.buttonSua.UseVisualStyleBackColor = true;
+            this.buttonSua.Click += new System.EventHandler(this.buttonSua_Click);
             // 
             // buttonThem
             // 
@@ -261,6 +263,7 @@
             this.buttonThem.TabIndex = 12;
             this.buttonThem.Text = "Thêm";
             this.buttonThem.UseVisualStyleBackColor = true;
+            this.buttonThem.Click += new System.EventHandler(this.buttonThem_Click);
             // 
             // buttonXoa
             // 
@@ -271,6 +274,7 @@
             this.buttonXoa.TabIndex = 13;
             this.buttonXoa.Text = "Xóa";
             this.buttonXoa.UseVisualStyleBackColor = true;
+            this.buttonXoa.Click += new System.EventHandler(this.buttonXoa_Click);
             // 
             // panel3
             // 
@@ -291,14 +295,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 6);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 169);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1010, 459);
+            this.dataGridView1.Size = new System.Drawing.Size(1010, 296);
             this.dataGridView1.TabIndex = 16;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick_1);
             // 
             // buttonImport
             // 
@@ -309,6 +314,7 @@
             this.buttonImport.TabIndex = 10;
             this.buttonImport.Text = "Import...";
             this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // panel2
             // 
