@@ -50,7 +50,6 @@
       <Column Name="TinhChatVatLy" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="MoTa" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="BaoQuan" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="ChatLienQuan" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="TLTK" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="NgayTao" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="NgayCapNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />

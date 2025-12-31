@@ -695,8 +695,6 @@ namespace ClassLibraryIE
 		
 		private string _BaoQuan;
 		
-		private string _ChatLienQuan;
-		
 		private string _TLTK;
 		
 		private System.Nullable<System.DateTime> _NgayTao;
@@ -731,8 +729,6 @@ namespace ClassLibraryIE
     partial void OnMoTaChanged();
     partial void OnBaoQuanChanging(string value);
     partial void OnBaoQuanChanged();
-    partial void OnChatLienQuanChanging(string value);
-    partial void OnChatLienQuanChanged();
     partial void OnTLTKChanging(string value);
     partial void OnTLTKChanged();
     partial void OnNgayTaoChanging(System.Nullable<System.DateTime> value);
@@ -963,26 +959,6 @@ namespace ClassLibraryIE
 					this._BaoQuan = value;
 					this.SendPropertyChanged("BaoQuan");
 					this.OnBaoQuanChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChatLienQuan", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string ChatLienQuan
-		{
-			get
-			{
-				return this._ChatLienQuan;
-			}
-			set
-			{
-				if ((this._ChatLienQuan != value))
-				{
-					this.OnChatLienQuanChanging(value);
-					this.SendPropertyChanging();
-					this._ChatLienQuan = value;
-					this.SendPropertyChanged("ChatLienQuan");
-					this.OnChatLienQuanChanged();
 				}
 			}
 		}

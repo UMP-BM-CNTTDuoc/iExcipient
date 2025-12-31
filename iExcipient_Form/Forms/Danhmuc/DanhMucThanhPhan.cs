@@ -61,7 +61,6 @@ namespace iExcipient_Form.Forms.Danhmuc
             textBoxTinhChatVatLy.Clear();
             textBoxMoTa.Clear();
             textBoxBaoQuan.Clear();
-            textBoxChatLienQuan.Clear();
             textBoxTLTK.Clear();
             dateTimePickerNgayTao.Value = DateTime.Now;
             dateTimePickerNgayCapNhat.Value = DateTime.Now;
@@ -96,7 +95,6 @@ namespace iExcipient_Form.Forms.Danhmuc
                     tp.TinhChatVatLy,
                     tp.MoTa,
                     tp.BaoQuan,
-                    tp.ChatLienQuan,
                     tp.TLTK,
                     tp.NgayTao,
                     tp.NgayCapNhat
@@ -160,10 +158,6 @@ namespace iExcipient_Form.Forms.Danhmuc
 
                 textBoxBaoQuan.Text = row.Cells["BaoQuan"].Value != null
                     ? row.Cells["BaoQuan"].Value.ToString()
-                    : "";
-
-                textBoxChatLienQuan.Text = row.Cells["ChatLienQuan"].Value != null
-                    ? row.Cells["ChatLienQuan"].Value.ToString()
                     : "";
 
                 textBoxTLTK.Text = row.Cells["TLTK"].Value != null
@@ -237,7 +231,6 @@ namespace iExcipient_Form.Forms.Danhmuc
                     TinhChatVatLy = textBoxTinhChatVatLy.Text.Trim(),
                     MoTa = textBoxMoTa.Text.Trim(),
                     BaoQuan = textBoxBaoQuan.Text.Trim(),
-                    ChatLienQuan = textBoxChatLienQuan.Text.Trim(),
                     TLTK = textBoxTLTK.Text.Trim(),
                     NgayTao = DateTime.Now,
                     NgayCapNhat = DateTime.Now
@@ -394,7 +387,6 @@ namespace iExcipient_Form.Forms.Danhmuc
                     textBoxTinhChatVatLy.Text.Trim(),
                     textBoxMoTa.Text.Trim(),
                     textBoxBaoQuan.Text.Trim(),
-                    textBoxChatLienQuan.Text.Trim(),
                     textBoxTLTK.Text.Trim()
                 ))
                 {
@@ -509,7 +501,6 @@ namespace iExcipient_Form.Forms.Danhmuc
                             TinhChatVatLy = values.Length > 7 ? values[7].Trim().Trim('"') : "",
                             MoTa = values.Length > 8 ? values[8].Trim().Trim('"') : "",
                             BaoQuan = values.Length > 9 ? values[9].Trim().Trim('"') : "",
-                            ChatLienQuan = values.Length > 10 ? values[10].Trim().Trim('"') : "",
                             TLTK = values.Length > 11 ? values[11].Trim().Trim('"') : "",
                             NgayTao = DateTime.Now,
                             NgayCapNhat = DateTime.Now

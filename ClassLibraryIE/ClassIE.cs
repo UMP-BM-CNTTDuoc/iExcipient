@@ -752,7 +752,7 @@ namespace ClassLibraryIE
             public bool UpdateThanhPhan(int idThanhphan, string ten_INN, string ten_INCI, string ten_IUPAC,
                                         string cas_No, string congThucHoaHoc, double khoiLuongPhanTu,
                                         string cauTrucPhanTu, string tinhChatVatLy, string moTa,
-                                        string baoQuan, string chatLienQuan, string tltk)
+                                        string baoQuan, string tltk)
             {
                 try
                 {
@@ -769,7 +769,6 @@ namespace ClassLibraryIE
                         tp.TinhChatVatLy = tinhChatVatLy;
                         tp.MoTa = moTa;
                         tp.BaoQuan = baoQuan;
-                        tp.ChatLienQuan = chatLienQuan;
                         tp.TLTK = tltk;
                         tp.NgayCapNhat = DateTime.Now;
                         db.SubmitChanges();
@@ -1152,8 +1151,6 @@ namespace ClassLibraryIE
                     return 0;
                 }
             }
-
-
         }
 
         #endregion
@@ -1173,7 +1170,6 @@ namespace ClassLibraryIE
         public string TinhChatVatLy { get; set; }
         public string MoTa { get; set; }
         public string BaoQuan { get; set; }
-        public string ChatLienQuan { get; set; }
         public string TLTK { get; set; }
         public DateTime? NgayTao { get; set; }
         public DateTime? NgayCapNhat { get; set; }
@@ -1193,7 +1189,6 @@ namespace ClassLibraryIE
             TinhChatVatLy = "";
             MoTa = "";
             BaoQuan = "";
-            ChatLienQuan = "";
             TLTK = "";
         }
 
@@ -1214,7 +1209,6 @@ namespace ClassLibraryIE
                 TinhChatVatLy = item.TinhChatVatLy,
                 MoTa = item.MoTa,
                 BaoQuan = item.BaoQuan,
-                ChatLienQuan = item.ChatLienQuan,
                 TLTK = item.TLTK,
                 NgayTao = item.NgayTao,
                 NgayCapNhat = item.NgayCapNhat
@@ -1237,7 +1231,6 @@ namespace ClassLibraryIE
                 TinhChatVatLy = this.TinhChatVatLy,
                 MoTa = this.MoTa,
                 BaoQuan = this.BaoQuan,
-                ChatLienQuan = this.ChatLienQuan,
                 TLTK = this.TLTK,
                 NgayTao = this.NgayTao,
                 NgayCapNhat = this.NgayCapNhat

@@ -118,6 +118,7 @@
             this.buttonSua.TabIndex = 9;
             this.buttonSua.Text = "Xác nhận import";
             this.buttonSua.UseVisualStyleBackColor = true;
+            this.buttonSua.Click += new System.EventHandler(this.buttonSua_Click);
             // 
             // buttonThoat
             // 
@@ -139,6 +140,7 @@
             this.button1.TabIndex = 10;
             this.button1.Text = "Import CSV";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonGetTong
             // 
@@ -148,6 +150,7 @@
             this.buttonGetTong.TabIndex = 11;
             this.buttonGetTong.Text = "Lấy dữ liệu tổng";
             this.buttonGetTong.UseVisualStyleBackColor = true;
+            this.buttonGetTong.Click += new System.EventHandler(this.buttonGetTong_Click);
             // 
             // buttonExportCSVTong
             // 
@@ -157,6 +160,7 @@
             this.buttonExportCSVTong.TabIndex = 12;
             this.buttonExportCSVTong.Text = "Xuất dữ liệu tổng";
             this.buttonExportCSVTong.UseVisualStyleBackColor = true;
+            this.buttonExportCSVTong.Click += new System.EventHandler(this.buttonExportCSVTong_Click);
             // 
             // panel2
             // 
@@ -184,6 +188,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Import_ThanhPhan_DangBaoChe";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Import_ThanhPhan_DangBaoChe_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTong)).EndInit();
             this.panel3.ResumeLayout(false);

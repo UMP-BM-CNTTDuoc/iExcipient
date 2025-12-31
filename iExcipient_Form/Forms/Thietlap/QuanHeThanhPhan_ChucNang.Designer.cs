@@ -91,6 +91,7 @@
             this.buttonSua.TabIndex = 9;
             this.buttonSua.Text = "Cập nhật";
             this.buttonSua.UseVisualStyleBackColor = true;
+            this.buttonSua.Click += new System.EventHandler(this.buttonSua_Click);
             // 
             // label2
             // 
@@ -125,6 +126,7 @@
             this.buttonXoaChucNang.TabIndex = 13;
             this.buttonXoaChucNang.Text = "-";
             this.buttonXoaChucNang.UseVisualStyleBackColor = true;
+            this.buttonXoaChucNang.Click += new System.EventHandler(this.buttonXoaChucNang_Click);
             // 
             // buttonThemChucNang
             // 
@@ -134,6 +136,7 @@
             this.buttonThemChucNang.TabIndex = 12;
             this.buttonThemChucNang.Text = "+";
             this.buttonThemChucNang.UseVisualStyleBackColor = true;
+            this.buttonThemChucNang.Click += new System.EventHandler(this.buttonThemChucNang_Click);
             // 
             // button1
             // 
@@ -170,6 +173,7 @@
             this.comboBoxThanhPhan.Name = "comboBoxThanhPhan";
             this.comboBoxThanhPhan.Size = new System.Drawing.Size(433, 28);
             this.comboBoxThanhPhan.TabIndex = 8;
+            this.comboBoxThanhPhan.SelectedIndexChanged += new System.EventHandler(this.comboBoxThanhPhan_SelectedIndexChanged);
             // 
             // panel3
             // 
@@ -212,6 +216,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "FormQuanHeThanhPhan_ChucNang";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.QuanHeThanhPhan_ChucNang_Load);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
