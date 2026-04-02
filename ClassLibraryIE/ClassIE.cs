@@ -148,16 +148,16 @@ namespace ClassLibraryIE
             {
                 try
                 {
-                    // Kiểm tra tồn tại cả 2 chiều A-B và B-A
+                    // kiểm tra tồn tại
                     bool exists = db.r_Chatlienquans
-                                    .Any(x => (x.IDThanhphan == item.IDThanhphan &&
-                                               x.IDThanhphanLienquan == item.IDThanhphanLienquan)
-                                           || (x.IDThanhphan == item.IDThanhphanLienquan &&
-                                               x.IDThanhphanLienquan == item.IDThanhphan));
+                                    .Any(x => x.IDThanhphan == item.IDThanhphan &&
+                                              x.IDThanhphanLienquan == item.IDThanhphanLienquan);
+
                     if (exists)
-                        return false;
+                        return false; // đã tồn tại → không insert
 
                     r_Chatlienquan link = item.toChatLienQuanDB();
+
                     db.r_Chatlienquans.InsertOnSubmit(link);
                     db.SubmitChanges();
                     return true;
@@ -400,18 +400,18 @@ namespace ClassLibraryIE
                     // 2. Lấy dữ liệu hiện có
                     List<r_Chatlienquan> dshienco = db.r_Chatlienquans.ToList();
 
-                    // 3. Tạo HashSet cả 2 chiều
-                    HashSet<string> tapHienCo = new HashSet<string>();
-                    foreach (var x in dshienco)
-                    {
-                        tapHienCo.Add(x.IDThanhphan + "_" + x.IDThanhphanLienquan);
-                        tapHienCo.Add(x.IDThanhphanLienquan + "_" + x.IDThanhphan); // ← thêm chiều ngược
-                    }
+                    // 3. Tạo HashSet composite key
+                    HashSet<string> tapHienCo = new HashSet<string>(
+                        dshienco.Select(x => x.IDThanhphan.ToString() + "_" + x.IDThanhphanLienquan.ToString())
+                    );
 
-                    // 4. Lọc bỏ trùng lặp (kiểm tra cả 2 chiều)
+                    // 4. Lọc bỏ trùng lặp
                     dsimport = dsimport
-                        .Where(x => !tapHienCo.Contains(x.IDThanhphan + "_" + x.IDThanhphanLienquan))
+                        .Where(x => !tapHienCo.Contains(x.IDThanhphan.ToString() + "_" + x.IDThanhphanLienquan.ToString()))
                         .ToList();
+
+                    if (dsimport.Count == 0)
+                        return false;
 
                     // 5. Insert
                     db.r_Chatlienquans.InsertAllOnSubmit(dsimport);
@@ -628,25 +628,11 @@ namespace ClassLibraryIE
                 List<ThanhPhan> kq = new List<ThanhPhan>();
                 try
                 {
-                    // Chiều đi: idThanhPhan là chính, lấy các chất liên quan
-                    List<d_Thanhphan> ds1 = (from data in db.d_Thanhphans
-                                             join rela in db.r_Chatlienquans
-                                                 on data.IDThanhphan equals rela.IDThanhphanLienquan
-                                             where rela.IDThanhphan == idThanhPhan
-                                             select data).ToList();
-
-                    // Chiều về: idThanhPhan là liên quan, lấy các chất chính
-                    List<d_Thanhphan> ds2 = (from data in db.d_Thanhphans
-                                             join rela in db.r_Chatlienquans
-                                                 on data.IDThanhphan equals rela.IDThanhphan
-                                             where rela.IDThanhphanLienquan == idThanhPhan
-                                             select data).ToList();
-
-                    // Gộp 2 chiều, loại trùng theo IDThanhphan
-                    List<d_Thanhphan> ds = ds1.Union(ds2)
-                                               .GroupBy(x => x.IDThanhphan)
-                                               .Select(g => g.First())
-                                               .ToList();
+                    List<d_Thanhphan> ds = (from data in db.d_Thanhphans
+                                            join rela in db.r_Chatlienquans
+                                                on data.IDThanhphan equals rela.IDThanhphanLienquan
+                                            where rela.IDThanhphan == idThanhPhan
+                                            select data).ToList();
 
                     foreach (d_Thanhphan i in ds)
                         kq.Add(ThanhPhan.fromThanhPhanDB(i));
@@ -1076,12 +1062,9 @@ namespace ClassLibraryIE
             {
                 try
                 {
-                    // Xóa cả 2 chiều: A là chính hoặc A là liên quan
                     List<r_Chatlienquan> links = (from data in db.r_Chatlienquans
                                                   where data.IDThanhphan == idThanhPhan
-                                                     || data.IDThanhphanLienquan == idThanhPhan
                                                   select data).ToList();
-
                     if (links != null && links.Any())
                     {
                         db.r_Chatlienquans.DeleteAllOnSubmit(links);

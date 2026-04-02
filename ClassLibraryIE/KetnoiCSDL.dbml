@@ -12,7 +12,6 @@
     <Type Name="r_Thanhphan_Dangbaoche">
       <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IDDangbaoche" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IDThanhphan_Dangbaoche" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="d_Dangbaoche_r_Thanhphan_Dangbaoche" Member="d_Dangbaoche" ThisKey="IDDangbaoche" OtherKey="IDDangbaoche" Type="d_Dangbaoche" IsForeignKey="true" />
       <Association Name="d_Thanhphan_r_Thanhphan_Dangbaoche" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
     </Type>
@@ -54,7 +53,6 @@
       <Column Name="TLTK" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="NgayTao" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="NgayCapNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ChatLienQuan" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="d_Thanhphan_r_Thanhphan_Dangbaoche" Member="r_Thanhphan_Dangbaoches" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Thanhphan_Dangbaoche" />
       <Association Name="d_Thanhphan_d_Quydinh" Member="d_Quydinhs" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Quydinh" />
       <Association Name="d_Thanhphan_r_Chatlienquan" Member="r_Chatlienquans" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Chatlienquan" />
@@ -64,9 +62,8 @@
   </Table>
   <Table Name="dbo.r_Chatlienquan" Member="r_Chatlienquans">
     <Type Name="r_Chatlienquan">
-      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDThanhphan" AutoSync="OnInsert" Type="System.Int32" DbType="Int NOT NULL" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="IDThanhphanLienquan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IDChatlienquan" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="d_Thanhphan_r_Chatlienquan" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
       <Association Name="d_Thanhphan_r_Chatlienquan1" Member="d_Thanhphan1" ThisKey="IDThanhphanLienquan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
     </Type>
@@ -75,7 +72,6 @@
     <Type Name="r_Thanhphan_Chucnang">
       <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IDChucnang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IDThanhphan_Chucnang" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="d_Chucnang_r_Thanhphan_Chucnang" Member="d_Chucnang" ThisKey="IDChucnang" OtherKey="IDChucnang" Type="d_Chucnang" IsForeignKey="true" />
       <Association Name="d_Thanhphan_r_Thanhphan_Chucnang" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
     </Type>
