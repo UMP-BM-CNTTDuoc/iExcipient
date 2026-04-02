@@ -40,6 +40,9 @@ namespace iExcipient_Form.Forms.Danhmuc
             dateTimePickerNgayCapNhat.Format = DateTimePickerFormat.Custom;
             dateTimePickerNgayCapNhat.CustomFormat = "dd/MM/yyyy HH:mm:ss";
 
+            dataGridView1.ScrollBars = ScrollBars.Both;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
             refreshDatagrid();
         }
 
@@ -65,6 +68,7 @@ namespace iExcipient_Form.Forms.Danhmuc
             dateTimePickerNgayTao.Value = DateTime.Now;
             dateTimePickerNgayCapNhat.Value = DateTime.Now;
             textBoxTen_INN.Focus();
+            textBoxChatLienQuan.Clear();
         }
 
         private void buttonXoatrang_Click(object sender, EventArgs e)
@@ -95,6 +99,8 @@ namespace iExcipient_Form.Forms.Danhmuc
                     tp.TinhChatVatLy,
                     tp.MoTa,
                     tp.BaoQuan,
+                    ChatLienQuan = string.Join("; ", getdata.GetThanhPhanLienQuan(tp.IDThanhphan)
+                                            .Select(lq => lq.Ten_INN)),
                     tp.TLTK,
                     tp.NgayTao,
                     tp.NgayCapNhat
@@ -163,6 +169,14 @@ namespace iExcipient_Form.Forms.Danhmuc
                 textBoxTLTK.Text = row.Cells["TLTK"].Value != null
                     ? row.Cells["TLTK"].Value.ToString()
                     : "";
+
+                // Load Chất Liên Quan
+                if (row.Cells["IDThanhphan"].Value != null)
+                {
+                    int idTP = int.Parse(row.Cells["IDThanhphan"].Value.ToString());
+                    List<ThanhPhan> dsCLQ = getdata.GetThanhPhanLienQuan(idTP);
+                    textBoxChatLienQuan.Text = string.Join("; ", dsCLQ.Select(tp => tp.Ten_INN));
+                }
 
                 if (row.Cells["NgayTao"].Value != null && row.Cells["NgayTao"].Value != DBNull.Value)
                 {
@@ -509,6 +523,11 @@ namespace iExcipient_Form.Forms.Danhmuc
                     }
                 }
             }
+        }
+
+        private void textBoxTen_INN_TextChanged(object sender, EventArgs e)
+        {
+            buttonThem.Enabled = !string.IsNullOrWhiteSpace(textBoxTen_INN.Text);
         }
     }
 }

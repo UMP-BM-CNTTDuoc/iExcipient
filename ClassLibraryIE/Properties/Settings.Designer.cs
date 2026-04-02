@@ -27,7 +27,7 @@ namespace ClassLibraryIE.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=103.140.249.152;Initial Catalog=iExcipient;Persist Security Info=True" +
-            ";User ID=iExcipientUser")]
+            ";User ID=iExcipientUser;Password=StrongPassword1!")]
         public string iExcipientConnectionString {
             get {
                 return ((string)(this["iExcipientConnectionString"]));
