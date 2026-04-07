@@ -1,0 +1,147 @@
+﻿@model iExcipient_API.Models.SearchVM
+
+<div class="container">
+    <h2>🔎 Tra cứu thành phần</h2>
+    <form method="get" class="search-form">
+        <input type="text"
+               name="keyword"
+               value="@Model.Keyword"
+               placeholder="Tìm INN..." />
+        <select name="chucnang">
+            <option value="">-- Chức năng --</option>
+            @foreach (var cn in Model.DSChucNang)
+            {
+                <option value="@cn.IDChucnang">
+                    @cn.Tenchucnang
+                </option>
+            }
+        </select>
+        <select name="dangbaoche">
+            <option value="">-- Dạng bào chế --</option>
+            @foreach (var db in Model.DSDangBaoChe)
+            {
+                <option value="@db.IDDangbaoche">
+                    @db.TenDangbaoche
+                </option>
+            }
+        </select>
+        <button type="submit">Tìm</button>
+    </form>
+    <table class="custom-table" id="drugTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)" style="cursor:pointer; width: 70px;">
+                    STT <span class="sort-arrow"></span>
+                </th>
+                <th onclick="sortTable(1)" style="cursor:pointer">
+                    INN <span class="sort-arrow"></span>
+                </th>
+                <th onclick="sortTable(2)" style="cursor:pointer">
+                    CAS <span class="sort-arrow"></span>
+                </th>
+                <th style="width: 150px;">Xem chi tiết</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.KetQua != null && Model.KetQua.Any())
+            {
+                int index = 1;
+                foreach (var tp in Model.KetQua)
+                {
+                    <tr>
+                        <td class="text-center">@index</td>
+                        <td>@tp.Ten_INN</td>
+                        <td>@tp.CAS_No</td>
+                        <td class="text-center">
+                            <a class="btn-view" href="/TraCuu/Detail/@tp.IDThanhphan">Xem</a>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="empty-row">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* Container của icon */
+    .sort-arrow {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: 5px;
+        vertical-align: middle;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+    }
+
+    /* Tam giác hướng lên (Tăng dần) */
+    th.asc .sort-arrow {
+        border-bottom: 5px solid #007bff;
+        border-top: none;
+    }
+
+    /* Tam giác hướng xuống (Giảm dần) */
+    th.desc .sort-arrow {
+        border-top: 5px solid #007bff;
+        border-bottom: none;
+    }
+
+    /* Mặc định khi chưa chọn */
+    th:not(.asc):not(.desc) .sort-arrow {
+        border-top: 5px solid #ccc;
+        opacity: 0.5;
+    }
+</style>
+
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("drugTable");
+        var headers = table.getElementsByTagName("TH");
+
+        // Xác định hướng sắp xếp hiện tại
+        dir = headers[n].classList.contains("asc") ? "desc" : "asc";
+
+        // Xóa class asc/desc ở các cột khác
+        for (i = 0; i < headers.length; i++) {
+            headers[i].classList.remove("asc", "desc");
+        }
+
+        // Gán class cho cột đang chọn
+        headers[n].classList.add(dir);
+
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1) ; i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                // Chuyển đổi sang số nếu là cột STT hoặc dữ liệu số
+                var xVal = isNaN(parseFloat(x.innerHTML)) ? x.innerHTML.toLowerCase() : parseFloat(x.innerHTML);
+                var yVal = isNaN(parseFloat(y.innerHTML)) ? y.innerHTML.toLowerCase() : parseFloat(y.innerHTML);
+
+                if (dir == "asc") {
+                    if (xVal > yVal) { shouldSwitch = true; break; }
+                } else if (dir == "desc") {
+                    if (xVal < yVal) { shouldSwitch = true; break; }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            }
+        }
+    }
+</script>

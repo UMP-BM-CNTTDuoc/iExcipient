@@ -1,0 +1,23 @@
+﻿@model ClassLibraryIE.ThanhPhan
+
+<h2>@Model.Ten_INN</h2>
+
+<p><b>CAS:</b> @Model.CAS_No</p>
+<p><b>IUPAC:</b> @Model.Ten_IUPAC</p>
+<p>@Model.MoTa</p>
+
+<h3>Chức năng</h3>
+<ul>
+    @foreach (var cn in Model.dsChucNang)
+    {
+        <li>@cn.Tenchucnang</li>
+    }
+</ul>
+
+<h3>Dạng bào chế</h3>
+<ul>
+    @foreach (var db in Model.dsDangBaoChe)
+    {
+        <li>@db.TenDangbaoche</li>
+    }
+</ul>

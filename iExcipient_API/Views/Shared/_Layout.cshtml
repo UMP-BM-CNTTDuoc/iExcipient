@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Phần mềm tra cứu thành phần tá dược</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f5f7fa;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+        .container-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin-top: 25px;
+        }
+        .table-hover tbody tr:hover {
+            background: #eef6ff;
+            cursor: pointer;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Giúp cố định chiều rộng cột */
+            border: 1px solid #dee2e6;
+        }
+
+        .custom-table thead th {
+                background-color: #f8f9fa; /* Màu nền nhẹ nhàng cho tiêu đề */
+                color: #333;
+                font-weight: bold;
+                padding: 12px;
+                border-bottom: 2px solid #007bff; /* Đường kẻ nổi bật dưới tiêu đề */
+                text-align: left;
+                white-space: nowrap;
+            }
+
+        .custom-table tbody td {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+                word-wrap: break-word; /* Tự động xuống dòng nếu nội dung quá dài */
+            }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .empty-row {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Hiệu ứng khi hover vào hàng */
+        .custom-table tbody tr:hover {
+            background-color: #f1faff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">💊 Phần mềm tra cứu thành phần tá dược</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="container-box">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>
