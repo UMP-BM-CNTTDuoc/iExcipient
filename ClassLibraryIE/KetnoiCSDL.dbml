@@ -33,8 +33,8 @@
       <Column Name="AnnexIV" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="AnnexV" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="AnnexVI" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="DieuKienSuDung" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Ghichu" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DieuKienSuDung" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Ghichu" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
       <Association Name="d_Thanhphan_d_Quydinh" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
     </Type>
   </Table>
@@ -48,11 +48,11 @@
       <Column Name="CongThucHoaHoc" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="KhoiLuongPhanTu" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="CauTrucPhanTu" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="TinhChatVatLy" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="MoTa" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="BaoQuan" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="ChatLienQuan" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="TLTK" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TinhChatVatLy" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="BaoQuan" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="ChatLienQuan" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="TLTK" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
       <Column Name="NgayTao" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="NgayCapNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="d_Thanhphan_r_Thanhphan_Dangbaoche" Member="r_Thanhphan_Dangbaoches" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Thanhphan_Dangbaoche" />

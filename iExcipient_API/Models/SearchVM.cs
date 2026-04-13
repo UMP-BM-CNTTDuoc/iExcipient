@@ -11,13 +11,16 @@ namespace iExcipient_API.Models
         public string Keyword { get; set; }
 
         public int? ChucNangID { get; set; }
-
         public int? DangBaoCheID { get; set; }
 
+        public bool? AnnexII { get; set; }
+        public bool? AnnexIII { get; set; }
+        public bool? AnnexIV { get; set; }
+        public bool? AnnexV { get; set; }
+        public bool? AnnexVI { get; set; }
+
         public List<ThanhPhan> KetQua { get; set; }
-
         public List<ChucNang> DSChucNang { get; set; }
-
         public List<DangBaoChe> DSDangBaoChe { get; set; }
     }
 }

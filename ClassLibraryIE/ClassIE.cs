@@ -1191,7 +1191,7 @@ namespace ClassLibraryIE
             BaoQuan = "";
             TLTK = "";
         }
-
+        
         public static ThanhPhan fromThanhPhanDB(d_Thanhphan item)
         {
             if (item == null)
@@ -1213,6 +1213,12 @@ namespace ClassLibraryIE
                 NgayTao = item.NgayTao,
                 NgayCapNhat = item.NgayCapNhat
             };
+            KetnoiDB.GetData db = new KetnoiDB.GetData();
+            kq.dsQuyDinh = db.GetQuyDinhByThanhPhan(item.IDThanhphan);
+            kq.dsChucNang = db.GetChucNangByThanhPhan(item.IDThanhphan);
+            kq.dsDangBaoChe = db.GetDangBaoCheByThanhPhan(item.IDThanhphan);
+            kq.dsThanhPhanLienQuan = db.GetThanhPhanLienQuan(item.IDThanhphan);
+
             return kq;
         }
 

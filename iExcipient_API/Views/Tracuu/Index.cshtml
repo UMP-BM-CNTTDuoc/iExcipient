@@ -3,28 +3,36 @@
 <div class="container">
     <h2>🔎 Tra cứu thành phần</h2>
     <form method="get" class="search-form">
-        <input type="text"
-               name="keyword"
-               value="@Model.Keyword"
-               placeholder="Tìm INN..." />
+        <input type="text" name="keyword" value="@Model.Keyword" placeholder="Tìm INN..." />
+
         <select name="chucnang">
             <option value="">-- Chức năng --</option>
             @foreach (var cn in Model.DSChucNang)
             {
-                <option value="@cn.IDChucnang">
+                <option value="@cn.IDChucnang" @(cn.IDChucnang == Model.ChucNangID ? "selected" : "")>
                     @cn.Tenchucnang
                 </option>
             }
         </select>
+
         <select name="dangbaoche">
             <option value="">-- Dạng bào chế --</option>
             @foreach (var db in Model.DSDangBaoChe)
             {
-                <option value="@db.IDDangbaoche">
+                <option value="@db.IDDangbaoche" @(db.IDDangbaoche == Model.DangBaoCheID ? "selected" : "")>
                     @db.TenDangbaoche
                 </option>
             }
         </select>
+
+        <div class="annex-filters">
+            <label><input type="checkbox" name="annexII" value="true" @(Model.AnnexII == true ? "checked" : "") /> Annex II</label>
+            <label><input type="checkbox" name="annexIII" value="true" @(Model.AnnexII == true ? "checked" : "") /> Annex III</label>
+            <label><input type="checkbox" name="annexIV" value="true" @(Model.AnnexII == true ? "checked" : "") /> Annex IV</label>
+            <label><input type="checkbox" name="annexV" value="true" @(Model.AnnexII == true ? "checked" : "") /> Annex V</label>
+            <label><input type="checkbox" name="annexVI" value="true" @(Model.AnnexII == true ? "checked" : "") /> Annex VI</label>
+        </div>
+
         <button type="submit">Tìm</button>
     </form>
     <table class="custom-table" id="drugTable">
@@ -54,7 +62,7 @@
                         <td>@tp.Ten_INN</td>
                         <td>@tp.CAS_No</td>
                         <td class="text-center">
-                            <a class="btn-view" href="/TraCuu/Detail/@tp.IDThanhphan">Xem</a>
+                            <a class="btn-view" href="@Url.Action("Detail", "TraCuu", new { id = tp.IDThanhphan })">Xem</a>
                         </td>
                     </tr>
                     index++;

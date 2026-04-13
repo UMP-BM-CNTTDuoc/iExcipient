@@ -1,23 +1,83 @@
 ﻿@model ClassLibraryIE.ThanhPhan
 
-<h2>@Model.Ten_INN</h2>
+<h2 class="title">@Model.Ten_INN</h2>
+<div class="card">
+    <h4>Thông tin chung</h4>
+    <div class="info-grid">
+        <p><b>CAS:</b> @Model.CAS_No</p>
+        <p><b>INCI:</b> @Model.Ten_INCI</p>
+        <p><b>IUPAC:</b> @Model.Ten_IUPAC</p>
+        <p><b>Công thức:</b> @Model.CongThucHoaHoc</p>
+        <p><b>Khối lượng phân tử:</b> @Model.KhoiLuongPhanTu</p>
+        <p><b>Cấu trúc:</b> @Model.CauTrucPhanTu</p>
+        <p><b>Tính chất vật lý:</b> @Model.TinhChatVatLy</p>
+        <p><b>Bảo quản:</b> @Model.BaoQuan</p>
+        <p><b>Tài liệu tham khảo:</b> @Model.TLTK</p>
+    </div>
+</div>
 
-<p><b>CAS:</b> @Model.CAS_No</p>
-<p><b>IUPAC:</b> @Model.Ten_IUPAC</p>
-<p>@Model.MoTa</p>
+<div class="card">
+    <h4>Mô tả</h4>
+    <p>@Model.MoTa</p>
+</div>
 
-<h3>Chức năng</h3>
-<ul>
-    @foreach (var cn in Model.dsChucNang)
+<div class="card">
+    <h4>Quy định</h4>
+    @if (Model.dsQuyDinh != null && Model.dsQuyDinh.Any())
     {
-        <li>@cn.Tenchucnang</li>
+        foreach (var qd in Model.dsQuyDinh)
+        {
+            <div class="regulation">
+                @if (qd.AnnexII == true)
+                { <span class="badge">Annex II</span> }
+                @if (qd.AnnexIII == true)
+                { <span class="badge">Annex III</span> }
+                @if (qd.AnnexIV == true)
+                { <span class="badge">Annex IV</span> }
+                @if (qd.AnnexV == true)
+                { <span class="badge">Annex V</span> }
+                @if (qd.AnnexVI == true)
+                { <span class="badge">Annex VI</span> }
+                <p><b>Điều kiện:</b> @qd.DieuKienSuDung</p>
+                <p><b>Ghi chú:</b> @qd.Ghichu</p>
+            </div>
+        }
     }
-</ul>
+</div>
 
-<h3>Dạng bào chế</h3>
-<ul>
-    @foreach (var db in Model.dsDangBaoChe)
+<div class="card">
+    <h4>Chức năng</h4>
+    <ul>
+        @foreach (var cn in Model.dsChucNang)
+        {
+            <li>@cn.Tenchucnang - @cn.Motachucnang</li>
+        }
+    </ul>
+</div>
+
+<div class="card">
+    <h4>Dạng bào chế</h4>
+    <ul>
+        @foreach (var db in Model.dsDangBaoChe)
+        {
+            <li>@db.TenDangbaoche</li>
+        }
+    </ul>
+</div>
+
+<div class="card">
+    <h4>Chất liên quan</h4>
+    @if (Model.dsThanhPhanLienQuan != null && Model.dsThanhPhanLienQuan.Any())
     {
-        <li>@db.TenDangbaoche</li>
+        <ul>
+            @foreach (var tp in Model.dsThanhPhanLienQuan)
+            {
+                <li><a href="/Search/Detail/@tp.IDThanhphan">@tp.Ten_INN</a></li>
+            }
+        </ul>
     }
-</ul>
+    else
+    {
+        <p>Không có chất liên quan hoặc chưa được thiết lập</p>
+    }
+</div>

@@ -784,7 +784,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DieuKienSuDung", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DieuKienSuDung", DbType="NVarChar(2000)")]
 		public string DieuKienSuDung
 		{
 			get
@@ -804,7 +804,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ghichu", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ghichu", DbType="NVarChar(2000)")]
 		public string Ghichu
 		{
 			get
@@ -1128,7 +1128,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhChatVatLy", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhChatVatLy", DbType="NVarChar(2000)")]
 		public string TinhChatVatLy
 		{
 			get
@@ -1148,7 +1148,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoTa", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoTa", DbType="NVarChar(2000)")]
 		public string MoTa
 		{
 			get
@@ -1168,7 +1168,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaoQuan", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaoQuan", DbType="NVarChar(2000)")]
 		public string BaoQuan
 		{
 			get
@@ -1188,7 +1188,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChatLienQuan", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChatLienQuan", DbType="NVarChar(2000)")]
 		public string ChatLienQuan
 		{
 			get
@@ -1208,7 +1208,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TLTK", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TLTK", DbType="NVarChar(2000)")]
 		public string TLTK
 		{
 			get

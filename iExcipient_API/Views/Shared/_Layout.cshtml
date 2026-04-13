@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - Phần mềm tra cứu thành phần tá dược</title>
+    <title>@ViewBag.Title Phasolpro iExcipient</title>
 
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
@@ -65,6 +65,93 @@
         .custom-table tbody tr:hover {
             background-color: #f1faff;
         }
+
+        /* ===== TITLE ===== */
+
+        .title {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* ===== CARD ===== */
+
+        .card {
+            background: white;
+            border-left: 4px solid #4a90e2;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        /* ===== INFO GRID ===== */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 20px;
+        }
+
+            .info-grid div {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid #eee;
+                padding: 4px 0;
+            }
+
+            .info-grid b {
+                color: #555;
+            }
+
+            .info-grid span {
+                color: #111;
+            }
+
+        /* ===== REGULATION ===== */
+
+        .regulation {
+            border-top: 1px dashed #ddd;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        .badge-group {
+            margin-bottom: 6px;
+        }
+
+        .badge {
+            background: #eef4ff;
+            color: #2c5cc5;
+            padding: 3px 8px;
+            margin-right: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* ===== LIST ===== */
+
+        .clean-list {
+            padding-left: 18px;
+        }
+
+            .clean-list li {
+                margin-bottom: 6px;
+            }
+
+        .link-list a {
+            text-decoration: none;
+            color: #2c5cc5;
+        }
+
+            .link-list a:hover {
+                text-decoration: underline;
+            }
+
+        /* ===== EMPTY ===== */
+
+        .empty {
+            color: #888;
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -72,7 +159,7 @@
 
     <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="/">💊 Phần mềm tra cứu thành phần tá dược</a>
+            <a class="navbar-brand" href="@Url.Content("~/")">💊 Phần mềm tra cứu thành phần tá dược</a>
         </div>
     </nav>
 
