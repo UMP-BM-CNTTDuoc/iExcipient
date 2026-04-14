@@ -40,9 +40,6 @@ namespace iExcipient_Form.Forms.Danhmuc
             dateTimePickerNgayCapNhat.Format = DateTimePickerFormat.Custom;
             dateTimePickerNgayCapNhat.CustomFormat = "dd/MM/yyyy HH:mm:ss";
 
-            dataGridView1.ScrollBars = ScrollBars.Both;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-
             refreshDatagrid();
         }
 
@@ -58,8 +55,16 @@ namespace iExcipient_Form.Forms.Danhmuc
             textBoxTen_INCI.Clear();
             textBoxTen_IUPAC.Clear();
             textBoxCAS_No.Clear();
+            textBoxCongThucHoaHoc.Clear();
+            textBoxCauTrucPhanTu.Clear();
+            textBoxKhoiLuongPhanTu.Clear();
+            textBoxTinhChatVatLy.Clear();
+            textBoxMoTa.Clear();
+            textBoxBaoQuan.Clear();
+            textBoxTLTK.Clear();
             dateTimePickerNgayTao.Value = DateTime.Now;
             dateTimePickerNgayCapNhat.Value = DateTime.Now;
+            textBoxTen_INN.Focus();
         }
 
         private void buttonXoatrang_Click(object sender, EventArgs e)
@@ -84,6 +89,13 @@ namespace iExcipient_Form.Forms.Danhmuc
                     tp.Ten_INCI,
                     tp.Ten_IUPAC,
                     tp.CAS_No,
+                    tp.CongThucHoaHoc,
+                    tp.KhoiLuongPhanTu,
+                    tp.CauTrucPhanTu,
+                    tp.TinhChatVatLy,
+                    tp.MoTa,
+                    tp.BaoQuan,
+                    tp.TLTK,
                     tp.NgayTao,
                     tp.NgayCapNhat
                 }).ToList();
@@ -122,6 +134,34 @@ namespace iExcipient_Form.Forms.Danhmuc
 
                 textBoxCAS_No.Text = row.Cells["CAS_No"].Value != null
                     ? row.Cells["CAS_No"].Value.ToString()
+                    : "";
+
+                textBoxCongThucHoaHoc.Text = row.Cells["CongThucHoaHoc"].Value != null
+                    ? row.Cells["CongThucHoaHoc"].Value.ToString()
+                    : "";
+
+                textBoxKhoiLuongPhanTu.Text = row.Cells["KhoiLuongPhanTu"].Value != null
+                    ? row.Cells["KhoiLuongPhanTu"].Value.ToString()
+                    : "";
+
+                textBoxCauTrucPhanTu.Text = row.Cells["CauTrucPhanTu"].Value != null
+                    ? row.Cells["CauTrucPhanTu"].Value.ToString()
+                    : "";
+
+                textBoxTinhChatVatLy.Text = row.Cells["TinhChatVatLy"].Value != null
+                    ? row.Cells["TinhChatVatLy"].Value.ToString()
+                    : "";
+
+                textBoxMoTa.Text = row.Cells["MoTa"].Value != null
+                    ? row.Cells["MoTa"].Value.ToString()
+                    : "";
+
+                textBoxBaoQuan.Text = row.Cells["BaoQuan"].Value != null
+                    ? row.Cells["BaoQuan"].Value.ToString()
+                    : "";
+
+                textBoxTLTK.Text = row.Cells["TLTK"].Value != null
+                    ? row.Cells["TLTK"].Value.ToString()
                     : "";
 
                 if (row.Cells["NgayTao"].Value != null && row.Cells["NgayTao"].Value != DBNull.Value)
@@ -167,6 +207,17 @@ namespace iExcipient_Form.Forms.Danhmuc
                     return;
                 }
 
+                double khoiLuong = 0;
+                if (!string.IsNullOrWhiteSpace(textBoxKhoiLuongPhanTu.Text))
+                {
+                    if (!double.TryParse(textBoxKhoiLuongPhanTu.Text, out khoiLuong))
+                    {
+                        MessageBox.Show("Khối lượng phân tử phải là số!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        textBoxKhoiLuongPhanTu.Focus();
+                        return;
+                    }
+                }
 
                 ThanhPhan item = new ThanhPhan
                 {
@@ -174,6 +225,13 @@ namespace iExcipient_Form.Forms.Danhmuc
                     Ten_INCI = textBoxTen_INCI.Text.Trim(),
                     Ten_IUPAC = textBoxTen_IUPAC.Text.Trim(),
                     CAS_No = textBoxCAS_No.Text.Trim(),
+                    CongThucHoaHoc = textBoxCongThucHoaHoc.Text.Trim(),
+                    KhoiLuongPhanTu = khoiLuong,
+                    CauTrucPhanTu = textBoxCauTrucPhanTu.Text.Trim(),
+                    TinhChatVatLy = textBoxTinhChatVatLy.Text.Trim(),
+                    MoTa = textBoxMoTa.Text.Trim(),
+                    BaoQuan = textBoxBaoQuan.Text.Trim(),
+                    TLTK = textBoxTLTK.Text.Trim(),
                     NgayTao = DateTime.Now,
                     NgayCapNhat = DateTime.Now
                 };
@@ -303,11 +361,19 @@ namespace iExcipient_Form.Forms.Danhmuc
                     return;
                 }
 
-                int idThanhPhan = int.Parse(textBoxIDThanhphan.Text);
+                double khoiLuong = 0;
+                if (!string.IsNullOrWhiteSpace(textBoxKhoiLuongPhanTu.Text))
+                {
+                    if (!double.TryParse(textBoxKhoiLuongPhanTu.Text, out khoiLuong))
+                    {
+                        MessageBox.Show("Khối lượng phân tử phải là số!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        textBoxKhoiLuongPhanTu.Focus();
+                        return;
+                    }
+                }
 
-                // Lấy dữ liệu chi tiết hiện tại để giữ nguyên các field không sửa
-                ThanhPhan current = getdata.GetThanhPhanByID(idThanhPhan);
-                if (current == null) return;
+                int idThanhPhan = int.Parse(textBoxIDThanhphan.Text);
 
                 if (updatedata.UpdateThanhPhan(
                     idThanhPhan,
@@ -315,13 +381,13 @@ namespace iExcipient_Form.Forms.Danhmuc
                     textBoxTen_INCI.Text.Trim(),
                     textBoxTen_IUPAC.Text.Trim(),
                     textBoxCAS_No.Text.Trim(),
-                    current.CongThucHoaHoc,     // giữ nguyên
-                    current.KhoiLuongPhanTu,    // giữ nguyên
-                    current.CauTrucPhanTu,      // giữ nguyên
-                    current.TinhChatVatLy,      // giữ nguyên
-                    current.MoTa,               // giữ nguyên
-                    current.BaoQuan,            // giữ nguyên
-                    current.TLTK                // giữ nguyên
+                    textBoxCongThucHoaHoc.Text.Trim(),
+                    khoiLuong,
+                    textBoxCauTrucPhanTu.Text.Trim(),
+                    textBoxTinhChatVatLy.Text.Trim(),
+                    textBoxMoTa.Text.Trim(),
+                    textBoxBaoQuan.Text.Trim(),
+                    textBoxTLTK.Text.Trim()
                 ))
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo",
@@ -441,22 +507,6 @@ namespace iExcipient_Form.Forms.Danhmuc
                         };
                         listThanhPhan.Add(tp);
                     }
-                }
-            }
-        }
-
-        private void textBoxTen_INN_TextChanged(object sender, EventArgs e)
-        {
-            buttonThem.Enabled = !string.IsNullOrWhiteSpace(textBoxTen_INN.Text);
-        }
-
-        private void buttonChitiet_Click(object sender, EventArgs e)
-        {
-            using (Forms.Thietlap.ChiTietThanhPhan formcon = new Forms.Thietlap.ChiTietThanhPhan())
-            {
-                if (formcon.ShowDialog() == DialogResult.OK)
-                {
-                    refreshDatagrid(); // Refresh nếu form con có thay đổi dữ liệu
                 }
             }
         }

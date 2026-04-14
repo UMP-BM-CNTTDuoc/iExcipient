@@ -68,12 +68,6 @@
     <Compile Include="Forms\Danhmuc\DanhMucThanhPhan.Designer.cs">
       <DependentUpon>DanhMucThanhPhan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Thietlap\ChiTietThanhPhan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Thietlap\ChiTietThanhPhan.Designer.cs">
-      <DependentUpon>ChiTietThanhPhan.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChatLienQuan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,9 +129,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Danhmuc\DanhMucThanhPhan.resx">
       <DependentUpon>DanhMucThanhPhan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Thietlap\ChiTietThanhPhan.resx">
-      <DependentUpon>ChiTietThanhPhan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_ChatLienQuan.resx">
       <DependentUpon>QuanHeThanhPhan_ChatLienQuan.cs</DependentUpon>
