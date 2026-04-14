@@ -297,7 +297,6 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                // Validate ID
                 if (string.IsNullOrWhiteSpace(textBoxIDQuyDinh.Text))
                 {
                     MessageBox.Show("Vui lòng chọn quy định cần sửa!", "Thông báo",
@@ -305,68 +304,37 @@ namespace iExcipient_Form.Forms.Danhmuc
                     return;
                 }
 
-                int idQuyDinh = int.Parse(textBoxIDQuyDinh.Text);
-                string tenThanhPhan = comboBoxTenThanhPhan.Text.Trim();
-
-                // BƯỚC 1: Kiểm tra có bao nhiêu thành phần đang dùng quy định này
-                int soLuongQuanHe = deletedata.GetRelatedCountQuyDinh(idQuyDinh);
-
-                // BƯỚC 2: Tạo thông báo phù hợp
-                string confirmMessage = "";
-                MessageBoxIcon icon = MessageBoxIcon.Question;
-
-                if (soLuongQuanHe > 0)
+                if (comboBoxTenThanhPhan.SelectedValue == null)
                 {
-                    // Có quan hệ - cảnh báo nghiêm trọng hơn
-                    confirmMessage = string.Format(
-                        "CẢNH BÁO: Quy định của thành phần '{0}' đang được sử dụng bởi {1} thành phần.\n\n" +
-                        "Nếu xóa, tất cả {1} quan hệ này sẽ BỊ XÓA VĨNH VIỄN.\n\n" +
-                        "Bạn có CHẮC CHẮN muốn xóa?",
-                        tenThanhPhan,
-                        soLuongQuanHe
-                    );
-                    icon = MessageBoxIcon.Warning;
+                    MessageBox.Show("Vui lòng chọn thành phần!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    comboBoxTenThanhPhan.Focus();
+                    return;
+                }
+
+                int idQuyDinh = int.Parse(textBoxIDQuyDinh.Text);
+                int idThanhPhan = int.Parse(textBoxIDThanhPhan.Text);
+                bool? annexII = checkBoxAnnexII.Checked ? (bool?)true : null;
+                bool? annexIII = checkBoxAnnexIII.Checked ? (bool?)true : null;
+                bool? annexIV = checkBoxAnnexIV.Checked ? (bool?)true : null;
+                bool? annexV = checkBoxAnnexV.Checked ? (bool?)true : null;
+                bool? annexVI = checkBoxAnnexVI.Checked ? (bool?)true : null;
+
+                if (updatedata.UpdateQuyDinh(idQuyDinh, idThanhPhan, annexII, annexIII,
+                    annexIV, annexV, annexVI, textBoxDieuKienSuDung.Text.Trim(),
+                    textBoxGhiChu.Text.Trim()))
+                {
+                    MessageBox.Show("Cập nhật thành công!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearTextBoxes();
+                    refreshDatagrid();
+                    buttonXoa.Enabled = false;
+                    buttonSua.Enabled = false;
                 }
                 else
                 {
-                    // Không có quan hệ - xác nhận bình thường
-                    confirmMessage = string.Format(
-                        "Bạn có chắc chắn muốn xóa quy định của thành phần '{0}'?",
-                        tenThanhPhan
-                    );
-                    icon = MessageBoxIcon.Question;
-                }
-
-                // BƯỚC 3: Hiển thị dialog xác nhận
-                DialogResult confirm = MessageBox.Show(
-                    confirmMessage,
-                    "Xác nhận xóa",
-                    MessageBoxButtons.YesNo,
-                    icon
-                );
-
-                // BƯỚC 4: Thực hiện xóa nếu user chọn Yes
-                if (confirm == DialogResult.Yes)
-                {
-                    if (deletedata.DeleteQuyDinh(idQuyDinh))
-                    {
-                        string successMsg = soLuongQuanHe > 0
-                            ? string.Format("Đã xóa quy định của thành phần '{0}' và {1} quan hệ liên quan!", tenThanhPhan, soLuongQuanHe)
-                            : string.Format("Đã xóa quy định của thành phần '{0}' thành công!", tenThanhPhan);
-
-                        MessageBox.Show(successMsg, "Thành công",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        ClearTextBoxes();
-                        refreshDatagrid();
-                        buttonXoa.Enabled = false;
-                        buttonSua.Enabled = false;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Xóa thất bại! Vui lòng thử lại.", "Lỗi",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Cập nhật thất bại!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
