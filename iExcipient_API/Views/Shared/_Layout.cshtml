@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title Phasolpro iExcipient</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f5f7fa;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+        .container-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin-top: 25px;
+        }
+        .table-hover tbody tr:hover {
+            background: #eef6ff;
+            cursor: pointer;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Giúp cố định chiều rộng cột */
+            border: 1px solid #dee2e6;
+        }
+
+        .custom-table thead th {
+                background-color: #f8f9fa; /* Màu nền nhẹ nhàng cho tiêu đề */
+                color: #333;
+                font-weight: bold;
+                padding: 12px;
+                border-bottom: 2px solid #007bff; /* Đường kẻ nổi bật dưới tiêu đề */
+                text-align: left;
+                white-space: nowrap;
+            }
+
+        .custom-table tbody td {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+                word-wrap: break-word; /* Tự động xuống dòng nếu nội dung quá dài */
+            }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .empty-row {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Hiệu ứng khi hover vào hàng */
+        .custom-table tbody tr:hover {
+            background-color: #f1faff;
+        }
+
+        /* ===== TITLE ===== */
+
+        .title {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* ===== CARD ===== */
+
+        .card {
+            background: white;
+            border-left: 4px solid #4a90e2;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        /* ===== INFO GRID ===== */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 20px;
+        }
+
+            .info-grid div {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid #eee;
+                padding: 4px 0;
+            }
+
+            .info-grid b {
+                color: #555;
+            }
+
+            .info-grid span {
+                color: #111;
+            }
+
+        /* ===== REGULATION ===== */
+
+        .regulation {
+            border-top: 1px dashed #ddd;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        .badge-group {
+            margin-bottom: 6px;
+        }
+
+        .badge {
+            background: #eef4ff;
+            color: #2c5cc5;
+            padding: 3px 8px;
+            margin-right: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* ===== LIST ===== */
+
+        .clean-list {
+            padding-left: 18px;
+        }
+
+            .clean-list li {
+                margin-bottom: 6px;
+            }
+
+        .link-list a {
+            text-decoration: none;
+            color: #2c5cc5;
+        }
+
+            .link-list a:hover {
+                text-decoration: underline;
+            }
+
+        /* ===== EMPTY ===== */
+
+        .empty {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Content("~/")">💊 Phần mềm tra cứu thành phần tá dược</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="container-box">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>
