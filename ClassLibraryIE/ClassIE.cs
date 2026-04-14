@@ -167,6 +167,28 @@ namespace ClassLibraryIE
                     return false;
                 }
             }
+            public bool InsertThanhPhanEWGScore(Thanhphan_EWGScore item)
+            {
+                try
+                {
+                    // kiểm tra tồn tại
+                    bool exists = db.r_Thanhphan_EWGScores
+                                    .Any(x => x.IDThanhphan == item.IDThanhphan);
+
+                    if (exists)
+                        return false; // đã tồn tại → không insert
+
+                    r_Thanhphan_EWGScore link = item.toThanhphan_EWGScore();
+
+                    db.r_Thanhphan_EWGScores.InsertOnSubmit(link);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
         }
 
         #endregion
@@ -415,6 +437,44 @@ namespace ClassLibraryIE
 
                     // 5. Insert
                     db.r_Chatlienquans.InsertAllOnSubmit(dsimport);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            public bool BulkInsertThanhphan_EWGScore(List<Thanhphan_EWGScore> list)
+            {
+                try
+                {
+                    // 1. Chuyển đổi sang DB entities
+                    List<r_Thanhphan_EWGScore> dsimport = new List<r_Thanhphan_EWGScore>();
+                    foreach (Thanhphan_EWGScore i in list)
+                    {
+                        r_Thanhphan_EWGScore a = i.toThanhphan_EWGScore();
+                        dsimport.Add(a);
+                    }
+
+                    // 2. Lấy dữ liệu hiện có
+                    List<r_Thanhphan_EWGScore> dshienco = db.r_Thanhphan_EWGScores.ToList();
+
+                    // 3. Tạo HashSet composite key
+                    HashSet<string> tapHienCo = new HashSet<string>(
+                        dshienco.Select(x => x.IDThanhphan.ToString())
+                    );
+
+                    // 4. Lọc bỏ trùng lặp
+                    dsimport = dsimport
+                        .Where(x => !tapHienCo.Contains(x.IDThanhphan.ToString()))
+                        .ToList();
+
+                    if (dsimport.Count == 0)
+                        return false;
+
+                    // 5. Insert
+                    db.r_Thanhphan_EWGScores.InsertAllOnSubmit(dsimport);
                     db.SubmitChanges();
                     return true;
                 }
@@ -728,24 +788,6 @@ namespace ClassLibraryIE
                     return kq;
                 }
             }
-
-            public ThanhPhan GetThanhPhanByID(int id)
-            {
-                try
-                {
-                    d_Thanhphan tp = db.d_Thanhphans
-                        .FirstOrDefault(x => x.IDThanhphan == id);
-
-                    if (tp == null)
-                        return null;
-
-                    return ThanhPhan.fromThanhPhanDB(tp);
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
         }
 
         #endregion
@@ -782,9 +824,9 @@ namespace ClassLibraryIE
             }
 
             public bool UpdateThanhPhan(int idThanhphan, string ten_INN, string ten_INCI, string ten_IUPAC,
-                                        string cas_No, string congThucHoaHoc, double khoiLuongPhanTu,
+                                        string cas_No, string congThucHoaHoc, string khoiLuongPhanTu,
                                         string cauTrucPhanTu, string tinhChatVatLy, string moTa,
-                                        string baoQuan, string tltk)
+                                        string baoQuan, string tltk, string ungDung, string tuongKy)
             {
                 try
                 {
@@ -803,6 +845,8 @@ namespace ClassLibraryIE
                         tp.BaoQuan = baoQuan;
                         tp.TLTK = tltk;
                         tp.NgayCapNhat = DateTime.Now;
+                        tp.Ungdung = ungDung;
+                        tp.Tuongky = tuongKy;
                         db.SubmitChanges();
                         return true;
                     }
@@ -912,7 +956,28 @@ namespace ClassLibraryIE
                     return false;
                 }
             }
-
+            public bool UpdateThanhphan_EWGScore(int idThanhphan, int? EWGScore_from, int? EWGScore_to, string EWGScore, string EWGScore_DataAvailability)
+            {
+                try
+                {
+                    r_Thanhphan_EWGScore link = db.r_Thanhphan_EWGScores.SingleOrDefault(x =>
+                        x.IDThanhphan == idThanhphan);
+                    if (link != null)
+                    {
+                        link.EWG_Score_from = EWGScore_from ?? 0;
+                        link.EWG_Score_to = EWGScore_to ?? 0;
+                        link.EWG_Score = EWGScore;
+                        link.EWG_DataAvailability = EWGScore_DataAvailability;
+                        db.SubmitChanges();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
         }
         #endregion
 
@@ -963,6 +1028,12 @@ namespace ClassLibraryIE
                     if (relatedQuyDinh.Any())
                     {
                         db.d_Quydinhs.DeleteAllOnSubmit(relatedQuyDinh);
+                    }
+                    // Delete related Thanhphan_EWGScore records
+                    IQueryable<r_Thanhphan_EWGScore> relatedThanhphan_EWGScore = db.r_Thanhphan_EWGScores.Where(x => x.IDThanhphan == idThanhPhan);
+                    if (relatedQuyDinh.Any())
+                    {
+                        db.r_Thanhphan_EWGScores.DeleteAllOnSubmit(relatedThanhphan_EWGScore);
                     }
 
                     // Delete the main record
@@ -1188,12 +1259,14 @@ namespace ClassLibraryIE
         public string Ten_IUPAC { get; set; }
         public string CAS_No { get; set; }
         public string CongThucHoaHoc { get; set; }
-        public double KhoiLuongPhanTu { get; set; }
+        public string KhoiLuongPhanTu { get; set; }
         public string CauTrucPhanTu { get; set; }
         public string TinhChatVatLy { get; set; }
         public string MoTa { get; set; }
         public string BaoQuan { get; set; }
         public string TLTK { get; set; }
+        public string UngDung { get; set; }
+        public string TuongKy { get; set; }
         public DateTime? NgayTao { get; set; }
         public DateTime? NgayCapNhat { get; set; }
         public List<QuyDinh> dsQuyDinh { get; set; }
@@ -1213,6 +1286,8 @@ namespace ClassLibraryIE
             MoTa = "";
             BaoQuan = "";
             TLTK = "";
+            UngDung = "";
+            TuongKy = "";
         }
 
         public static ThanhPhan fromThanhPhanDB(d_Thanhphan item)
@@ -1227,15 +1302,22 @@ namespace ClassLibraryIE
                 Ten_IUPAC = item.Ten_IUPAC,
                 CAS_No = item.CAS_No,
                 CongThucHoaHoc = item.CongThucHoaHoc,
-                KhoiLuongPhanTu = item.KhoiLuongPhanTu ?? 0,
+                KhoiLuongPhanTu = item.KhoiLuongPhanTu,
                 CauTrucPhanTu = item.CauTrucPhanTu,
                 TinhChatVatLy = item.TinhChatVatLy,
                 MoTa = item.MoTa,
                 BaoQuan = item.BaoQuan,
                 TLTK = item.TLTK,
                 NgayTao = item.NgayTao,
-                NgayCapNhat = item.NgayCapNhat
+                NgayCapNhat = item.NgayCapNhat,
+                UngDung = item.Ungdung,
+                TuongKy = item.Tuongky
             };
+            KetnoiDB.GetData db = new KetnoiDB.GetData();
+            kq.dsQuyDinh = db.GetQuyDinhByThanhPhan(item.IDThanhphan);
+            kq.dsChucNang = db.GetChucNangByThanhPhan(item.IDThanhphan);
+            kq.dsDangBaoChe = db.GetDangBaoCheByThanhPhan(item.IDThanhphan);
+            kq.dsThanhPhanLienQuan = db.GetThanhPhanLienQuan(item.IDThanhphan);
             return kq;
         }
 
@@ -1256,7 +1338,9 @@ namespace ClassLibraryIE
                 BaoQuan = this.BaoQuan,
                 TLTK = this.TLTK,
                 NgayTao = this.NgayTao,
-                NgayCapNhat = this.NgayCapNhat
+                NgayCapNhat = this.NgayCapNhat,
+                Ungdung = this.UngDung,
+                Tuongky = this.TuongKy
             };
             return kq;
         }
@@ -1480,6 +1564,47 @@ namespace ClassLibraryIE
             {
                 IDThanhphan = this.IDThanhphan,
                 IDThanhphanLienquan = this.IDThanhphanLienquan
+            };
+            return kq;
+        }
+    }
+
+    public class Thanhphan_EWGScore
+    {
+        public int IDThanhphan { get; set; }
+        public int? EWG_Score_from { get; set; }
+        public int? EWG_Score_to { get; set; }
+        public string EWG_Score { get; set; }
+        public string EWG_DataAvailability { get; set; }
+
+        public Thanhphan_EWGScore()
+        {
+
+        }
+        public static Thanhphan_EWGScore fromThanhphan_EWGScore(r_Thanhphan_EWGScore item)
+        {
+            if (item == null)
+                return null;
+            Thanhphan_EWGScore kq = new Thanhphan_EWGScore
+            {
+                IDThanhphan = item.IDThanhphan,
+                EWG_Score_from = item.EWG_Score_from,
+                EWG_Score_to = item.EWG_Score_to,
+                EWG_Score = item.EWG_Score,
+                EWG_DataAvailability = item.EWG_DataAvailability
+            };
+            return kq;
+        }
+
+        public r_Thanhphan_EWGScore toThanhphan_EWGScore()
+        {
+            r_Thanhphan_EWGScore kq = new r_Thanhphan_EWGScore
+            {
+                IDThanhphan = this.IDThanhphan,
+                EWG_Score_from = this.EWG_Score_from,
+                EWG_Score_to = this.EWG_Score_to,
+                EWG_Score = this.EWG_Score,
+                EWG_DataAvailability = this.EWG_DataAvailability
             };
             return kq;
         }
