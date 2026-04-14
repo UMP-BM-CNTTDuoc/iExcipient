@@ -148,39 +148,17 @@ namespace ClassLibraryIE
             {
                 try
                 {
-                    // kiểm tra tồn tại
+                    // Kiểm tra tồn tại cả 2 chiều A-B và B-A
                     bool exists = db.r_Chatlienquans
-                                    .Any(x => x.IDThanhphan == item.IDThanhphan &&
-                                              x.IDThanhphanLienquan == item.IDThanhphanLienquan);
-
+                                    .Any(x => (x.IDThanhphan == item.IDThanhphan &&
+                                               x.IDThanhphanLienquan == item.IDThanhphanLienquan)
+                                           || (x.IDThanhphan == item.IDThanhphanLienquan &&
+                                               x.IDThanhphanLienquan == item.IDThanhphan));
                     if (exists)
-                        return false; // đã tồn tại → không insert
+                        return false;
 
                     r_Chatlienquan link = item.toChatLienQuanDB();
-
                     db.r_Chatlienquans.InsertOnSubmit(link);
-                    db.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-            public bool InsertThanhPhanEWGScore(Thanhphan_EWGScore item)
-            {
-                try
-                {
-                    // kiểm tra tồn tại
-                    bool exists = db.r_Thanhphan_EWGScores
-                                    .Any(x => x.IDThanhphan == item.IDThanhphan);
-
-                    if (exists)
-                        return false; // đã tồn tại → không insert
-
-                    r_Thanhphan_EWGScore link = item.toThanhphan_EWGScore();
-
-                    db.r_Thanhphan_EWGScores.InsertOnSubmit(link);
                     db.SubmitChanges();
                     return true;
                 }
@@ -422,59 +400,21 @@ namespace ClassLibraryIE
                     // 2. Lấy dữ liệu hiện có
                     List<r_Chatlienquan> dshienco = db.r_Chatlienquans.ToList();
 
-                    // 3. Tạo HashSet composite key
-                    HashSet<string> tapHienCo = new HashSet<string>(
-                        dshienco.Select(x => x.IDThanhphan.ToString() + "_" + x.IDThanhphanLienquan.ToString())
-                    );
+                    // 3. Tạo HashSet cả 2 chiều
+                    HashSet<string> tapHienCo = new HashSet<string>();
+                    foreach (var x in dshienco)
+                    {
+                        tapHienCo.Add(x.IDThanhphan + "_" + x.IDThanhphanLienquan);
+                        tapHienCo.Add(x.IDThanhphanLienquan + "_" + x.IDThanhphan); // ← thêm chiều ngược
+                    }
 
-                    // 4. Lọc bỏ trùng lặp
+                    // 4. Lọc bỏ trùng lặp (kiểm tra cả 2 chiều)
                     dsimport = dsimport
-                        .Where(x => !tapHienCo.Contains(x.IDThanhphan.ToString() + "_" + x.IDThanhphanLienquan.ToString()))
+                        .Where(x => !tapHienCo.Contains(x.IDThanhphan + "_" + x.IDThanhphanLienquan))
                         .ToList();
-
-                    if (dsimport.Count == 0)
-                        return false;
 
                     // 5. Insert
                     db.r_Chatlienquans.InsertAllOnSubmit(dsimport);
-                    db.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-            public bool BulkInsertThanhphan_EWGScore(List<Thanhphan_EWGScore> list)
-            {
-                try
-                {
-                    // 1. Chuyển đổi sang DB entities
-                    List<r_Thanhphan_EWGScore> dsimport = new List<r_Thanhphan_EWGScore>();
-                    foreach (Thanhphan_EWGScore i in list)
-                    {
-                        r_Thanhphan_EWGScore a = i.toThanhphan_EWGScore();
-                        dsimport.Add(a);
-                    }
-
-                    // 2. Lấy dữ liệu hiện có
-                    List<r_Thanhphan_EWGScore> dshienco = db.r_Thanhphan_EWGScores.ToList();
-
-                    // 3. Tạo HashSet composite key
-                    HashSet<string> tapHienCo = new HashSet<string>(
-                        dshienco.Select(x => x.IDThanhphan.ToString())
-                    );
-
-                    // 4. Lọc bỏ trùng lặp
-                    dsimport = dsimport
-                        .Where(x => !tapHienCo.Contains(x.IDThanhphan.ToString()))
-                        .ToList();
-
-                    if (dsimport.Count == 0)
-                        return false;
-
-                    // 5. Insert
-                    db.r_Thanhphan_EWGScores.InsertAllOnSubmit(dsimport);
                     db.SubmitChanges();
                     return true;
                 }
@@ -688,11 +628,25 @@ namespace ClassLibraryIE
                 List<ThanhPhan> kq = new List<ThanhPhan>();
                 try
                 {
-                    List<d_Thanhphan> ds = (from data in db.d_Thanhphans
-                                            join rela in db.r_Chatlienquans
-                                                on data.IDThanhphan equals rela.IDThanhphanLienquan
-                                            where rela.IDThanhphan == idThanhPhan
-                                            select data).ToList();
+                    // Chiều đi: idThanhPhan là chính, lấy các chất liên quan
+                    List<d_Thanhphan> ds1 = (from data in db.d_Thanhphans
+                                             join rela in db.r_Chatlienquans
+                                                 on data.IDThanhphan equals rela.IDThanhphanLienquan
+                                             where rela.IDThanhphan == idThanhPhan
+                                             select data).ToList();
+
+                    // Chiều về: idThanhPhan là liên quan, lấy các chất chính
+                    List<d_Thanhphan> ds2 = (from data in db.d_Thanhphans
+                                             join rela in db.r_Chatlienquans
+                                                 on data.IDThanhphan equals rela.IDThanhphan
+                                             where rela.IDThanhphanLienquan == idThanhPhan
+                                             select data).ToList();
+
+                    // Gộp 2 chiều, loại trùng theo IDThanhphan
+                    List<d_Thanhphan> ds = ds1.Union(ds2)
+                                               .GroupBy(x => x.IDThanhphan)
+                                               .Select(g => g.First())
+                                               .ToList();
 
                     foreach (d_Thanhphan i in ds)
                         kq.Add(ThanhPhan.fromThanhPhanDB(i));
@@ -774,6 +728,24 @@ namespace ClassLibraryIE
                     return kq;
                 }
             }
+
+            public ThanhPhan GetThanhPhanByID(int id)
+            {
+                try
+                {
+                    d_Thanhphan tp = db.d_Thanhphans
+                        .FirstOrDefault(x => x.IDThanhphan == id);
+
+                    if (tp == null)
+                        return null;
+
+                    return ThanhPhan.fromThanhPhanDB(tp);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
         }
 
         #endregion
@@ -810,9 +782,9 @@ namespace ClassLibraryIE
             }
 
             public bool UpdateThanhPhan(int idThanhphan, string ten_INN, string ten_INCI, string ten_IUPAC,
-                                        string cas_No, string congThucHoaHoc, string khoiLuongPhanTu,
+                                        string cas_No, string congThucHoaHoc, double khoiLuongPhanTu,
                                         string cauTrucPhanTu, string tinhChatVatLy, string moTa,
-                                        string baoQuan, string tltk, string ungDung, string tuongKy)
+                                        string baoQuan, string tltk)
             {
                 try
                 {
@@ -831,8 +803,6 @@ namespace ClassLibraryIE
                         tp.BaoQuan = baoQuan;
                         tp.TLTK = tltk;
                         tp.NgayCapNhat = DateTime.Now;
-                        tp.Ungdung = ungDung;
-                        tp.Tuongky = tuongKy;
                         db.SubmitChanges();
                         return true;
                     }
@@ -942,28 +912,7 @@ namespace ClassLibraryIE
                     return false;
                 }
             }
-            public bool UpdateThanhphan_EWGScore(int idThanhphan, int? EWGScore_from, int? EWGScore_to, string EWGScore, string EWGScore_DataAvailability)
-            {
-                try
-                {
-                    r_Thanhphan_EWGScore link = db.r_Thanhphan_EWGScores.SingleOrDefault(x =>
-                        x.IDThanhphan == idThanhphan);
-                    if (link != null)
-                    {
-                        link.EWG_Score_from = EWGScore_from ?? 0;
-                        link.EWG_Score_to = EWGScore_to ?? 0;
-                        link.EWG_Score = EWGScore;
-                        link.EWG_DataAvailability = EWGScore_DataAvailability;
-                        db.SubmitChanges();
-                        return true;
-                    }
-                    return false;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
+
         }
         #endregion
 
@@ -993,14 +942,20 @@ namespace ClassLibraryIE
             {
                 try
                 {
+                    // Delete related records in r_Thanhphan_Chucnang
                     DeleteThanhPhan_ChucNang_ByThanhPhan(idThanhPhan);
+
+                    // Delete related records in r_Thanhphan_Dangbaoche
                     DeleteThanhPhan_DangBaoChe_ByThanhPhan(idThanhPhan);
 
                     // Delete related records in r_Chatlienquan (as main component)
-                    IQueryable<r_Chatlienquan> relatedChatLienQuan = db.r_Chatlienquans.Where(x => x.IDThanhphan == idThanhPhan);
-                    if (relatedChatLienQuan.Any())
+                    DeleteThanhPhan_ChatLienQuan_ByThanhPhan(idThanhPhan);
+
+                    // Delete related records in r_Chatlienquan (as related component)
+                    IQueryable<r_Chatlienquan> relatedAsLienQuan = db.r_Chatlienquans.Where(x => x.IDThanhphanLienquan == idThanhPhan);
+                    if (relatedAsLienQuan.Any())
                     {
-                        db.r_Chatlienquans.DeleteAllOnSubmit(relatedChatLienQuan);
+                        db.r_Chatlienquans.DeleteAllOnSubmit(relatedAsLienQuan);
                     }
 
                     // Delete related QuyDinh records
@@ -1010,12 +965,6 @@ namespace ClassLibraryIE
                         db.d_Quydinhs.DeleteAllOnSubmit(relatedQuyDinh);
                     }
 
-                    // Delete related Thanhphan_EWGScore records
-                    IQueryable<r_Thanhphan_EWGScore> relatedThanhphan_EWGScore = db.r_Thanhphan_EWGScores.Where(x => x.IDThanhphan == idThanhPhan);
-                    if (relatedQuyDinh.Any())
-                    {
-                        db.r_Thanhphan_EWGScores.DeleteAllOnSubmit(relatedThanhphan_EWGScore);
-                    }
                     // Delete the main record
                     d_Thanhphan tp = db.d_Thanhphans.SingleOrDefault(x => x.IDThanhphan == idThanhPhan);
                     if (tp != null)
@@ -1133,9 +1082,12 @@ namespace ClassLibraryIE
             {
                 try
                 {
+                    // Xóa cả 2 chiều: A là chính hoặc A là liên quan
                     List<r_Chatlienquan> links = (from data in db.r_Chatlienquans
                                                   where data.IDThanhphan == idThanhPhan
+                                                     || data.IDThanhphanLienquan == idThanhPhan
                                                   select data).ToList();
+
                     if (links != null && links.Any())
                     {
                         db.r_Chatlienquans.DeleteAllOnSubmit(links);
@@ -1236,14 +1188,12 @@ namespace ClassLibraryIE
         public string Ten_IUPAC { get; set; }
         public string CAS_No { get; set; }
         public string CongThucHoaHoc { get; set; }
-        public string KhoiLuongPhanTu { get; set; }
+        public double KhoiLuongPhanTu { get; set; }
         public string CauTrucPhanTu { get; set; }
         public string TinhChatVatLy { get; set; }
         public string MoTa { get; set; }
         public string BaoQuan { get; set; }
         public string TLTK { get; set; }
-        public string UngDung { get; set; }
-        public string TuongKy { get; set; }
         public DateTime? NgayTao { get; set; }
         public DateTime? NgayCapNhat { get; set; }
         public List<QuyDinh> dsQuyDinh { get; set; }
@@ -1263,8 +1213,6 @@ namespace ClassLibraryIE
             MoTa = "";
             BaoQuan = "";
             TLTK = "";
-            UngDung = "";
-            TuongKy = "";
         }
 
         public static ThanhPhan fromThanhPhanDB(d_Thanhphan item)
@@ -1279,22 +1227,15 @@ namespace ClassLibraryIE
                 Ten_IUPAC = item.Ten_IUPAC,
                 CAS_No = item.CAS_No,
                 CongThucHoaHoc = item.CongThucHoaHoc,
-                KhoiLuongPhanTu = item.KhoiLuongPhanTu,
+                KhoiLuongPhanTu = item.KhoiLuongPhanTu ?? 0,
                 CauTrucPhanTu = item.CauTrucPhanTu,
                 TinhChatVatLy = item.TinhChatVatLy,
                 MoTa = item.MoTa,
                 BaoQuan = item.BaoQuan,
                 TLTK = item.TLTK,
                 NgayTao = item.NgayTao,
-                NgayCapNhat = item.NgayCapNhat,
-                UngDung = item.Ungdung,
-                TuongKy = item.Tuongky
+                NgayCapNhat = item.NgayCapNhat
             };
-            KetnoiDB.GetData db = new KetnoiDB.GetData();
-            kq.dsQuyDinh = db.GetQuyDinhByThanhPhan(item.IDThanhphan);
-            kq.dsChucNang = db.GetChucNangByThanhPhan(item.IDThanhphan);
-            kq.dsDangBaoChe = db.GetDangBaoCheByThanhPhan(item.IDThanhphan);
-            kq.dsThanhPhanLienQuan = db.GetThanhPhanLienQuan(item.IDThanhphan);
             return kq;
         }
 
@@ -1315,9 +1256,7 @@ namespace ClassLibraryIE
                 BaoQuan = this.BaoQuan,
                 TLTK = this.TLTK,
                 NgayTao = this.NgayTao,
-                NgayCapNhat = this.NgayCapNhat,
-                Ungdung = this.UngDung,
-                Tuongky = this.TuongKy
+                NgayCapNhat = this.NgayCapNhat
             };
             return kq;
         }
@@ -1541,47 +1480,6 @@ namespace ClassLibraryIE
             {
                 IDThanhphan = this.IDThanhphan,
                 IDThanhphanLienquan = this.IDThanhphanLienquan
-            };
-            return kq;
-        }
-    }
-
-    public class Thanhphan_EWGScore
-    {
-        public int IDThanhphan { get; set; }
-        public int? EWG_Score_from { get; set; }
-        public int? EWG_Score_to { get; set; }
-        public string EWG_Score { get; set; }
-        public string EWG_DataAvailability { get; set; }
-
-        public Thanhphan_EWGScore()
-        {
-
-        }
-        public static Thanhphan_EWGScore fromThanhphan_EWGScore(r_Thanhphan_EWGScore item)
-        {
-            if (item == null)
-                return null;
-            Thanhphan_EWGScore kq = new Thanhphan_EWGScore
-            {
-                IDThanhphan = item.IDThanhphan,
-                EWG_Score_from = item.EWG_Score_from,
-                EWG_Score_to = item.EWG_Score_to,
-                EWG_Score = item.EWG_Score,
-                EWG_DataAvailability = item.EWG_DataAvailability
-            };
-            return kq;
-        }
-
-        public r_Thanhphan_EWGScore toThanhphan_EWGScore()
-        {
-            r_Thanhphan_EWGScore kq = new r_Thanhphan_EWGScore
-            {
-                IDThanhphan = this.IDThanhphan,
-                EWG_Score_from = this.EWG_Score_from,
-                EWG_Score_to = this.EWG_Score_to,
-                EWG_Score = this.EWG_Score,
-                EWG_DataAvailability = this.EWG_DataAvailability
             };
             return kq;
         }
