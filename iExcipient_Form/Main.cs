@@ -89,5 +89,11 @@ namespace iExcipient_Form
             openChildForm(DanhMucThanhphan);
         }
 
+        private void điểmEWGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.Thietlap.QuanHeThanhphan_EWGScore QuanHeThanhphan_EWGScore = new Forms.Thietlap.QuanHeThanhphan_EWGScore();
+            openChildForm(QuanHeThanhphan_EWGScore);
+        }
+
     }
 }

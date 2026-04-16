@@ -483,6 +483,35 @@ namespace ClassLibraryIE
                     return false;
                 }
             }
+
+            public bool InsertEWGScore(Thanhphan_EWGScore ewg)
+            {
+                try
+                {
+                    using (var db = new KetnoiCSDLDataContext())
+                    {
+                        // Tránh trùng: nếu đã có thì update
+                        var existing = db.r_Thanhphan_EWGScores
+                            .FirstOrDefault(x => x.IDThanhphan == ewg.IDThanhphan);
+
+                        if (existing != null)
+                        {
+                            existing.EWG_Score_from = ewg.EWG_Score_from;
+                            existing.EWG_Score_to = ewg.EWG_Score_to;
+                            existing.EWG_Score = ewg.EWG_Score;
+                            existing.EWG_DataAvailability = ewg.EWG_DataAvailability;
+                        }
+                        else
+                        {
+                            db.r_Thanhphan_EWGScores.InsertOnSubmit(ewg.toThanhphan_EWGScore());
+                        }
+
+                        db.SubmitChanges();
+                        return true;
+                    }
+                }
+                catch { return false; }
+            }
         }
 
         #endregion
@@ -540,6 +569,20 @@ namespace ClassLibraryIE
 
                 foreach (d_Chucnang i in ds)
                     kq.Add(ChucNang.fromChucNangDB(i));
+
+                return kq;
+            }
+
+
+            // Lấy toàn bộ EWG Score
+            public List<Thanhphan_EWGScore> GetDSEWGScore()
+            {
+                List<Thanhphan_EWGScore> kq = new List<Thanhphan_EWGScore>();
+
+                List<r_Thanhphan_EWGScore> ds = db.r_Thanhphan_EWGScores.ToList();
+
+                foreach (r_Thanhphan_EWGScore i in ds)
+                    kq.Add(Thanhphan_EWGScore.fromThanhphan_EWGScore(i));
 
                 return kq;
             }
@@ -716,6 +759,23 @@ namespace ClassLibraryIE
                 catch
                 {
                     return kq;
+                }
+            }
+
+            // Lấy EWG Score theo IDThanhPhan
+            public Thanhphan_EWGScore GetEWGScoreByThanhPhan(int idThanhPhan)
+            {
+                try
+                {
+                    r_Thanhphan_EWGScore item = (from data in db.r_Thanhphan_EWGScores
+                                                 where data.IDThanhphan == idThanhPhan
+                                                 select data).FirstOrDefault();
+
+                    return Thanhphan_EWGScore.fromThanhphan_EWGScore(item);
+                }
+                catch
+                {
+                    return null;
                 }
             }
 
@@ -1607,6 +1667,23 @@ namespace ClassLibraryIE
                 EWG_DataAvailability = this.EWG_DataAvailability
             };
             return kq;
+        }
+
+        public static string PhanLoaiDoAnToan(int? scoreTo)
+        {
+            if (scoreTo == null)
+                return string.Empty;
+
+            int val = scoreTo.Value;
+
+            if (val >= 1 && val <= 2)
+                return "Nguy cơ thấp";
+            else if (val >= 3 && val <= 6)
+                return "Nguy cơ trung bình";
+            else if (val >= 7 && val <= 10)
+                return "Nguy cơ cao";
+            else
+                return string.Empty;
         }
     }
     #endregion

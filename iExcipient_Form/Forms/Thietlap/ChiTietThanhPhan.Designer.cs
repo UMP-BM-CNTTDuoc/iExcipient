@@ -61,6 +61,10 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.textBoxUngDung = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxTuongKy = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -149,13 +153,13 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 376);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 349);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1010, 89);
+            this.dataGridView1.Size = new System.Drawing.Size(1010, 116);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -180,7 +184,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 8);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(156, 25);
             this.label1.TabIndex = 6;
@@ -190,7 +194,7 @@
             // 
             this.textBoxKhoiLuongPhanTu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxKhoiLuongPhanTu.Location = new System.Drawing.Point(473, 88);
+            this.textBoxKhoiLuongPhanTu.Location = new System.Drawing.Point(473, 74);
             this.textBoxKhoiLuongPhanTu.Name = "textBoxKhoiLuongPhanTu";
             this.textBoxKhoiLuongPhanTu.Size = new System.Drawing.Size(549, 31);
             this.textBoxKhoiLuongPhanTu.TabIndex = 6;
@@ -198,7 +202,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(473, 68);
+            this.label6.Location = new System.Drawing.Point(473, 54);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(192, 25);
             this.label6.TabIndex = 12;
@@ -225,7 +229,7 @@
             // 
             this.textBoxTinhChatVatLy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTinhChatVatLy.Location = new System.Drawing.Point(473, 148);
+            this.textBoxTinhChatVatLy.Location = new System.Drawing.Point(473, 119);
             this.textBoxTinhChatVatLy.Multiline = true;
             this.textBoxTinhChatVatLy.Name = "textBoxTinhChatVatLy";
             this.textBoxTinhChatVatLy.Size = new System.Drawing.Size(549, 31);
@@ -242,7 +246,7 @@
             // 
             // textBoxMoTa
             // 
-            this.textBoxMoTa.Location = new System.Drawing.Point(12, 208);
+            this.textBoxMoTa.Location = new System.Drawing.Point(12, 164);
             this.textBoxMoTa.Multiline = true;
             this.textBoxMoTa.Name = "textBoxMoTa";
             this.textBoxMoTa.Size = new System.Drawing.Size(455, 31);
@@ -251,7 +255,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 188);
+            this.label14.Location = new System.Drawing.Point(12, 144);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(66, 25);
             this.label14.TabIndex = 28;
@@ -261,7 +265,7 @@
             // 
             this.textBoxBaoQuan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxBaoQuan.Location = new System.Drawing.Point(473, 208);
+            this.textBoxBaoQuan.Location = new System.Drawing.Point(473, 164);
             this.textBoxBaoQuan.Multiline = true;
             this.textBoxBaoQuan.Name = "textBoxBaoQuan";
             this.textBoxBaoQuan.Size = new System.Drawing.Size(549, 31);
@@ -270,7 +274,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(473, 188);
+            this.label13.Location = new System.Drawing.Point(473, 144);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(375, 25);
             this.label13.TabIndex = 30;
@@ -280,7 +284,7 @@
             // 
             this.textBoxTLTK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTLTK.Location = new System.Drawing.Point(473, 268);
+            this.textBoxTLTK.Location = new System.Drawing.Point(473, 254);
             this.textBoxTLTK.Multiline = true;
             this.textBoxTLTK.Name = "textBoxTLTK";
             this.textBoxTLTK.Size = new System.Drawing.Size(549, 31);
@@ -289,7 +293,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(473, 248);
+            this.label15.Location = new System.Drawing.Point(473, 234);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(188, 25);
             this.label15.TabIndex = 35;
@@ -298,7 +302,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 68);
+            this.label5.Location = new System.Drawing.Point(12, 54);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(171, 25);
             this.label5.TabIndex = 42;
@@ -306,7 +310,7 @@
             // 
             // textBoxCauTrucPhanTu
             // 
-            this.textBoxCauTrucPhanTu.Location = new System.Drawing.Point(12, 88);
+            this.textBoxCauTrucPhanTu.Location = new System.Drawing.Point(12, 74);
             this.textBoxCauTrucPhanTu.Name = "textBoxCauTrucPhanTu";
             this.textBoxCauTrucPhanTu.Size = new System.Drawing.Size(455, 31);
             this.textBoxCauTrucPhanTu.TabIndex = 5;
@@ -314,7 +318,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 128);
+            this.label8.Location = new System.Drawing.Point(12, 99);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(151, 25);
             this.label8.TabIndex = 46;
@@ -322,7 +326,7 @@
             // 
             // textBoxChatLienQuan
             // 
-            this.textBoxChatLienQuan.Location = new System.Drawing.Point(12, 148);
+            this.textBoxChatLienQuan.Location = new System.Drawing.Point(12, 119);
             this.textBoxChatLienQuan.Multiline = true;
             this.textBoxChatLienQuan.Name = "textBoxChatLienQuan";
             this.textBoxChatLienQuan.ReadOnly = true;
@@ -332,41 +336,45 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.textBoxTuongKy);
+            this.panel1.Controls.Add(this.textBoxUngDung);
             this.panel1.Controls.Add(this.textBoxNgayCapNhat);
             this.panel1.Controls.Add(this.textBoxNgayTao);
-            this.panel1.Controls.Add(this.label16);
-            this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.textBoxChatLienQuan);
-            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.textBoxCauTrucPhanTu);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.textBoxTLTK);
-            this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.textBoxBaoQuan);
-            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.textBoxMoTa);
             this.panel1.Controls.Add(this.textBoxCongThucHoaHoc);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.textBoxTinhChatVatLy);
-            this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.textBoxKhoiLuongPhanTu);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxIDThanhphan);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.panel1.Size = new System.Drawing.Size(1034, 370);
+            this.panel1.Size = new System.Drawing.Size(1034, 343);
             this.panel1.TabIndex = 21;
             // 
             // textBoxNgayCapNhat
             // 
             this.textBoxNgayCapNhat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNgayCapNhat.Location = new System.Drawing.Point(473, 328);
+            this.textBoxNgayCapNhat.Location = new System.Drawing.Point(473, 299);
             this.textBoxNgayCapNhat.Multiline = true;
             this.textBoxNgayCapNhat.Name = "textBoxNgayCapNhat";
             this.textBoxNgayCapNhat.Size = new System.Drawing.Size(549, 31);
@@ -374,7 +382,7 @@
             // 
             // textBoxNgayTao
             // 
-            this.textBoxNgayTao.Location = new System.Drawing.Point(12, 328);
+            this.textBoxNgayTao.Location = new System.Drawing.Point(12, 299);
             this.textBoxNgayTao.Multiline = true;
             this.textBoxNgayTao.Name = "textBoxNgayTao";
             this.textBoxNgayTao.Size = new System.Drawing.Size(455, 31);
@@ -383,7 +391,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(473, 308);
+            this.label16.Location = new System.Drawing.Point(473, 279);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(151, 25);
             this.label16.TabIndex = 48;
@@ -392,7 +400,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 308);
+            this.label17.Location = new System.Drawing.Point(12, 279);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(98, 25);
             this.label17.TabIndex = 47;
@@ -401,11 +409,47 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(473, 128);
+            this.label10.Location = new System.Drawing.Point(473, 99);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(158, 25);
             this.label10.TabIndex = 21;
             this.label10.Text = "Tính chất vật lý";
+            // 
+            // textBoxUngDung
+            // 
+            this.textBoxUngDung.Location = new System.Drawing.Point(12, 209);
+            this.textBoxUngDung.Multiline = true;
+            this.textBoxUngDung.Name = "textBoxUngDung";
+            this.textBoxUngDung.Size = new System.Drawing.Size(455, 31);
+            this.textBoxUngDung.TabIndex = 51;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 189);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 25);
+            this.label2.TabIndex = 52;
+            this.label2.Text = "Ứng dụng";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(473, 189);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(101, 25);
+            this.label3.TabIndex = 54;
+            this.label3.Text = "Tương kỵ";
+            // 
+            // textBoxTuongKy
+            // 
+            this.textBoxTuongKy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTuongKy.Location = new System.Drawing.Point(473, 209);
+            this.textBoxTuongKy.Multiline = true;
+            this.textBoxTuongKy.Name = "textBoxTuongKy";
+            this.textBoxTuongKy.Size = new System.Drawing.Size(549, 31);
+            this.textBoxTuongKy.TabIndex = 53;
             // 
             // ChiTietThanhPhan
             // 
@@ -463,5 +507,9 @@
         private System.Windows.Forms.TextBox textBoxNgayCapNhat;
         private System.Windows.Forms.TextBox textBoxNgayTao;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxTuongKy;
+        private System.Windows.Forms.TextBox textBoxUngDung;
+        private System.Windows.Forms.Label label2;
     }
 }

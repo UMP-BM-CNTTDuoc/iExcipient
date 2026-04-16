@@ -110,6 +110,12 @@
     <Compile Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.Designer.cs">
       <DependentUpon>Import_ThanhPhan_DangBaoChe.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhphan_EWGScore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeThanhphan_EWGScore.Designer.cs">
+      <DependentUpon>QuanHeThanhphan_EWGScore.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tracuu\Tracuu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.resx">
       <DependentUpon>Import_ThanhPhan_DangBaoChe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhphan_EWGScore.resx">
+      <DependentUpon>QuanHeThanhphan_EWGScore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tracuu\Tracuu.resx">
       <DependentUpon>Tracuu.cs</DependentUpon>

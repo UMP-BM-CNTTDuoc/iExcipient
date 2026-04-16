@@ -177,7 +177,7 @@ namespace iExcipient_Form.Forms.Thietlap
                             Ten_IUPAC = values.Length > 2 ? values[2].Trim().Trim('"') : "",
                             CAS_No = values.Length > 3 ? values[3].Trim().Trim('"') : "",
                             CongThucHoaHoc = values.Length > 4 ? values[4].Trim().Trim('"') : "",
-                            KhoiLuongPhanTu = khoiLuong,
+                            KhoiLuongPhanTu = values.Length > 5 ? values[5].Trim().Trim('"') : "",
                             CauTrucPhanTu = values.Length > 6 ? values[6].Trim().Trim('"') : "",
                             TinhChatVatLy = values.Length > 7 ? values[7].Trim().Trim('"') : "",
                             MoTa = values.Length > 8 ? values[8].Trim().Trim('"') : "",
@@ -204,14 +204,13 @@ namespace iExcipient_Form.Forms.Thietlap
 
             try
             {
-                ThanhPhan tp = getdata.GetThanhPhanByID(id);
+                ThanhPhan tp = getdata.GetThanhPhan(id);
                 if (tp == null) return;
                 textBoxIDThanhphan.Text = row.Cells["IDThanhphan"].Value != null
                     ? row.Cells["IDThanhphan"].Value.ToString()
                     : "";
                 textBoxCongThucHoaHoc.Text = tp.CongThucHoaHoc;
-                textBoxKhoiLuongPhanTu.Text = tp.KhoiLuongPhanTu != 0
-                    ? tp.KhoiLuongPhanTu.ToString() : "";
+                textBoxKhoiLuongPhanTu.Text = tp.KhoiLuongPhanTu;
                 textBoxCauTrucPhanTu.Text = tp.CauTrucPhanTu;
                 textBoxTinhChatVatLy.Text = tp.TinhChatVatLy;
                 textBoxMoTa.Text = tp.MoTa;
@@ -258,7 +257,7 @@ namespace iExcipient_Form.Forms.Thietlap
                     }
                 }
 
-                ThanhPhan current = getdata.GetThanhPhanByID(_idDangChon);
+                ThanhPhan current = getdata.GetThanhPhan(_idDangChon);
                 if (current == null) return;
 
                 if (updatedata.UpdateThanhPhan(
@@ -268,12 +267,15 @@ namespace iExcipient_Form.Forms.Thietlap
                     current.Ten_IUPAC,                        // giữ nguyên
                     current.CAS_No,                           // giữ nguyên
                     textBoxCongThucHoaHoc.Text.Trim(),        
-                    khoiLuong,                                
+                    textBoxKhoiLuongPhanTu.Text.Trim(),                                
                     textBoxCauTrucPhanTu.Text.Trim(),         
                     textBoxTinhChatVatLy.Text.Trim(),         
                     textBoxMoTa.Text.Trim(),                  
                     textBoxBaoQuan.Text.Trim(),               
-                    textBoxTLTK.Text.Trim()
+                    textBoxTLTK.Text.Trim(),
+                    textBoxUngDung.Text.Trim(),
+                    textBoxTuongKy.Text.Trim()
+
                 ))
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo",

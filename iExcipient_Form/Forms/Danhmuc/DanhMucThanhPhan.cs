@@ -306,7 +306,7 @@ namespace iExcipient_Form.Forms.Danhmuc
                 int idThanhPhan = int.Parse(textBoxIDThanhphan.Text);
 
                 // Lấy dữ liệu chi tiết hiện tại để giữ nguyên các field không sửa
-                ThanhPhan current = getdata.GetThanhPhanByID(idThanhPhan);
+                ThanhPhan current = getdata.GetThanhPhan(idThanhPhan);
                 if (current == null) return;
 
                 if (updatedata.UpdateThanhPhan(
@@ -316,12 +316,14 @@ namespace iExcipient_Form.Forms.Danhmuc
                     textBoxTen_IUPAC.Text.Trim(),
                     textBoxCAS_No.Text.Trim(),
                     current.CongThucHoaHoc,     // giữ nguyên
-                    current.KhoiLuongPhanTu,    // giữ nguyên
-                    current.CauTrucPhanTu,      // giữ nguyên
-                    current.TinhChatVatLy,      // giữ nguyên
-                    current.MoTa,               // giữ nguyên
-                    current.BaoQuan,            // giữ nguyên
-                    current.TLTK                // giữ nguyên
+                    current.KhoiLuongPhanTu,
+                    current.CauTrucPhanTu,
+                    current.TinhChatVatLy,
+                    current.MoTa,
+                    current.BaoQuan,
+                    current.TLTK,
+                    current.UngDung,
+                    current.TuongKy
                 ))
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo",
@@ -430,7 +432,7 @@ namespace iExcipient_Form.Forms.Danhmuc
                             Ten_IUPAC = values.Length > 2 ? values[2].Trim().Trim('"') : "",
                             CAS_No = values.Length > 3 ? values[3].Trim().Trim('"') : "",
                             CongThucHoaHoc = values.Length > 4 ? values[4].Trim().Trim('"') : "",
-                            KhoiLuongPhanTu = khoiLuong,
+                            KhoiLuongPhanTu = values.Length > 5 ? values[5].Trim().Trim('"') : "",
                             CauTrucPhanTu = values.Length > 6 ? values[6].Trim().Trim('"') : "",
                             TinhChatVatLy = values.Length > 7 ? values[7].Trim().Trim('"') : "",
                             MoTa = values.Length > 8 ? values[8].Trim().Trim('"') : "",
