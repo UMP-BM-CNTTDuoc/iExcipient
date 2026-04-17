@@ -106,8 +106,7 @@ namespace iExcipient_Form.Forms.Thietlap
                     textBoxScoreTo.Text = ewg.EWG_Score_to.HasValue
                                                    ? ewg.EWG_Score_to.Value.ToString() : "";
                     textBoxDataAvailability.Text = ewg.EWG_DataAvailability ?? "";
-                    textBoxDoAnToan.Text = Thanhphan_EWGScore
-                                                   .PhanLoaiDoAnToan(ewg.EWG_Score_to);
+                    textBoxDoAnToan.Text = ewg.EWG_Score;
                 }
                 else
                 {

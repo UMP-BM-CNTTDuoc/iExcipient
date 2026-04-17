@@ -1650,7 +1650,7 @@ namespace ClassLibraryIE
                 IDThanhphan = item.IDThanhphan,
                 EWG_Score_from = item.EWG_Score_from,
                 EWG_Score_to = item.EWG_Score_to,
-                EWG_Score = item.EWG_Score,
+                EWG_Score = PhanLoaiDoAnToan(item.EWG_Score_to),
                 EWG_DataAvailability = item.EWG_DataAvailability
             };
             return kq;
