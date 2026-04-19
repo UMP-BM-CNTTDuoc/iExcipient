@@ -183,6 +183,8 @@ namespace iExcipient_Form.Forms.Thietlap
                             MoTa = values.Length > 8 ? values[8].Trim().Trim('"') : "",
                             BaoQuan = values.Length > 9 ? values[9].Trim().Trim('"') : "",
                             TLTK = values.Length > 11 ? values[11].Trim().Trim('"') : "",
+                            UngDung = values.Length > 12 ? values[12].Trim().Trim('"') : "",
+                            TuongKy = values.Length > 13 ? values[13].Trim().Trim('"') : "",
                             NgayTao = DateTime.Now,
                             NgayCapNhat = DateTime.Now
                         };
