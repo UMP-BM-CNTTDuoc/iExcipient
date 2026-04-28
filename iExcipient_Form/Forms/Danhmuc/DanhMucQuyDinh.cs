@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ClassLibraryIE;
+using Microsoft.VisualBasic.FileIO;
 
 namespace iExcipient_Form.Forms.Danhmuc
 {
@@ -450,12 +451,17 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void ImportFromCSV(string filePath, List<QuyDinh> listQuyDinh)
         {
-            using (StreamReader sr = new StreamReader(filePath, Encoding.UTF8))
+            using (Microsoft.VisualBasic.FileIO.TextFieldParser parser =
+                   new Microsoft.VisualBasic.FileIO.TextFieldParser(filePath, Encoding.UTF8))
             {
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
                 bool isFirstRow = true;
-                while (!sr.EndOfStream)
+                while (!parser.EndOfData)
                 {
-                    string line = sr.ReadLine();
+                    string[] values = parser.ReadFields();
 
                     if (isFirstRow)
                     {
@@ -463,20 +469,18 @@ namespace iExcipient_Form.Forms.Danhmuc
                         continue;
                     }
 
-                    string[] values = line.Split(',');
-
                     if (values.Length >= 1 && !string.IsNullOrWhiteSpace(values[0]))
                     {
                         QuyDinh qd = new QuyDinh
                         {
-                            IDThanhphan = int.Parse(values[0].Trim().Trim('"')),
-                            AnnexII = values.Length > 1 && values[1].Trim().Trim('"').ToLower() == "true" ? (bool?)true : null,
-                            AnnexIII = values.Length > 2 && values[2].Trim().Trim('"').ToLower() == "true" ? (bool?)true : null,
-                            AnnexIV = values.Length > 3 && values[3].Trim().Trim('"').ToLower() == "true" ? (bool?)true : null,
-                            AnnexV = values.Length > 4 && values[4].Trim().Trim('"').ToLower() == "true" ? (bool?)true : null,
-                            AnnexVI = values.Length > 5 && values[5].Trim().Trim('"').ToLower() == "true" ? (bool?)true : null,
-                            DieuKienSuDung = values.Length > 6 ? values[6].Trim().Trim('"') : "",
-                            Ghichu = values.Length > 7 ? values[7].Trim().Trim('"') : ""
+                            IDThanhphan = int.Parse(values[0].Trim()),
+                            AnnexII = values.Length > 1 && values[1].Trim().ToLower() == "true" ? (bool?)true : null,
+                            AnnexIII = values.Length > 2 && values[2].Trim().ToLower() == "true" ? (bool?)true : null,
+                            AnnexIV = values.Length > 3 && values[3].Trim().ToLower() == "true" ? (bool?)true : null,
+                            AnnexV = values.Length > 4 && values[4].Trim().ToLower() == "true" ? (bool?)true : null,
+                            AnnexVI = values.Length > 5 && values[5].Trim().ToLower() == "true" ? (bool?)true : null,
+                            DieuKienSuDung = values.Length > 6 ? values[6].Trim() : "",
+                            Ghichu = values.Length > 7 ? values[7].Trim() : ""
                         };
                         listQuyDinh.Add(qd);
                     }

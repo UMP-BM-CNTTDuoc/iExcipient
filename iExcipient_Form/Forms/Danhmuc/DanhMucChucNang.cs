@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ClassLibraryIE;
+using Microsoft.VisualBasic.FileIO;
 
 namespace iExcipient_Form.Forms.Danhmuc
 {
@@ -313,12 +314,17 @@ namespace iExcipient_Form.Forms.Danhmuc
         }
         private void ImportFromCSV(string filePath, List<ChucNang> listChucNang)
         {
-            using (StreamReader sr = new StreamReader(filePath, Encoding.UTF8))
+            using (Microsoft.VisualBasic.FileIO.TextFieldParser parser =
+                   new Microsoft.VisualBasic.FileIO.TextFieldParser(filePath, Encoding.UTF8))
             {
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
                 bool isFirstRow = true;
-                while (!sr.EndOfStream)
+                while (!parser.EndOfData)
                 {
-                    string line = sr.ReadLine();
+                    string[] values = parser.ReadFields();
 
                     // Skip header row
                     if (isFirstRow)
@@ -327,14 +333,12 @@ namespace iExcipient_Form.Forms.Danhmuc
                         continue;
                     }
 
-                    string[] values = line.Split(',');
-
                     if (values.Length >= 1 && !string.IsNullOrWhiteSpace(values[0]))
                     {
                         ChucNang cn = new ChucNang
                         {
-                            Tenchucnang = values[0].Trim().Trim('"'),
-                            Motachucnang = values.Length > 1 ? values[1].Trim().Trim('"') : ""
+                            Tenchucnang = values[0].Trim(),
+                            Motachucnang = values.Length > 1 ? values[1].Trim() : ""
                         };
                         listChucNang.Add(cn);
                     }

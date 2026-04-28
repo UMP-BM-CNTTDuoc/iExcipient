@@ -65,7 +65,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxGhiChu.Location = new System.Drawing.Point(474, 121);
             this.textBoxGhiChu.Name = "textBoxGhiChu";
-            this.textBoxGhiChu.Size = new System.Drawing.Size(548, 26);
+            this.textBoxGhiChu.Size = new System.Drawing.Size(548, 31);
             this.textBoxGhiChu.TabIndex = 26;
             // 
             // label11
@@ -73,7 +73,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(12, 55);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(121, 20);
+            this.label11.Size = new System.Drawing.Size(163, 25);
             this.label11.TabIndex = 25;
             this.label11.Text = "Tên thành phần";
             // 
@@ -82,7 +82,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(470, 99);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(64, 20);
+            this.label9.Size = new System.Drawing.Size(86, 25);
             this.label9.TabIndex = 18;
             this.label9.Text = "Ghi chú";
             // 
@@ -90,7 +90,7 @@
             // 
             this.textBoxDieuKienSuDung.Location = new System.Drawing.Point(12, 121);
             this.textBoxDieuKienSuDung.Name = "textBoxDieuKienSuDung";
-            this.textBoxDieuKienSuDung.Size = new System.Drawing.Size(455, 26);
+            this.textBoxDieuKienSuDung.Size = new System.Drawing.Size(455, 31);
             this.textBoxDieuKienSuDung.TabIndex = 4;
             // 
             // label1
@@ -98,7 +98,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 20);
+            this.label1.Size = new System.Drawing.Size(130, 25);
             this.label1.TabIndex = 6;
             this.label1.Text = "Mã quy định";
             // 
@@ -107,7 +107,7 @@
             this.textBoxIDQuyDinh.Enabled = false;
             this.textBoxIDQuyDinh.Location = new System.Drawing.Point(12, 29);
             this.textBoxIDQuyDinh.Name = "textBoxIDQuyDinh";
-            this.textBoxIDQuyDinh.Size = new System.Drawing.Size(455, 26);
+            this.textBoxIDQuyDinh.Size = new System.Drawing.Size(455, 31);
             this.textBoxIDQuyDinh.TabIndex = 1;
             // 
             // label2
@@ -115,7 +115,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(470, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 20);
+            this.label2.Size = new System.Drawing.Size(156, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Mã thành phần";
             // 
@@ -124,7 +124,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 101);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(136, 20);
+            this.label3.Size = new System.Drawing.Size(185, 25);
             this.label3.TabIndex = 4;
             this.label3.Text = "Điều kiện sử dụng";
             // 
@@ -157,7 +157,7 @@
             this.checkBoxAnnexVI.AutoSize = true;
             this.checkBoxAnnexVI.Location = new System.Drawing.Point(921, 72);
             this.checkBoxAnnexVI.Name = "checkBoxAnnexVI";
-            this.checkBoxAnnexVI.Size = new System.Drawing.Size(100, 24);
+            this.checkBoxAnnexVI.Size = new System.Drawing.Size(130, 29);
             this.checkBoxAnnexVI.TabIndex = 48;
             this.checkBoxAnnexVI.Text = "Annex VI";
             this.checkBoxAnnexVI.UseVisualStyleBackColor = true;
@@ -167,7 +167,7 @@
             this.checkBoxAnnexV.AutoSize = true;
             this.checkBoxAnnexV.Location = new System.Drawing.Point(812, 72);
             this.checkBoxAnnexV.Name = "checkBoxAnnexV";
-            this.checkBoxAnnexV.Size = new System.Drawing.Size(95, 24);
+            this.checkBoxAnnexV.Size = new System.Drawing.Size(125, 29);
             this.checkBoxAnnexV.TabIndex = 47;
             this.checkBoxAnnexV.Text = "Annex V";
             this.checkBoxAnnexV.UseVisualStyleBackColor = true;
@@ -177,7 +177,7 @@
             this.checkBoxAnnexIV.AutoSize = true;
             this.checkBoxAnnexIV.Location = new System.Drawing.Point(698, 72);
             this.checkBoxAnnexIV.Name = "checkBoxAnnexIV";
-            this.checkBoxAnnexIV.Size = new System.Drawing.Size(100, 24);
+            this.checkBoxAnnexIV.Size = new System.Drawing.Size(130, 29);
             this.checkBoxAnnexIV.TabIndex = 46;
             this.checkBoxAnnexIV.Text = "Annex IV";
             this.checkBoxAnnexIV.UseVisualStyleBackColor = true;
@@ -187,7 +187,7 @@
             this.checkBoxAnnexIII.AutoSize = true;
             this.checkBoxAnnexIII.Location = new System.Drawing.Point(585, 72);
             this.checkBoxAnnexIII.Name = "checkBoxAnnexIII";
-            this.checkBoxAnnexIII.Size = new System.Drawing.Size(99, 24);
+            this.checkBoxAnnexIII.Size = new System.Drawing.Size(126, 29);
             this.checkBoxAnnexIII.TabIndex = 45;
             this.checkBoxAnnexIII.Text = "Annex III";
             this.checkBoxAnnexIII.UseVisualStyleBackColor = true;
@@ -197,7 +197,7 @@
             this.checkBoxAnnexII.AutoSize = true;
             this.checkBoxAnnexII.Location = new System.Drawing.Point(477, 72);
             this.checkBoxAnnexII.Name = "checkBoxAnnexII";
-            this.checkBoxAnnexII.Size = new System.Drawing.Size(94, 24);
+            this.checkBoxAnnexII.Size = new System.Drawing.Size(121, 29);
             this.checkBoxAnnexII.TabIndex = 44;
             this.checkBoxAnnexII.Text = "Annex II";
             this.checkBoxAnnexII.UseVisualStyleBackColor = true;
@@ -207,7 +207,7 @@
             this.comboBoxTenThanhPhan.FormattingEnabled = true;
             this.comboBoxTenThanhPhan.Location = new System.Drawing.Point(12, 72);
             this.comboBoxTenThanhPhan.Name = "comboBoxTenThanhPhan";
-            this.comboBoxTenThanhPhan.Size = new System.Drawing.Size(455, 28);
+            this.comboBoxTenThanhPhan.Size = new System.Drawing.Size(455, 33);
             this.comboBoxTenThanhPhan.TabIndex = 43;
             this.comboBoxTenThanhPhan.SelectedIndexChanged += new System.EventHandler(this.comboBoxTenThanhPhan_SelectedIndexChanged);
             // 
@@ -218,7 +218,7 @@
             this.textBoxIDThanhPhan.Enabled = false;
             this.textBoxIDThanhPhan.Location = new System.Drawing.Point(473, 29);
             this.textBoxIDThanhPhan.Name = "textBoxIDThanhPhan";
-            this.textBoxIDThanhPhan.Size = new System.Drawing.Size(549, 26);
+            this.textBoxIDThanhPhan.Size = new System.Drawing.Size(549, 31);
             this.textBoxIDThanhPhan.TabIndex = 3;
             // 
             // buttonXoatrang
@@ -293,7 +293,6 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 169);
             this.dataGridView1.MultiSelect = false;

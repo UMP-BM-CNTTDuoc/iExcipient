@@ -225,26 +225,21 @@ namespace ClassLibraryIE
                         d_Thanhphan a = i.toThanhPhanDB();
                         dsimport.Add(a);
                     }
-
                     // 2. Lấy dữ liệu hiện có trong DB
                     List<d_Thanhphan> dshienco = db.d_Thanhphans.ToList();
-
                     // 3. Tạo HashSet để check trùng nhanh (O(1))
                     HashSet<string> tapHienCo = new HashSet<string>(
                         dshienco
                             .Where(x => !string.IsNullOrEmpty(x.CAS_No))
                             .Select(x => x.CAS_No.Trim().ToLower())
                     );
-
-                    // 4. Remove những phần tử bị trùng
+                    // 4. Remove những phần tử bị trùng (nếu không có CAS_No thì cho qua)
                     dsimport = dsimport
-                        .Where(x => !string.IsNullOrEmpty(x.CAS_No) &&
+                        .Where(x => string.IsNullOrEmpty(x.CAS_No) ||
                                     !tapHienCo.Contains(x.CAS_No.Trim().ToLower()))
                         .ToList();
-
                     if (dsimport.Count == 0)
                         return false; // không có gì để insert
-
                     db.d_Thanhphans.InsertAllOnSubmit(dsimport);
                     db.SubmitChanges();
                     return true;

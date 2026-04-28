@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ClassLibraryIE;
+using Microsoft.VisualBasic.FileIO;
 
 namespace iExcipient_Form.Forms.Danhmuc
 {
@@ -402,12 +403,17 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void ImportFromCSV(string filePath, List<ThanhPhan> listThanhPhan)
         {
-            using (StreamReader sr = new StreamReader(filePath, Encoding.UTF8))
+            using (Microsoft.VisualBasic.FileIO.TextFieldParser parser =
+                   new Microsoft.VisualBasic.FileIO.TextFieldParser(filePath, Encoding.UTF8))
             {
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
                 bool isFirstRow = true;
-                while (!sr.EndOfStream)
+                while (!parser.EndOfData)
                 {
-                    string line = sr.ReadLine();
+                    string[] values = parser.ReadFields();
 
                     if (isFirstRow)
                     {
@@ -415,31 +421,23 @@ namespace iExcipient_Form.Forms.Danhmuc
                         continue;
                     }
 
-                    string[] values = line.Split(',');
-
-                    if (values.Length >= 3 && !string.IsNullOrWhiteSpace(values[2]))
+                    if (values.Length >= 1 && !string.IsNullOrWhiteSpace(values[0]))
                     {
-                        double khoiLuong = 0;
-                        if (values.Length > 5 && !string.IsNullOrWhiteSpace(values[5]))
-                        {
-                            double.TryParse(values[5].Trim().Trim('"'), out khoiLuong);
-                        }
-
                         ThanhPhan tp = new ThanhPhan
                         {
-                            Ten_INN = values.Length > 0 ? values[0].Trim().Trim('"') : "",
-                            Ten_INCI = values.Length > 1 ? values[1].Trim().Trim('"') : "",
-                            Ten_IUPAC = values.Length > 2 ? values[2].Trim().Trim('"') : "",
-                            CAS_No = values.Length > 3 ? values[3].Trim().Trim('"') : "",
-                            CongThucHoaHoc = values.Length > 4 ? values[4].Trim().Trim('"') : "",
-                            KhoiLuongPhanTu = values.Length > 5 ? values[5].Trim().Trim('"') : "",
-                            CauTrucPhanTu = values.Length > 6 ? values[6].Trim().Trim('"') : "",
-                            TinhChatVatLy = values.Length > 7 ? values[7].Trim().Trim('"') : "",
-                            MoTa = values.Length > 8 ? values[8].Trim().Trim('"') : "",
-                            BaoQuan = values.Length > 9 ? values[9].Trim().Trim('"') : "",
-                            TLTK = values.Length > 11 ? values[11].Trim().Trim('"') : "",
-                            UngDung = values.Length > 12 ? values[12].Trim().Trim('"') : "",
-                            TuongKy = values.Length > 13 ? values[13].Trim().Trim('"') : "",
+                            Ten_INN = values.Length > 0 ? values[0].Trim() : "",
+                            Ten_INCI = values.Length > 1 ? values[1].Trim() : "",
+                            Ten_IUPAC = values.Length > 2 ? values[2].Trim() : "",
+                            CAS_No = values.Length > 3 ? values[3].Trim() : "",
+                            CongThucHoaHoc = values.Length > 4 ? values[4].Trim() : "",
+                            KhoiLuongPhanTu = values.Length > 5 ? values[5].Trim() : "",
+                            CauTrucPhanTu = values.Length > 6 ? values[6].Trim() : "",
+                            TinhChatVatLy = values.Length > 7 ? values[7].Trim() : "",
+                            MoTa = values.Length > 8 ? values[8].Trim() : "",
+                            BaoQuan = values.Length > 9 ? values[9].Trim() : "",
+                            TLTK = values.Length > 11 ? values[11].Trim() : "",
+                            UngDung = values.Length > 12 ? values[12].Trim() : "",
+                            TuongKy = values.Length > 13 ? values[13].Trim() : "",
                             NgayTao = DateTime.Now,
                             NgayCapNhat = DateTime.Now
                         };
@@ -448,7 +446,6 @@ namespace iExcipient_Form.Forms.Danhmuc
                 }
             }
         }
-
         private void textBoxTen_INN_TextChanged(object sender, EventArgs e)
         {
             buttonThem.Enabled = !string.IsNullOrWhiteSpace(textBoxTen_INN.Text);

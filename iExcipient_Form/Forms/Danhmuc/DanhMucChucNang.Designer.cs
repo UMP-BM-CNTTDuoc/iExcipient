@@ -58,7 +58,6 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 196);
             this.dataGridView1.MultiSelect = false;
@@ -86,7 +85,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 20);
+            this.label1.Size = new System.Drawing.Size(148, 25);
             this.label1.TabIndex = 6;
             this.label1.Text = "Mã chức năng";
             // 
@@ -97,7 +96,7 @@
             this.textBoxIDChucNang.Enabled = false;
             this.textBoxIDChucNang.Location = new System.Drawing.Point(12, 29);
             this.textBoxIDChucNang.Name = "textBoxIDChucNang";
-            this.textBoxIDChucNang.Size = new System.Drawing.Size(1010, 26);
+            this.textBoxIDChucNang.Size = new System.Drawing.Size(1010, 31);
             this.textBoxIDChucNang.TabIndex = 7;
             // 
             // panel1
@@ -120,7 +119,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 20);
+            this.label2.Size = new System.Drawing.Size(155, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tên chức năng";
             // 
@@ -130,7 +129,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxChucNang.Location = new System.Drawing.Point(12, 74);
             this.textBoxChucNang.Name = "textBoxChucNang";
-            this.textBoxChucNang.Size = new System.Drawing.Size(1010, 26);
+            this.textBoxChucNang.Size = new System.Drawing.Size(1010, 31);
             this.textBoxChucNang.TabIndex = 3;
             this.textBoxChucNang.TextChanged += new System.EventHandler(this.textBoxChucNang_TextChanged);
             // 
@@ -139,7 +138,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 99);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 20);
+            this.label3.Size = new System.Drawing.Size(66, 25);
             this.label3.TabIndex = 4;
             this.label3.Text = "Mô tả";
             // 
@@ -149,7 +148,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxMoTa.Location = new System.Drawing.Point(12, 119);
             this.textBoxMoTa.Name = "textBoxMoTa";
-            this.textBoxMoTa.Size = new System.Drawing.Size(1010, 26);
+            this.textBoxMoTa.Size = new System.Drawing.Size(1010, 31);
             this.textBoxMoTa.TabIndex = 5;
             // 
             // buttonXoatrang
@@ -212,7 +211,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 172);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 20);
+            this.label4.Size = new System.Drawing.Size(221, 25);
             this.label4.TabIndex = 16;
             this.label4.Text = "Danh sách chức năng";
             // 

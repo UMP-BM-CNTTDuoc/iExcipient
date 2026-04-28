@@ -218,6 +218,8 @@ namespace iExcipient_Form.Forms.Thietlap
                 textBoxMoTa.Text = tp.MoTa;
                 textBoxBaoQuan.Text = tp.BaoQuan;
                 textBoxTLTK.Text = tp.TLTK;
+                textBoxUngDung.Text = tp.UngDung;
+                textBoxTuongKy.Text = tp.TuongKy;
                 textBoxNgayTao.Text = tp.NgayTao != null
                     ? tp.NgayTao.Value.ToString("dd/MM/yyyy HH:mm:ss")
                     : "";
