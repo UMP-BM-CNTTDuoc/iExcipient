@@ -432,12 +432,12 @@ namespace iExcipient_Form.Forms.Danhmuc
                             CongThucHoaHoc = values.Length > 4 ? values[4].Trim() : "",
                             KhoiLuongPhanTu = values.Length > 5 ? values[5].Trim() : "",
                             CauTrucPhanTu = values.Length > 6 ? values[6].Trim() : "",
-                            TinhChatVatLy = values.Length > 7 ? values[7].Trim() : "",
-                            MoTa = values.Length > 8 ? values[8].Trim() : "",
-                            BaoQuan = values.Length > 9 ? values[9].Trim() : "",
-                            TLTK = values.Length > 11 ? values[11].Trim() : "",
-                            UngDung = values.Length > 12 ? values[12].Trim() : "",
-                            TuongKy = values.Length > 13 ? values[13].Trim() : "",
+                            TinhChatVatLy = values.Length > 7 ? values[7].Trim().Replace("\n", "\r\n") : "",
+                            MoTa = values.Length > 8 ? values[8].Trim().Replace("\n", "\r\n") : "",
+                            BaoQuan = values.Length > 9 ? values[9].Trim().Replace("\n", "\r\n") : "",
+                            TLTK = values.Length > 11 ? values[11].Trim().Replace("\n", "\r\n") : "",
+                            UngDung = values.Length > 12 ? values[12].Trim().Replace("\n", "\r\n") : "",
+                            TuongKy = values.Length > 13 ? values[13].Trim().Replace("\n", "\r\n") : "",
                             NgayTao = DateTime.Now,
                             NgayCapNhat = DateTime.Now
                         };
