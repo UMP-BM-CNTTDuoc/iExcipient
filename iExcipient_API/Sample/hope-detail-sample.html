@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra cứu nâng cao - HOPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #ccebe1;
+            --btn-green: #25a173;
+            --text-dark: #333;
+            --border-color: #ddd;
+            --tag-bg: #e8f8f2;
+            --tag-text: #1e835e;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: var(--text-dark); background-color: #fff; }
+        
+        /* Navbar fixed */
+        .navbar { display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-bg); padding: 12px 30px; box-sizing: border-box; }
+        .brand { font-size: 22px; font-weight: bold; }
+        .nav-links { display: flex; gap: 40px; font-size: 18px; font-weight: 600; }
+        .nav-item { cursor: pointer; text-decoration: none; color: var(--text-dark); }
+        .nav-item.active { border-bottom: 3px solid var(--btn-green); padding-bottom: 2px; }
+        
+        .search-bar-container { display: flex; align-items: center; background-color: #f1f3f4; padding: 8px 20px; border-bottom: 1px solid var(--border-color); }
+        .search-input-wrapper { position: relative; flex-grow: 1; max-width: 700px; }
+        .search-input-wrapper input { width: 100%; padding: 8px 10px 8px 40px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+        .search-input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
+
+        /* Bố cục 2 cột chính */
+        .main-layout { display: flex; min-height: calc(100vh - 110px); }
+        
+        /* Cột trái: Danh mục tìm nhanh */
+        .sidebar-left { width: 260px; border-right: 1px solid var(--border-color); padding: 20px 15px; box-sizing: border-box; background-color: #fff; flex-shrink: 0; }
+        .sidebar-section-title { font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #000; }
+        .list-items { list-style: none; padding: 0; margin: 0 0 25px 0; }
+        .list-items li { padding: 8px 10px; font-size: 13px; cursor: pointer; border-radius: 4px; color: #333; font-weight: 500; }
+        .list-items li.active { background-color: #f1f3f4; font-weight: bold; }
+        .list-items li:hover { background-color: #f5f5f5; }
+        .list-items.recent-items li { font-style: italic; color: #555; }
+
+        /* Cột phải: Nội dung chi tiết */
+        .content-body { flex-grow: 1; padding: 30px 40px; box-sizing: border-box; overflow-y: auto; }
+        
+        .header-block { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .title-area { max-width: 70%; }
+        .main-title { font-size: 32px; font-weight: bold; margin: 0 0 15px 0; }
+        .formula-img-box { width: 180px; height: 120px; border: 1px solid #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #fafafa; padding: 10px; }
+        .formula-img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        .tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+        .tag { background-color: var(--tag-bg); color: var(--tag-text); padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: 500; }
+        
+        .btn-pdf { background-color: #dbdbdb; border: none; padding: 8px 16px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 13px; margin-bottom: 25px; }
+
+        .content-section { margin-bottom: 30px; }
+        .section-heading { font-size: 15px; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 4px; margin-bottom: 12px; text-transform: uppercase; }
+        
+        .meta-table { width: 100%; border-collapse: collapse; }
+        .meta-table td { padding: 8px 0; font-size: 14px; vertical-align: top; }
+        .meta-table td:first-child { font-weight: bold; width: 280px; color: #000; }
+        
+        .text-block-p { font-size: 14px; line-height: 1.6; margin: 0 0 12px 0; text-align: justify; color: #222; }
+        
+        /* Đánh giá EWG */
+        .ewg-score-container { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+        .ewg-badge { background-color: #e8f5e9; color: #25a173; padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; border: 1px solid #25a173; }
+        .ewg-legend { background-color: #f1f3f4; padding: 8px 12px; border-radius: 4px; font-size: 11px; color: #666; font-style: italic; line-height: 1.3; }
+
+        .law-badge-allowed { background-color: #e8f5e9; color: #25a173; padding: 4px 15px; border-radius: 15px; font-weight: bold; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="brand">Phasolpro Ingredibase</div>
+        <div class="nav-links">
+            <a href="#" class="nav-item">CosIng</a>
+            <a href="#" class="nav-item active">HOPE</a>
+        </div>
+        <div>
+            <button style="background-color: var(--btn-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: 600; cursor: pointer;"><i class="fa-solid fa-arrow-down"></i> Tải xuống</button>
+        </div>
+    </div>
+
+    <div class="search-bar-container">
+        <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" value="GLYCER">
+        </div>
+    </div>
+
+    <div class="main-layout">
+        
+        <div class="sidebar-left">
+            <div class="sidebar-section-title">Kết quả</div>
+            <ul class="list-items">
+                <li class="active">GLYCERIN</li>
+                <li>GLYCERYL BEHENATE</li>
+            </ul>
+            
+            <div class="sidebar-section-title">Gần đây</div>
+            <ul class="list-items recent-items">
+                <li>DIMETHICONE</li>
+                <li>WATER</li>
+            </ul>
+        </div>
+        
+        <div class="content-body">
+            
+            <div class="header-block">
+                <div class="title-area">
+                    <h1 class="main-title">GLYCERIN</h1>
+                    <div class="tag-container">
+                        <span class="tag">Đồng dung môi</span>
+                        <span class="tag">Chất làm mềm da</span>
+                        <span class="tag">Chất giữ ẩm</span>
+                        <span class="tag">Chất hóa dẻo</span>
+                        <span class="tag">Chất bảo quản</span>
+                        <span class="tag">Dung môi</span>
+                    </div>
+                </div>
+                <div class="formula-img-box">
+                    <span style="color:#aaa; font-size:12px;">[ 2D Chemical Structure ]</span>
+                </div>
+            </div>
+
+            <button class="btn-pdf"><i class="fa-solid fa-download"></i> TẢI PDF</button>
+
+            <div class="content-section">
+                <div class="section-heading">Thông tin tổng quan</div>
+                <table class="meta-table">
+                    <tr><td>Tên INCI</td><td>GLYCERIN</td></tr>
+                    <tr><td>Tên IUPAC</td><td>propane-1,2,3-triol</td></tr>
+                    <tr><td>Tên chung quốc tế (INN)</td><td>GLYCERIN</td></tr>
+                    <tr><td>Mã CAS</td><td>56-81-5</td></tr>
+                    <tr><td>Công thức hóa học</td><td>C<sub>3</sub>H<sub>8</sub>O<sub>3</sub></td></tr>
+                    <tr><td>Khối lượng phân tử (g/mol)</td><td>92.09</td></tr>
+                </table>
+            </div>
+
+            <div class="content-section">
+                <div class="section-heading">Mô tả & Tính chất vật lý</div>
+                <table class="meta-table">
+                    <tr>
+                        <td>Mô tả</td>
+                        <td>
+                            <p class="text-block-p">Glucose lỏng là dung dịch nước của một số hợp chất, chủ yếu là dextrose, dextrin, fructose, và maltose, với các oligosaccharides và polysaccharides khác. Nó là chất lỏng có vị ngọt không màu, không mùi và nhớt...</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tính chất vật lý</td>
+                        <td>
+                            <p class="text-block-p">Điểm sôi: 290 độ C (kèm theo sự phân hủy). Điểm nóng chảy: 17.8 độ C. Khối lượng riêng: 1.2656 g/cm³ ở 15 độ C. Độ hòa tan: Tan trong nước và ethanol (95%).</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content-section">
+                <div class="section-heading">Tương kỵ</div>
+                <p class="text-block-p">Glycerin có thể phát nổ nếu trộn với các chất oxy hóa mạnh như crom trioxide, kali clorat hoặc kali permanganate. Trong dung dịch loãng, phản ứng diễn ra với tốc độ chậm hơn với một số sản phẩm oxy hóa được hình thành.</p>
+            </div>
+
+            <div class="content-section">
+                <div class="section-heading">Độ an toàn - EWG's Skin Deep Rating</div>
+                <div class="ewg-score-container">
+                    <div class="ewg-badge">● 1 - 2: Nguy cơ thấp</div>
+                    <div class="ewg-legend">
+                        1-2: nguy cơ thấp<br>
+                        3-6: nguy cơ trung bình<br>
+                        7-10: nguy cơ cao
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-heading">Quy định pháp lý - Annex EU</div>
+                <div style="padding: 5px 0;">
+                    <span class="law-badge-allowed">● Được phép</span>
+                    <span style="font-size: 14px; margin-left: 15px; color: #555;">Chưa tìm thấy trong các phụ lục Annex hạn chế</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

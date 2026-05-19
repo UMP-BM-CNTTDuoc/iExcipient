@@ -1,0 +1,376 @@
+@model iExcipient_API.Models.CosingSearchViewModel
+@using ClassLibraryIE
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Tra cứu CosIng";
+    
+    var hopeLinks = ViewBag.HopeLinks as Dictionary<int, int> ?? new Dictionary<int, int>();
+    var activeInci = ViewBag.Inci as string ?? "";
+    var activeCas = ViewBag.Cas as string ?? "";
+    var activeEc = ViewBag.Ec as string ?? "";
+}
+
+<style>
+    .advanced-search-box {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        background-color: white;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    
+    .box-title {
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 15px;
+        color: #111;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 6px;
+    }
+    
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    @@media (max-width: 600px) {
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .form-group label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #555;
+    }
+    
+    .form-control {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fcfcfc;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        border-color: var(--btn-green);
+        outline: none;
+    }
+    
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+    
+    .btn-clear {
+        background-color: #b0b0b0;
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 18px;
+        font-size: 13.5px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-clear:hover {
+        background-color: #9c9c9c;
+    }
+    
+    .btn-submit {
+        background-color: var(--btn-green);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 18px;
+        font-size: 13.5px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background-color: var(--btn-green-hover);
+    }
+    
+    .result-count {
+        font-style: italic;
+        margin-bottom: 15px;
+        font-size: 15px;
+        color: var(--text-light);
+    }
+    
+    .table-responsive {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    th {
+        background-color: #fafafa;
+        font-weight: 600;
+        color: #555;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+    
+    .badge {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-right: 4px;
+    }
+
+    .badge-allowed {
+        background-color: #e8f5e9;
+        color: var(--btn-green);
+    }
+
+    .badge-allowed::before {
+        content: "●";
+    }
+
+    .badge-annex {
+        background-color: #ffebee;
+        color: var(--accent-red);
+    }
+
+    .badge-annex::before {
+        content: "●";
+    }
+    
+    .link-action {
+        color: var(--btn-green);
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .link-action:hover {
+        color: var(--btn-green-hover);
+        text-decoration: underline;
+    }
+
+    .link-detail {
+        color: #111;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.15s;
+    }
+
+    .link-detail:hover {
+        color: var(--btn-green);
+    }
+</style>
+
+<!-- Top Search Box (preserves active filters) -->
+<div class="search-container" style="padding: 10px 0 25px 0;">
+    <form action="@Url.Action("Index", "Cosing")" method="get" style="position: relative;">
+        <i class="fa-solid fa-magnifying-glass search-icon" style="left: 20px;"></i>
+        <input type="text" name="q" value="@Model.Keyword" class="main-search" style="padding-left: 55px;" placeholder="Tìm kiếm theo danh pháp INCI, số CAS hoặc mã EC...">
+        
+        @if (Model.FunctionId.HasValue)
+        {
+            <input type="hidden" name="func" value="@Model.FunctionId" />
+        }
+        @foreach (var flag in Model.AnnexFilters)
+        {
+            <input type="hidden" name="annex" value="@flag" />
+        }
+    </form>
+</div>
+
+<!-- Advanced Search Panel -->
+<div class="advanced-search-box">
+    <div class="box-title">Bộ lọc nâng cao</div>
+    <form method="GET" action="@Url.Action("Index", "Cosing")">
+        <!-- We override q if submitting advanced -->
+        <div class="grid-3">
+            <div class="form-group">
+                <label>Tên INCI</label>
+                <input type="text" name="inci" value="@activeInci" class="form-control" placeholder="Nhập một phần INCI...">
+            </div>
+            <div class="form-group">
+                <label>Mã CAS</label>
+                <input type="text" name="cas" value="@activeCas" class="form-control" placeholder="Ví dụ: 56-81-5">
+            </div>
+            <div class="form-group">
+                <label>Mã EC</label>
+                <input type="text" name="ec" value="@activeEc" class="form-control" placeholder="Ví dụ: 200-289-5">
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Nhóm chức năng mỹ phẩm</label>
+                <select name="func" class="form-control">
+                    <option value="">-- Tất cả chức năng --</option>
+                    @foreach (var fn in Model.Functions)
+                    {
+                        <option value="@fn.IDChucnangcosing" @(Model.FunctionId == fn.IDChucnangcosing ? "selected" : "")>@fn.Tenchucnangcosing</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Quy định Annex EU</label>
+                <div class="checkbox-group" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 15px; margin-top: 8px;">
+                    @foreach (var flag in new[] { "II", "III", "IV", "V", "VI" })
+                    {
+                        bool isChecked = Model.AnnexFilters.Contains(flag);
+                        <label class="checkbox-item" style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
+                            <input type="checkbox" name="annex" value="@flag" @(isChecked ? "checked" : "") />
+                            Annex @flag
+                        </label>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a href="@Url.Action("Index", "Cosing")" class="btn-clear">Xóa bộ lọc</a>
+            <button type="submit" class="btn-submit"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+        </div>
+    </form>
+</div>
+
+<div class="result-count">Hiển thị @Model.Results.Count kết quả tương thích</div>
+
+<!-- Grid Table of results -->
+<div class="table-responsive">
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 40px;"><input type="checkbox" id="check-all"></th>
+                <th>Tên danh pháp INCI</th>
+                <th>Mã CAS</th>
+                <th>Mã EC</th>
+                <th>Chức năng mỹ phẩm</th>
+                <th>Annex EU</th>
+                <th>Đối chiếu HOPE</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Results)
+            {
+                // Check if restricted in Annex
+                bool isRestricted = false;
+                List<string> activeAnnexes = new List<string>();
+                if (item.dsQuydinhCosing != null && item.dsQuydinhCosing.Count > 0)
+                {
+                    var r = item.dsQuydinhCosing[0];
+                    if (r.AnnexII == true) { isRestricted = true; activeAnnexes.Add("II"); }
+                    if (r.AnnexIII == true) { isRestricted = true; activeAnnexes.Add("III"); }
+                    if (r.AnnexIV == true) { isRestricted = true; activeAnnexes.Add("IV"); }
+                    if (r.AnnexV == true) { isRestricted = true; activeAnnexes.Add("V"); }
+                    if (r.AnnexVI == true) { isRestricted = true; activeAnnexes.Add("VI"); }
+                }
+                
+                <tr>
+                    <td><input type="checkbox" class="result-check"></td>
+                    <td>
+                        <a href="@Url.Action("Detail", "Cosing", new { id = item.IDThanhphan_Cosing })" class="link-detail">
+                            @item.Ten_INCI
+                        </a>
+                    </td>
+                    <td>@(string.IsNullOrEmpty(item.CAS_No) ? "-" : item.CAS_No)</td>
+                    <td>@(string.IsNullOrEmpty(item.EC_No) ? "-" : item.EC_No)</td>
+                    <td>
+                        @if (item.dsChucNangCosing != null && item.dsChucNangCosing.Count > 0)
+                        {
+                            <span>@string.Join("; ", item.dsChucNangCosing.Select(c => c.Tenchucnangcosing))</span>
+                        }
+                        else
+                        {
+                            <span style="color:#aaa; font-style:italic;">Chưa phân loại</span>
+                        }
+                    </td>
+                    <td>
+                        @if (isRestricted)
+                        {
+                            foreach (var a in activeAnnexes)
+                            {
+                                <span class="badge badge-annex">Annex @a</span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="badge badge-allowed">Được phép</span>
+                        }
+                    </td>
+                    <td>
+                        @if (hopeLinks.ContainsKey(item.IDThanhphan_Cosing))
+                        {
+                            int hopeId = hopeLinks[item.IDThanhphan_Cosing];
+                            <a href="@Url.Action("Detail", "Hope", new { id = hopeId })" class="link-action">
+                                <i class="fa-solid fa-mortar-pestle"></i> Xem HOPE
+                            </a>
+                        }
+                        else
+                        {
+                            <span style="color:#aaa;">-</span>
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.Results.Count == 0)
+            {
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 30px; color: #888; font-style: italic;">
+                        Không tìm thấy chất mỹ phẩm nào khớp với bộ lọc tìm kiếm.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Handle select all checkbox in grid
+    document.getElementById('check-all').addEventListener('change', function(e) {
+        var checks = document.querySelectorAll('.result-check');
+        checks.forEach(function(c) {
+            c.checked = e.target.checked;
+        });
+    });
+</script>

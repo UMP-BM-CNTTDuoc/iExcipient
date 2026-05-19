@@ -1,45 +1,407 @@
-﻿<div id="body">
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>Welcome to ASP.NET Web API!</h1>
-                <h2>Modify the code in this template to jump-start your ASP.NET Web API development.</h2>
-            </hgroup>
-            <p>
-                ASP.NET Web API allows you to expose your applications, data and services to the
-                web directly over HTTP.
-            </p>
-            <p>
-                To learn more about ASP.NET Web API visit the
-                <a href="http://go.microsoft.com/fwlink/?LinkID=238195" title="ASP.NET Web API Website">ASP.NET Web API Website</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET Web API.
-                If you have any questions about ASP.NET Web API, visit
-                <a href="http://go.microsoft.com/fwlink/?LinkID=238196" title="ASP.NET Web API Forum">our forums</a>.
-            </p>
-        </div>
-    </section>
-    <section class="content-wrapper main-content clear-fix">
-        <h3>We suggest the following steps:</h3>
-        <ol class="round">
-            <li class="one">
-                <h5>Getting Started</h5>
-                ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-                a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-                is an ideal platform for building RESTful applications on the .NET Framework.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245160">Learn more…</a>
-            </li>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Trang chủ";
+}
 
-            <li class="two">
-                <h5>Add NuGet packages and jump-start your coding</h5>
-                NuGet makes it easy to install and update free libraries and tools.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245161">Learn more…</a>
-            </li>
-            <li class="three">
-                <h5>Find Web Hosting</h5>
-                You can easily find a web hosting company that offers the right mix of features
-                and price for your applications.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245164">Learn more…</a>
-            </li>
-        </ol>
-    </section>
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #e8f8f2 0%, #ccebe1 100%);
+        padding: 50px 30px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero-section h1 {
+        font-size: 38px;
+        color: #1e835e;
+        margin: 0 0 10px 0;
+        font-weight: 800;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+        color: #555;
+        max-width: 800px;
+        margin: 0 auto 30px auto;
+        line-height: 1.5;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        max-width: 1100px;
+        margin: -30px auto 40px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .stat-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        border-color: var(--btn-green);
+    }
+
+    .stat-icon {
+        font-size: 36px;
+        color: var(--btn-green);
+        margin-bottom: 15px;
+    }
+
+    .stat-number {
+        font-size: 32px;
+        font-weight: bold;
+        color: #111;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: #666;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Search Section Wrapper */
+    .search-sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        max-width: 1100px;
+        margin: 0 auto 50px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    @@media (max-width: 768px) {
+        .search-sections {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .quick-search-box {
+        background: #fafafa;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .quick-search-box h3 {
+        margin-top: 0;
+        font-size: 20px;
+        color: #222;
+        border-bottom: 2px solid var(--btn-green);
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .quick-search-box p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        min-height: 45px;
+    }
+
+    .quick-search-form {
+        display: flex;
+        gap: 10px;
+    }
+
+    .quick-search-form input {
+        flex-grow: 1;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14.5px;
+    }
+
+    .quick-search-form button {
+        background-color: var(--btn-green);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .quick-search-form button:hover {
+        background-color: var(--btn-green-hover);
+    }
+
+    /* Comparison Table Styling */
+    .table-section {
+        max-width: 1100px;
+        margin: 0 auto 50px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .table-section h2 {
+        text-align: center;
+        font-size: 24px;
+        color: #222;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+
+    .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .compare-table th {
+        background-color: #25a173;
+        color: white;
+        font-weight: 600;
+        padding: 14px 18px;
+        text-align: left;
+        font-size: 15px;
+    }
+
+    .compare-table td {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 14.5px;
+        color: #333;
+        vertical-align: top;
+        line-height: 1.5;
+    }
+
+    .compare-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .compare-table tr:nth-child(even) td {
+        background-color: #fbfdfc;
+    }
+
+    .compare-table td:first-child {
+        font-weight: bold;
+        width: 20%;
+        background-color: #f5f5f5 !important;
+        color: #111;
+    }
+
+    .compare-table td:nth-child(2),
+    .compare-table td:nth-child(3) {
+        width: 40%;
+    }
+
+    /* Manual Section */
+    .manual-section {
+        background: #fdfdfd;
+        border-top: 1px solid var(--border-color);
+        padding: 50px 30px;
+    }
+
+    .manual-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .manual-container h2 {
+        font-size: 26px;
+        color: #222;
+        text-align: center;
+        margin-bottom: 35px;
+        font-weight: 700;
+    }
+
+    .manual-step {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .manual-step-num {
+        background-color: var(--primary-bg);
+        color: var(--tag-text);
+        font-size: 20px;
+        font-weight: bold;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .manual-step-content h3 {
+        margin: 0 0 8px 0;
+        font-size: 18px;
+        color: #222;
+    }
+
+    .manual-step-content p {
+        margin: 0;
+        font-size: 14.5px;
+        color: #555;
+        line-height: 1.6;
+    }
+</style>
+
+<div class="hero-section">
+    <h1>Cơ sở dữ liệu Nguyên liệu & Tá dược</h1>
+    <p>
+        Hệ thống tích hợp hỗ trợ nghiên cứu, tra cứu các thông số hóa lý, quy định an toàn pháp lý mỹ phẩm (CosIng) 
+        và tá dược y tế chuyên sâu (HOPE). Giúp định hình và chuẩn hóa công thức bào chế nhanh chóng.
+    </p>
+</div>
+
+<!-- Stats Counters -->
+<div class="stats-grid">
+    <a href="@Url.Action("Index", "Hope")" class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
+        <div class="stat-number">@ViewBag.CountHope</div>
+        <div class="stat-label">Tá dược HOPE</div>
+    </a>
+    <a href="@Url.Action("Index", "Cosing")" class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-pump-soap"></i></div>
+        <div class="stat-number">@ViewBag.CountCosing</div>
+        <div class="stat-label">Chất mỹ phẩm CosIng</div>
+    </a>
+    <div class="stat-card">
+        <div class="stat-icon" style="color: var(--accent-red);"><i class="fa-solid fa-scale-balanced"></i></div>
+        <div class="stat-number">@ViewBag.CountAnnex</div>
+        <div class="stat-label">Quy định hạn chế (Annex)</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="color: var(--accent-yellow);"><i class="fa-solid fa-shield-heart"></i></div>
+        <div class="stat-number">@ViewBag.CountEwg</div>
+        <div class="stat-label">Đánh giá EWG Skin Deep</div>
+    </div>
+</div>
+
+<!-- Search Inputs Section -->
+<div class="search-sections">
+    <div class="quick-search-box">
+        <div>
+            <h3><i class="fa-solid fa-pump-soap" style="color: var(--btn-green);"></i> Tra cứu CosIng (Mỹ phẩm)</h3>
+            <p>Tìm kiếm nhanh các thành phần mỹ phẩm theo tên INCI hoặc mã CAS/EC để kiểm tra quy định an toàn của Liên minh Châu Âu (EU).</p>
+        </div>
+        <form action="@Url.Action("Index", "Cosing")" method="get" class="quick-search-form">
+            <input type="text" name="q" placeholder="Nhập tên INCI, mã CAS..." required>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Tìm</button>
+        </form>
+    </div>
+
+    <div class="quick-search-box">
+        <div>
+            <h3><i class="fa-solid fa-mortar-pestle" style="color: var(--btn-green);"></i> Tra cứu HOPE (Tá dược dược phẩm)</h3>
+            <p>Tìm kiếm các tá dược chuyên sâu theo tên INN, IUPAC, CAS. Kiểm tra chi tiết tính chất vật lý, độ an toàn EWG và tương kỵ bào chế.</p>
+        </div>
+        <form action="@Url.Action("Index", "Hope")" method="get" class="quick-search-form">
+            <input type="text" name="q" placeholder="Nhập tên INN, CAS..." required>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Tìm</button>
+        </form>
+    </div>
+</div>
+
+<!-- Comparison Table -->
+<div class="table-section">
+    <h2>So sánh hệ thống dữ liệu CosIng và HOPE</h2>
+    <table class="compare-table">
+        <thead>
+            <tr>
+                <th>Tiêu chí so sánh</th>
+                <th>Phân hệ CosIng (Mỹ phẩm)</th>
+                <th>Phân hệ HOPE (Tá dược Dược phẩm)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Đối tượng tra cứu</td>
+                <td>Dành cho thành phần, nguyên liệu sản xuất mỹ phẩm theo cơ sở dữ liệu chính thức của EU.</td>
+                <td>Dành cho các tá dược y tế chính thức trong cẩm nang tá dược quốc tế (Handbook of Pharmaceutical Excipients).</td>
+            </tr>
+            <tr>
+                <td>Thông tin cốt lõi</td>
+                <td>Tên danh pháp mỹ phẩm INCI, số CAS, số EC, phân loại chức năng mỹ phẩm và cảnh báo hạn chế pháp lý.</td>
+                <td>Tên danh pháp quốc tế INN, IUPAC, tên khác, công thức hóa học, khối lượng, mô tả lý hóa, tương kỵ và liên kết cấu trúc PubChem.</td>
+            </tr>
+            <tr>
+                <td>Bản chất an toàn</td>
+                <td>Ràng buộc về mặt pháp luật và quy chuẩn phân phối mỹ phẩm tại Châu Âu.</td>
+                <td>Đánh giá an toàn thực nghiệm theo thang điểm EWG Skin Deep (Hazard rating 1-10) và lưu ý tính tương kỵ hóa học.</td>
+            </tr>
+            <tr>
+                <td>Quy định Annex pháp lý</td>
+                <td>Tích hợp trực tiếp các phụ lục cấm (Annex II), hạn chế (Annex III), chất tạo màu (Annex IV), chất bảo quản (Annex V), lọc UV (Annex VI).</td>
+                <td>Có đối chiếu chéo sang quy định Annex EU để kiểm tra mức độ cảnh báo giới hạn của chất.</td>
+            </tr>
+            <tr>
+                <td>Tính liên kết chéo</td>
+                <td>Cho phép đối chiếu và chuyển hướng sang chuyên luận tá dược dược phẩm HOPE tương đương nếu có liên kết.</td>
+                <td>Cho phép đối chiếu ngược lại danh mục nguyên liệu CosIng để xem chức năng mỹ phẩm của tá dược đó.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- User Manual Section -->
+<div class="manual-section" id="huong-dan">
+    <div class="manual-container">
+        <h2>Hướng dẫn sử dụng hệ thống</h2>
+        
+        <div class="manual-step">
+            <div class="manual-step-num">1</div>
+            <div class="manual-step-content">
+                <h3>Lựa chọn phân hệ phù hợp</h3>
+                <p>
+                    Sử dụng thanh điều hướng chính ở đầu trang để chuyển đổi giữa hai tab <strong>CosIng</strong> (nghiên cứu thành phần mỹ phẩm) 
+                    hoặc <strong>HOPE</strong> (nghiên cứu tá dược bào chế thuốc).
+                </p>
+            </div>
+        </div>
+
+        <div class="manual-step">
+            <div class="manual-step-num">2</div>
+            <div class="manual-step-content">
+                <h3>Tìm kiếm & Lọc nâng cao</h3>
+                <p>
+                    Nhập từ khóa (tên chất, mã CAS) vào ô tìm kiếm. Sử dụng bảng bộ lọc bên trái để lọc danh sách kết quả 
+                    theo nhóm chức năng mong muốn, khoảng điểm an toàn EWG hoặc nhóm quy định pháp lý Annex giới hạn của Châu Âu.
+                </p>
+            </div>
+        </div>
+
+        <div class="manual-step">
+            <div class="manual-step-num">3</div>
+            <div class="manual-step-content">
+                <h3>Xem chuyên luận & Xuất PDF</h3>
+                <p>
+                    Click vào tên chất trong danh sách kết quả để xem toàn bộ thông tin chi tiết. 
+                    Bạn có thể tải tài liệu chuyên luận này về máy dưới dạng tệp PDF bằng cách nhấn nút <strong>Xuất PDF / Tải PDF</strong> trên trang chi tiết chất.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>

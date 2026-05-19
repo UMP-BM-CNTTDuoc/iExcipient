@@ -21,6 +21,5 @@ namespace iExcipient_API.Models
 
         public List<ThanhPhan> KetQua { get; set; }
         public List<ChucNang> DSChucNang { get; set; }
-        public List<DangBaoChe> DSDangBaoChe { get; set; }
     }
 }

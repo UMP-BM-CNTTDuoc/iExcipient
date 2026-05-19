@@ -1,0 +1,251 @@
+@using ClassLibraryIE
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Chi tiết hoạt chất - CosIng";
+    
+    var activeDetail = ViewBag.ActiveDetail as ThanhPhanCosing;
+    var hopeLinkId = ViewBag.HopeLinkId as int?;
+    var hopeLinkName = ViewBag.HopeLinkName as string ?? "";
+}
+
+<style>
+    .detail-wrapper {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    
+    .chemical-title {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0 0 15px 0;
+        color: #111;
+        letter-spacing: 0.5px;
+    }
+    
+    .section-title {
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 2px solid #222;
+        padding-bottom: 6px;
+        margin-bottom: 18px;
+        margin-top: 35px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #111;
+    }
+
+    .section-title:first-of-type {
+        margin-top: 20px;
+    }
+    
+    .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 25px;
+    }
+    
+    .info-table td {
+        padding: 12px 0;
+        font-size: 15px;
+        border-bottom: 1px solid #f1f1f1;
+        color: #333;
+    }
+    
+    .info-table td:first-child {
+        font-weight: bold;
+        width: 250px;
+        color: #555;
+    }
+    
+    .law-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+        font-size: 14.5px;
+        line-height: 1.5;
+    }
+    
+    .law-badge {
+        padding: 4px 15px;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 11px;
+        white-space: nowrap;
+        min-width: 90px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    .law-badge.allowed {
+        background-color: #e8f5e9;
+        color: var(--btn-green);
+        border: 1px solid var(--btn-green);
+    }
+    
+    .law-badge.annex-danger {
+        background-color: #ffebee;
+        color: var(--accent-red);
+        border: 1px solid var(--accent-red);
+    }
+    
+    .hope-link-box {
+        margin-top: 15px;
+    }
+
+    .btn-hope-redirect {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        background: #f1f3f4;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        font-weight: 600;
+        transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-hope-redirect:hover {
+        background: #e4e7e8;
+        border-color: #ccc;
+        color: var(--btn-green-hover);
+    }
+</style>
+
+<!-- Top Search Redirect Bar -->
+<div class="search-container" style="padding: 10px 0 25px 0;">
+    <form action="@Url.Action("Index", "Cosing")" method="get" style="position: relative;">
+        <i class="fa-solid fa-magnifying-glass search-icon" style="left: 20px;"></i>
+        <input type="text" name="q" class="main-search" style="padding-left: 55px;" placeholder="Tìm kiếm theo danh pháp INCI, số CAS hoặc mã EC...">
+    </form>
+</div>
+
+@if (activeDetail != null)
+{
+    <div class="detail-wrapper">
+        <h1 class="chemical-title">@activeDetail.Ten_INCI</h1>
+
+        <!-- Badges container -->
+        <div class="tag-container" style="margin-bottom: 20px;">
+            @if (activeDetail.dsChucNangCosing != null && activeDetail.dsChucNangCosing.Count > 0)
+            {
+                foreach (var fn in activeDetail.dsChucNangCosing)
+                {
+                    <span class="tag">@fn.Tenchucnangcosing</span>
+                }
+            }
+            else
+            {
+                <span class="tag" style="background:#eee; color:#666;">Chưa phân loại nhóm chức năng</span>
+            }
+        </div>
+
+        <!-- Export button -->
+        <button class="btn-pdf" onclick="window.print()"><i class="fa-solid fa-download"></i> TẢI PDF / XUẤT PDF</button>
+
+        <!-- General Info Table -->
+        <div class="section-title">Thông tin chung</div>
+        <table class="info-table">
+            <tr>
+                <td>Tên danh pháp mỹ phẩm (INCI)</td>
+                <td style="font-weight: bold; color: #111;">@activeDetail.Ten_INCI</td>
+            </tr>
+            <tr>
+                <td>Mã số CAS</td>
+                <td>@(string.IsNullOrEmpty(activeDetail.CAS_No) ? "-" : activeDetail.CAS_No)</td>
+            </tr>
+            <tr>
+                <td>Mã số EC</td>
+                <td>@(string.IsNullOrEmpty(activeDetail.EC_No) ? "-" : activeDetail.EC_No)</td>
+            </tr>
+        </table>
+
+        <!-- Regulatory/Annex EU section -->
+        <div class="section-title">Quy định pháp lý - Annex EU</div>
+        <div class="legal-content">
+            @{
+                bool hasRestricted = false;
+                if (activeDetail.dsQuydinhCosing != null && activeDetail.dsQuydinhCosing.Count > 0)
+                {
+                    var r = activeDetail.dsQuydinhCosing[0];
+                    if (r.AnnexII == true)
+                    {
+                        hasRestricted = true;
+                        <div class="law-row">
+                            <span class="law-badge annex-danger">ANNEX II</span>
+                            <div><strong>Bị cấm sử dụng</strong> trong các sản phẩm mỹ phẩm phân phối tại thị trường EU.</div>
+                        </div>
+                    }
+                    if (r.AnnexIII == true)
+                    {
+                        hasRestricted = true;
+                        <div class="law-row">
+                            <span class="law-badge annex-danger">ANNEX III</span>
+                            <div><strong>Giới hạn nồng độ</strong>, tỷ lệ phần trăm tối đa và các cảnh báo bắt buộc khi ghi nhãn.</div>
+                        </div>
+                    }
+                    if (r.AnnexIV == true)
+                    {
+                        hasRestricted = true;
+                        <div class="law-row">
+                            <span class="law-badge annex-danger">ANNEX IV</span>
+                            <div><strong>Danh mục chất màu</strong> được phép sử dụng có điều kiện trong mỹ phẩm.</div>
+                        </div>
+                    }
+                    if (r.AnnexV == true)
+                    {
+                        hasRestricted = true;
+                        <div class="law-row">
+                            <span class="law-badge annex-danger">ANNEX V</span>
+                            <div><strong>Chất bảo quản được phép dùng</strong> và giới hạn nồng độ an toàn tương ứng.</div>
+                        </div>
+                    }
+                    if (r.AnnexVI == true)
+                    {
+                        hasRestricted = true;
+                        <div class="law-row">
+                            <span class="law-badge annex-danger">ANNEX VI</span>
+                            <div><strong>Màng lọc UV / Chất lọc tia tử ngoại</strong> được phê duyệt sử dụng trong kem chống nắng.</div>
+                        </div>
+                    }
+                }
+                
+                if (!hasRestricted)
+                {
+                    <div class="law-row">
+                        <span class="law-badge allowed">ĐƯỢC PHÉP</span>
+                        <div>Nguyên liệu an toàn, chưa tìm thấy giới hạn hay cảnh báo cấm sử dụng trong các phụ lục Annex của EU.</div>
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- Cross-link to HOPE -->
+        <div class="section-title">Xem thêm trong tá dược HOPE</div>
+        <div class="hope-link-box">
+            @if (hopeLinkId.HasValue)
+            {
+                <p style="font-size: 14.5px; color:#555; margin-bottom: 12px;">
+                    Chất này có chuyên luận tá dược dược phẩm chuyên sâu trong phân hệ HOPE. Click để chuyển sang xem tính chất lý hóa và tương kỵ bào chế:
+                </p>
+                <a href="@Url.Action("Detail", "Hope", new { id = hopeLinkId.Value })" class="btn-hope-redirect">
+                    <i class="fa-solid fa-mortar-pestle"></i> @hopeLinkName <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+                </a>
+            }
+            else
+            {
+                <p style="color:#888; font-style:italic; font-size:13.5px;"><i class="fa-solid fa-circle-info"></i> Không tìm thấy liên kết tương ứng với danh mục tá dược HOPE.</p>
+            }
+        </div>
+
+        <div class="footer-source">
+            Nguồn dữ liệu: Cơ sở dữ liệu nguyên liệu mỹ phẩm Châu Âu (EU CosIng) - Quy định (EC) số 1223/2009 về Mỹ phẩm của Nghị viện và Hội đồng Châu Âu.
+        </div>
+    </div>
+}

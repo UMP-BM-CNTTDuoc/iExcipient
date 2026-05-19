@@ -25,8 +25,7 @@ namespace iExcipient_API.Controllers
                 AnnexIV = annexIV,
                 AnnexV = annexV,
                 AnnexVI = annexVI,
-                DSChucNang = data.GetDSChucNang(),
-                DSDangBaoChe = data.GetDSDangBaoChe()
+                DSChucNang = data.GetDSChucNang()
             };
 
             List<ThanhPhan> result = new List<ThanhPhan>();
@@ -40,10 +39,6 @@ namespace iExcipient_API.Controllers
             // Lọc theo chức năng
             if (chucnang.HasValue)
                 result = result.Where(tp => tp.dsChucNang.Any(cn => cn.IDChucnang == chucnang.Value)).ToList();
-
-            // Lọc theo dạng bào chế
-            if (dangbaoche.HasValue)
-                result = result.Where(tp => tp.dsDangBaoChe.Any(db => db.IDDangbaoche == dangbaoche.Value)).ToList();
 
             // Lọc theo Annex
             if (annexII == true)

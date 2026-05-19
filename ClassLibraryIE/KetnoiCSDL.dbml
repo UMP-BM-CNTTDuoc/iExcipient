@@ -8,6 +8,17 @@
       <Association Name="d_Chucnang_r_Thanhphan_Chucnang" Member="r_Thanhphan_Chucnangs" ThisKey="IDChucnang" OtherKey="IDChucnang" Type="r_Thanhphan_Chucnang" />
     </Type>
   </Table>
+  <Table Name="dbo.r_Thanhphan_EWGScore" Member="r_Thanhphan_EWGScores">
+    <Type Name="r_Thanhphan_EWGScore">
+      <Column Name="IDEWGScore" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EWG_Score_from" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EWG_Score_to" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EWG_Score" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="EWG_DataAvailability" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="d_Thanhphan_r_Thanhphan_EWGScore" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.d_Chucnangcosing" Member="d_Chucnangcosings">
     <Type Name="d_Chucnangcosing">
       <Column Name="IDChucnangcosing" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -60,11 +71,11 @@
       <Column Name="Ungdung" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
       <Column Name="Tuongky" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
       <Column Name="TenKhac" Type="System.String" DbType="VarChar(4000)" CanBeNull="true" />
+      <Association Name="d_Thanhphan_r_Thanhphan_EWGScore" Member="r_Thanhphan_EWGScores" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Thanhphan_EWGScore" />
       <Association Name="d_Thanhphan_d_Quydinh" Member="d_Quydinhs" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Quydinh" />
       <Association Name="d_Thanhphan_r_Chatlienquan" Member="r_Chatlienquans" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Chatlienquan" />
       <Association Name="d_Thanhphan_r_Link_Cosing_Sach" Member="r_Link_Cosing_Saches" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Link_Cosing_Sach" />
       <Association Name="d_Thanhphan_r_Thanhphan_Chucnang" Member="r_Thanhphan_Chucnangs" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Thanhphan_Chucnang" />
-      <Association Name="d_Thanhphan_r_Thanhphan_EWGScore" Member="r_Thanhphan_EWGScores" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="r_Thanhphan_EWGScore" />
     </Type>
   </Table>
   <Table Name="dbo.d_Thanhphan_Cosing" Member="d_Thanhphan_Cosings">
@@ -111,17 +122,6 @@
       <Column Name="IDChucnangcosing" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="d_Chucnangcosing_r_Thanhphan_Chucnangcosing" Member="d_Chucnangcosing" ThisKey="IDChucnangcosing" OtherKey="IDChucnangcosing" Type="d_Chucnangcosing" IsForeignKey="true" />
       <Association Name="d_Thanhphan_Cosing_r_Thanhphan_Chucnangcosing" Member="d_Thanhphan_Cosing" ThisKey="IDThanhphan_Cosing" OtherKey="IDThanhphan_Cosing" Type="d_Thanhphan_Cosing" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.r_Thanhphan_EWGScore" Member="r_Thanhphan_EWGScores">
-    <Type Name="r_Thanhphan_EWGScore">
-      <Column Name="IDEWGScore" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="IDThanhphan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="EWG_Score_from" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="EWG_Score_to" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="EWG_Score" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="EWG_DataAvailability" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Association Name="d_Thanhphan_r_Thanhphan_EWGScore" Member="d_Thanhphan" ThisKey="IDThanhphan" OtherKey="IDThanhphan" Type="d_Thanhphan" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

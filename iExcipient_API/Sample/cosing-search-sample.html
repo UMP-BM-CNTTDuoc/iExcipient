@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phasolpro Ingredibase - CosIng Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #ccebe1;
+            --btn-green: #25a173;
+            --btn-green-hover: #1e835e;
+            --text-dark: #333;
+            --border-color: #ddd;
+            --allowed-color: #25a173;
+            --annex-color: #e76f51;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; color: var(--text-dark); background-color: #f8f9fa; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-bg); padding: 15px 30px; border-radius: 4px; margin-bottom: 20px; }
+        .brand { font-size: 24px; font-weight: bold; }
+        .nav-links { display: flex; gap: 40px; font-size: 20px; font-weight: 600; }
+        .nav-item { cursor: pointer; text-decoration: none; color: var(--text-dark); }
+        .nav-item.active { border-bottom: 3px solid var(--btn-green); padding-bottom: 2px; }
+        .nav-actions { display: flex; gap: 15px; }
+        .btn { padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+        .btn-download { background-color: var(--btn-green); color: white; }
+        .btn-history { background-color: #b0b0b0; color: white; }
+        
+        .search-container { position: relative; margin-bottom: 20px; }
+        .main-search { width: 100%; padding: 15px 15px 15px 50px; font-size: 16px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; background-color: #f1f3f4; }
+        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; }
+
+        .advanced-search-box { border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; background-color: white; margin-bottom: 20px; position: relative; }
+        .box-title { font-weight: bold; margin-top: 0; margin-bottom: 15px; font-size: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 13px; font-weight: 600; color: #555; }
+        .form-control { padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; background-color: #f1f3f4; font-size: 14px; }
+        .form-actions { display: flex; justify-content: flex-end; gap: 10px; }
+        .btn-clear { background-color: #b0b0b0; color: white; }
+        .btn-submit { background-color: #a3ebd2; color: var(--text-dark); }
+
+        .result-count { font-style: italic; margin-bottom: 15px; font-size: 15px; }
+        .table-responsive { background-color: white; border-radius: 8px; overflow: hidden; border: 1px solid #eee; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+        th { background-color: #fff; font-weight: 600; color: #666; text-transform: uppercase; font-size: 12px; }
+        th i { font-size: 11px; margin-left: 3px; }
+        
+        .badge { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+        .badge-allowed { background-color: #e8f5e9; color: var(--allowed-color); }
+        .badge-allowed::before { content: "●"; }
+        .badge-annex { background-color: #ffebee; color: var(--annex-color); }
+        .badge-annex::before { content: "●"; }
+        
+        .link-action { color: #666; text-decoration: none; cursor: pointer; }
+        .link-action:hover { text-decoration: underline; }
+        .pagination-container { display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: white; border-top: 1px solid #eee; font-size: 14px; }
+        .btn-page { padding: 6px 12px; border: 1px solid var(--border-color); background: white; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="brand">Phasolpro Ingredibase</div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active">CosIng</a>
+            <a href="#" class="nav-item">HOPE</a>
+        </div>
+        <div class="nav-actions">
+            <button class="btn btn-download"><i class="fa-solid fa-arrow-down"></i> Tải xuống</button>
+            <button class="btn btn-history"><i class="fa-regular fa-clock"></i> Lịch sử</button>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="main-search" placeholder="Tìm kiếm theo tên INCI, mã CAS, mã EC">
+    </div>
+
+    <div class="advanced-search-box">
+        <div class="box-title">Tìm kiếm nâng cao</div>
+        <form id="advancedSearchForm" method="GET" action="/CosIng/Search">
+            <div class="grid-3">
+                <div class="form-group">
+                    <label>Tên INCI</label>
+                    <input type="text" name="inciName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Mã CAS</label>
+                    <input type="text" name="casCode" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Mã EC</label>
+                    <input type="text" name="ecCode" class="form-control">
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Annex EU</label>
+                    <select name="annexEu" class="form-control">
+                        <option value="">Chọn Annex</option>
+                        <option value="Allowed">Được phép</option>
+                        <option value="AnnexV">Annex V</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nhóm chức năng</label>
+                    <select name="functionalGroup" class="form-control">
+                        <option value="">Chọn nhóm chức năng</option>
+                        <option value="1">Chất tẩy rửa</option>
+                        <option value="2">Chất làm mềm da</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-clear">Xóa bộ lọc</button>
+                <button type="submit" class="btn btn-submit">Tìm kiếm</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="result-count">Hiển thị 6 kết quả</div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40px;"><input type="checkbox"></th>
+                    <th>Tên INCI <i class="fa-solid fa-arrow-down"></i></th>
+                    <th>Mã CAS <i class="fa-solid fa-arrow-down"></i></th>
+                    <th>Chức năng <i class="fa-solid fa-arrow-down"></i></th>
+                    <th>Annex EU <i class="fa-solid fa-arrow-down"></i></th>
+                    <th>Xem HOPE</th>
+                    <th style="width: 30px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" checked></td>
+                    <td style="font-weight: bold;">CETYL ALCOHOL</td>
+                    <td>36653-82-4</td>
+                    <td>Chất tẩy rửa; Chất nhũ hóa;...</td>
+                    <td><span class="badge badge-allowed">Được phép</span></td>
+                    <td><a href="/Hope/Detail/36653-82-4" class="link-action">Xem HOPE</a></td>
+                    <td><i class="fa-solid fa-ellipsis-vertical" style="color:#aaa; cursor:pointer;"></i></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" checked></td>
+                    <td style="font-weight: bold;">CETYL DIMETHICONE</td>
+                    <td>191044-49-2</td>
+                    <td>Dưỡng da - Chất làm mềm da</td>
+                    <td><span class="badge badge-allowed">Được phép</span></td>
+                    <td>-</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical" style="color:#aaa; cursor:pointer;"></i></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" checked></td>
+                    <td style="font-weight: bold;">CHLORHEXIDINE</td>
+                    <td>55-56-1</td>
+                    <td>Chất kháng khuẩn; Chăm sóc răng miệng;...</td>
+                    <td><span class="badge badge-annex">Annex V</span></td>
+                    <td><a href="#" class="link-action">Xem HOPE</a></td>
+                    <td><i class="fa-solid fa-ellipsis-vertical" style="color:#aaa; cursor:pointer;"></i></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="pagination-container">
+            <div>1 - 6 of 6 items</div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-page" disabled>Previous</button>
+                <button class="btn-page" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

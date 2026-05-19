@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,9 +14,33 @@ namespace iExcipient_API
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "HopeDetails",
+                url: "hope/detail/{id}",
+                defaults: new { controller = "Hope", action = "Detail", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "HopeSearch",
+                url: "hope",
+                defaults: new { controller = "Hope", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "CosingDetails",
+                url: "cosing/detail/{id}",
+                defaults: new { controller = "Cosing", action = "Detail", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "CosingSearch",
+                url: "cosing",
+                defaults: new { controller = "Cosing", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Tracuu", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
