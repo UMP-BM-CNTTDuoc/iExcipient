@@ -219,12 +219,12 @@ namespace iExcipient_Form.Forms.Thietlap
                 textBoxCongThucHoaHoc.Text = tp.CongThucHoaHoc;
                 textBoxKhoiLuongPhanTu.Text = tp.KhoiLuongPhanTu;
                 textBoxCauTrucPhanTu.Text = tp.CauTrucPhanTu;
-                textBoxTinhChatVatLy.Text = tp.TinhChatVatLy;
-                textBoxMoTa.Text = tp.MoTa;
-                textBoxBaoQuan.Text = tp.BaoQuan;
-                textBoxTLTK.Text = tp.TLTK;
-                textBoxUngDung.Text = tp.UngDung;
-                textBoxTuongKy.Text = tp.TuongKy;
+                textBoxTinhChatVatLy.Text = tp.TinhChatVatLy != null ? tp.TinhChatVatLy.Replace("\n", "\r\n") : "";
+                textBoxMoTa.Text = tp.MoTa != null ? tp.MoTa.Replace("\n", "\r\n") : "";
+                textBoxBaoQuan.Text = tp.BaoQuan != null ? tp.BaoQuan.Replace("\n", "\r\n") : "";
+                textBoxTLTK.Text = tp.TLTK != null ? tp.TLTK.Replace("\n", "\r\n") : "";
+                textBoxUngDung.Text = tp.UngDung != null ? tp.UngDung.Replace("\n", "\r\n") : "";
+                textBoxTuongKy.Text = tp.TuongKy != null ? tp.TuongKy.Replace("\n", "\r\n") : "";
                 textBoxNgayTao.Text = tp.NgayTao != null
                     ? tp.NgayTao.Value.ToString("dd/MM/yyyy HH:mm:ss")
                     : "";
