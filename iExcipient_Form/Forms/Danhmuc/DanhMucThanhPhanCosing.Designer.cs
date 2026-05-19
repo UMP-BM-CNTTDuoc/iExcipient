@@ -48,6 +48,7 @@
             this.textBoxCAS_No = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelTongSo = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -160,18 +161,19 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 6);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 174);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1010, 459);
+            this.dataGridView1.Size = new System.Drawing.Size(1010, 291);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.labelTongSo);
             this.panel3.Controls.Add(this.dataGridView1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -268,6 +270,14 @@
             this.panel1.Size = new System.Drawing.Size(1034, 137);
             this.panel1.TabIndex = 21;
             // 
+            // labelTongSo
+            // 
+            this.labelTongSo.AutoSize = true;
+            this.labelTongSo.Location = new System.Drawing.Point(12, 146);
+            this.labelTongSo.Name = "labelTongSo";
+            this.labelTongSo.Size = new System.Drawing.Size(0, 25);
+            this.labelTongSo.TabIndex = 17;
+            // 
             // DanhMucThanhPhanCosing
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -285,6 +295,7 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -311,5 +322,6 @@
         private System.Windows.Forms.TextBox textBoxCAS_No;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelTongSo;
     }
 }

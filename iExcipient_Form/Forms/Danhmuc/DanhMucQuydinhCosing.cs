@@ -42,7 +42,7 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosing();
+                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(200);
                 comboBoxTenThanhPhanCosing.DataSource = dsThanhPhanCosing;
                 comboBoxTenThanhPhanCosing.DisplayMember = "Ten_INCI";
                 comboBoxTenThanhPhanCosing.ValueMember = "IDThanhphan_Cosing";
@@ -86,13 +86,14 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                List<QuydinhCosing> dsQuydinhCosing = getdata.GetDSQuydinhCosing();
+                int tongSo = getdata.CountQuydinhCosing();
+                List<QuydinhCosing> dsQuydinhCosing = getdata.GetDSQuydinhCosingTop(200);
+                labelTongSo.Text = string.Format("Tổng: {0} quy định", tongSo);
 
                 var displayList = dsQuydinhCosing.Select(qd => new
                 {
                     qd.IDQuydinh_Cosing,
                     qd.IDThanhphan_Cosing,
-                    TenThanhPhanCosing = GetTenThanhPhanCosing(qd.IDThanhphan_Cosing),
                     qd.AnnexII,
                     qd.AnnexIII,
                     qd.AnnexIV,

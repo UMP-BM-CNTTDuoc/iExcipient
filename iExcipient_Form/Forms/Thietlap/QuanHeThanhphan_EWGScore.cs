@@ -49,7 +49,7 @@ namespace iExcipient_Form.Forms.Thietlap
         }
         private void LoadThanhPhan()
         {
-            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INN).ToList();
+            _listThanhPhan = getdata.GetDSThanhPhanTop(400).OrderBy(tp => tp.Ten_INN).ToList();
 
             comboBoxThanhPhan.DataSource = _listThanhPhan.ToList();
             comboBoxThanhPhan.DisplayMember = "Ten_INN";

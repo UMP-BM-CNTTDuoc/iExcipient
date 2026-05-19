@@ -108,16 +108,16 @@ namespace iExcipient_Form.Forms.Thietlap
 
         private void LoadThanhPhan()
         {
-            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhan = getdata.GetDSThanhPhanTop(400).OrderBy(tp => tp.Ten_INCI).ToList();
 
             comboBoxThanhPhan.DataSource = _listThanhPhan.ToList();
-            comboBoxThanhPhan.DisplayMember = "Ten_INCI";
+            comboBoxThanhPhan.DisplayMember = "Ten_INN";
             comboBoxThanhPhan.ValueMember = "IDThanhphan";
         }
 
         private void LoadThanhPhanCosing()
         {
-            _listThanhPhanCosing = getdata.GetDSThanhPhanCosing().OrderBy(tc => tc.Ten_INCI).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(200).OrderBy(tc => tc.Ten_INCI).ToList();
 
             comboBoxThanhPhanCosing.DataSource = _listThanhPhanCosing.ToList();
             comboBoxThanhPhanCosing.DisplayMember = "Ten_INCI";
@@ -166,7 +166,7 @@ namespace iExcipient_Form.Forms.Thietlap
                 }
 
                 int idThanhPhan = (int)comboBoxThanhPhan.SelectedValue;
-                workingTP = getdata.GetThanhPhan(idThanhPhan);
+                workingTP = _listThanhPhan.FirstOrDefault(tp => tp.IDThanhphan == idThanhPhan);
 
                 _listLienKet.Clear();
 
@@ -214,7 +214,7 @@ namespace iExcipient_Form.Forms.Thietlap
         private string GetTenThanhPhan(int id)
         {
             ThanhPhan tp = _listThanhPhan.FirstOrDefault(t => t.IDThanhphan == id);
-            return tp != null ? tp.Ten_INCI : "";
+            return tp != null ? tp.Ten_INN : "";
         }
 
         private string GetCASNo(int id)

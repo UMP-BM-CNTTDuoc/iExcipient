@@ -116,11 +116,11 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void LoadThanhPhan()
         {
-            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhan = getdata.GetDSThanhPhanTop(400).OrderBy(tp => tp.Ten_INCI).ToList();
 
             // Load for main component ComboBox
             comboBoxThanhPhan.DataSource = _listThanhPhan.ToList();
-            comboBoxThanhPhan.DisplayMember = "Ten_INCI";
+            comboBoxThanhPhan.DisplayMember = "Ten_INN";
             comboBoxThanhPhan.ValueMember = "IDThanhphan";
         }
 
@@ -176,20 +176,17 @@ namespace iExcipient_Form.Forms.Danhmuc
                 }
 
                 int idThanhPhan = (int)comboBoxThanhPhan.SelectedValue;
-                workingTP = getdata.GetThanhPhan(idThanhPhan);
+                workingTP = _listThanhPhan.FirstOrDefault(tp => tp.IDThanhphan == idThanhPhan);
 
                 _listLienKet.Clear();
 
-                if (workingTP != null && workingTP.dsChucNang != null)
+                List<ThanhPhan_ChucNang> dshienco = getdata.GetDSThanhPhan_ChucNang()
+                    .Where(x => x.IDThanhphan == idThanhPhan)
+                    .ToList();
+
+                foreach (ThanhPhan_ChucNang lk in dshienco)
                 {
-                    foreach (ChucNang cn in workingTP.dsChucNang)
-                    {
-                        _listLienKet.Add(new ThanhPhan_ChucNang
-                        {
-                            IDThanhphan = idThanhPhan,
-                            IDChucnang = cn.IDChucnang
-                        });
-                    }
+                    _listLienKet.Add(lk);
                 }
 
                 LoadLinkedList();
@@ -225,7 +222,7 @@ namespace iExcipient_Form.Forms.Danhmuc
         private string GetTenThanhPhan(int id)
         {
             ThanhPhan tp = _listThanhPhan.FirstOrDefault(t => t.IDThanhphan == id);
-            return tp != null ? tp.Ten_INCI : "";
+            return tp != null ? tp.Ten_INN : "";
         }
 
         private string GetCASNo(int id)

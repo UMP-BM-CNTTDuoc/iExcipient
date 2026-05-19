@@ -41,7 +41,10 @@ namespace iExcipient_Form.Forms.Thietlap
         {
             try
             {
-                List<ThanhPhan> ds = getdata.GetDSThanhPhan();
+                int tongSo = getdata.CountThanhPhan();
+                labelTongSo.Text = string.Format("Tổng: {0} thành phần", tongSo);
+
+                List<ThanhPhan> ds = getdata.GetDSThanhPhanTop(400);
 
                 var displayList = ds.Select(tp => new
                 {
@@ -208,7 +211,7 @@ namespace iExcipient_Form.Forms.Thietlap
 
             try
             {
-                ThanhPhan tp = getdata.GetThanhPhan(id);
+                ThanhPhan tp = getdata.GetThanhPhanShallow(id);
                 if (tp == null) return;
                 textBoxIDThanhphan.Text = row.Cells["IDThanhphan"].Value != null
                     ? row.Cells["IDThanhphan"].Value.ToString()

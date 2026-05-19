@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             this.danhMụcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.thiếtLậpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelContainer = new System.Windows.Forms.Panel();
             this.hOPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cosIngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thànhPhầnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chứcNăngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quyĐịnhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cosIngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thànhPhầnCosIngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chứcNăngCosIngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quyĐịnhCosIngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.thiếtLậpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hOPEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cosIngToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chứcNăngToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chấtLiênQuanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.độAnToànTheoEWGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cosIngToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chứcNăngCosIngToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.thànhPhầnCosIngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quyĐịnhCosIngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelContainer = new System.Windows.Forms.Panel();
             this.quanHệCosIngHOPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -56,8 +56,70 @@
             this.hOPEToolStripMenuItem,
             this.cosIngToolStripMenuItem});
             this.danhMụcToolStripMenuItem.Name = "danhMụcToolStripMenuItem";
-            this.danhMụcToolStripMenuItem.Size = new System.Drawing.Size(137, 38);
+            this.danhMụcToolStripMenuItem.Size = new System.Drawing.Size(137, 36);
             this.danhMụcToolStripMenuItem.Text = "Danh mục";
+            // 
+            // hOPEToolStripMenuItem
+            // 
+            this.hOPEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.thànhPhầnToolStripMenuItem,
+            this.chứcNăngToolStripMenuItem,
+            this.quyĐịnhToolStripMenuItem});
+            this.hOPEToolStripMenuItem.Name = "hOPEToolStripMenuItem";
+            this.hOPEToolStripMenuItem.Size = new System.Drawing.Size(187, 38);
+            this.hOPEToolStripMenuItem.Text = "HOPE";
+            // 
+            // thànhPhầnToolStripMenuItem
+            // 
+            this.thànhPhầnToolStripMenuItem.Name = "thànhPhầnToolStripMenuItem";
+            this.thànhPhầnToolStripMenuItem.Size = new System.Drawing.Size(242, 38);
+            this.thànhPhầnToolStripMenuItem.Text = "Thành phần";
+            this.thànhPhầnToolStripMenuItem.Click += new System.EventHandler(this.thànhPhầnToolStripMenuItem_Click);
+            // 
+            // chứcNăngToolStripMenuItem
+            // 
+            this.chứcNăngToolStripMenuItem.Name = "chứcNăngToolStripMenuItem";
+            this.chứcNăngToolStripMenuItem.Size = new System.Drawing.Size(242, 38);
+            this.chứcNăngToolStripMenuItem.Text = "Chức năng";
+            this.chứcNăngToolStripMenuItem.Click += new System.EventHandler(this.chứcNăngToolStripMenuItem_Click);
+            // 
+            // quyĐịnhToolStripMenuItem
+            // 
+            this.quyĐịnhToolStripMenuItem.Name = "quyĐịnhToolStripMenuItem";
+            this.quyĐịnhToolStripMenuItem.Size = new System.Drawing.Size(242, 38);
+            this.quyĐịnhToolStripMenuItem.Text = "Quy định";
+            this.quyĐịnhToolStripMenuItem.Click += new System.EventHandler(this.quyĐịnhToolStripMenuItem_Click);
+            // 
+            // cosIngToolStripMenuItem
+            // 
+            this.cosIngToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.thànhPhầnCosIngToolStripMenuItem,
+            this.chứcNăngCosIngToolStripMenuItem,
+            this.quyĐịnhCosIngToolStripMenuItem});
+            this.cosIngToolStripMenuItem.Name = "cosIngToolStripMenuItem";
+            this.cosIngToolStripMenuItem.Size = new System.Drawing.Size(187, 38);
+            this.cosIngToolStripMenuItem.Text = "CosIng";
+            // 
+            // thànhPhầnCosIngToolStripMenuItem
+            // 
+            this.thànhPhầnCosIngToolStripMenuItem.Name = "thànhPhầnCosIngToolStripMenuItem";
+            this.thànhPhầnCosIngToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
+            this.thànhPhầnCosIngToolStripMenuItem.Text = "Thành phần CosIng";
+            this.thànhPhầnCosIngToolStripMenuItem.Click += new System.EventHandler(this.thànhPhầnCosIngToolStripMenuItem_Click);
+            // 
+            // chứcNăngCosIngToolStripMenuItem
+            // 
+            this.chứcNăngCosIngToolStripMenuItem.Name = "chứcNăngCosIngToolStripMenuItem";
+            this.chứcNăngCosIngToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
+            this.chứcNăngCosIngToolStripMenuItem.Text = "Chức năng CosIng";
+            this.chứcNăngCosIngToolStripMenuItem.Click += new System.EventHandler(this.chứcNăngCosingToolStripMenuItem_Click);
+            // 
+            // quyĐịnhCosIngToolStripMenuItem
+            // 
+            this.quyĐịnhCosIngToolStripMenuItem.Name = "quyĐịnhCosIngToolStripMenuItem";
+            this.quyĐịnhCosIngToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
+            this.quyĐịnhCosIngToolStripMenuItem.Text = "Quy định CosIng";
+            this.quyĐịnhCosIngToolStripMenuItem.Click += new System.EventHandler(this.quyĐịnhCosIngToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
@@ -77,69 +139,11 @@
             // 
             this.thiếtLậpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hOPEToolStripMenuItem1,
-            this.cosIngToolStripMenuItem1});
+            this.cosIngToolStripMenuItem1,
+            this.quanHệCosIngHOPEToolStripMenuItem});
             this.thiếtLậpToolStripMenuItem.Name = "thiếtLậpToolStripMenuItem";
-            this.thiếtLậpToolStripMenuItem.Size = new System.Drawing.Size(120, 38);
+            this.thiếtLậpToolStripMenuItem.Size = new System.Drawing.Size(120, 36);
             this.thiếtLậpToolStripMenuItem.Text = "Thiết lập";
-            // 
-            // panelContainer
-            // 
-            this.panelContainer.BackColor = System.Drawing.SystemColors.Control;
-            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(0, 40);
-            this.panelContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(1548, 824);
-            this.panelContainer.TabIndex = 3;
-            // 
-            // hOPEToolStripMenuItem
-            // 
-            this.hOPEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.thànhPhầnToolStripMenuItem,
-            this.chứcNăngToolStripMenuItem,
-            this.quyĐịnhToolStripMenuItem});
-            this.hOPEToolStripMenuItem.Name = "hOPEToolStripMenuItem";
-            this.hOPEToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.hOPEToolStripMenuItem.Text = "HOPE";
-            // 
-            // cosIngToolStripMenuItem
-            // 
-            this.cosIngToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.thànhPhầnCosIngToolStripMenuItem,
-            this.chứcNăngCosIngToolStripMenuItem,
-            this.quyĐịnhCosIngToolStripMenuItem});
-            this.cosIngToolStripMenuItem.Name = "cosIngToolStripMenuItem";
-            this.cosIngToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.cosIngToolStripMenuItem.Text = "CosIng";
-            // 
-            // thànhPhầnToolStripMenuItem
-            // 
-            this.thànhPhầnToolStripMenuItem.Name = "thànhPhầnToolStripMenuItem";
-            this.thànhPhầnToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.thànhPhầnToolStripMenuItem.Text = "Thành phần";
-            this.thànhPhầnToolStripMenuItem.Click += new System.EventHandler(this.thànhPhầnToolStripMenuItem_Click);
-            // 
-            // chứcNăngToolStripMenuItem
-            // 
-            this.chứcNăngToolStripMenuItem.Name = "chứcNăngToolStripMenuItem";
-            this.chứcNăngToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.chứcNăngToolStripMenuItem.Text = "Chức năng";
-            this.chứcNăngToolStripMenuItem.Click += new System.EventHandler(this.chứcNăngToolStripMenuItem_Click);
-            // 
-            // quyĐịnhToolStripMenuItem
-            // 
-            this.quyĐịnhToolStripMenuItem.Name = "quyĐịnhToolStripMenuItem";
-            this.quyĐịnhToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.quyĐịnhToolStripMenuItem.Text = "Quy định";
-            this.quyĐịnhToolStripMenuItem.Click += new System.EventHandler(this.quyĐịnhToolStripMenuItem_Click);
-            // 
-            // chứcNăngCosIngToolStripMenuItem
-            // 
-            this.chứcNăngCosIngToolStripMenuItem.Name = "chứcNăngCosIngToolStripMenuItem";
-            this.chứcNăngCosIngToolStripMenuItem.Size = new System.Drawing.Size(309, 38);
-            this.chứcNăngCosIngToolStripMenuItem.Text = "Chức năng CosIng";
-            this.chứcNăngCosIngToolStripMenuItem.Click += new System.EventHandler(this.chứcNăngCosingToolStripMenuItem_Click);
             // 
             // hOPEToolStripMenuItem1
             // 
@@ -148,17 +152,8 @@
             this.chấtLiênQuanToolStripMenuItem,
             this.độAnToànTheoEWGToolStripMenuItem});
             this.hOPEToolStripMenuItem1.Name = "hOPEToolStripMenuItem1";
-            this.hOPEToolStripMenuItem1.Size = new System.Drawing.Size(268, 38);
+            this.hOPEToolStripMenuItem1.Size = new System.Drawing.Size(370, 38);
             this.hOPEToolStripMenuItem1.Text = "HOPE";
-            // 
-            // cosIngToolStripMenuItem1
-            // 
-            this.cosIngToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chứcNăngCosIngToolStripMenuItem1,
-            this.quanHệCosIngHOPEToolStripMenuItem});
-            this.cosIngToolStripMenuItem1.Name = "cosIngToolStripMenuItem1";
-            this.cosIngToolStripMenuItem1.Size = new System.Drawing.Size(268, 38);
-            this.cosIngToolStripMenuItem1.Text = "CosIng";
             // 
             // chứcNăngToolStripMenuItem1
             // 
@@ -181,6 +176,14 @@
             this.độAnToànTheoEWGToolStripMenuItem.Text = "Độ an toàn theo EWG";
             this.độAnToànTheoEWGToolStripMenuItem.Click += new System.EventHandler(this.điểmEWGToolStripMenuItem_Click);
             // 
+            // cosIngToolStripMenuItem1
+            // 
+            this.cosIngToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chứcNăngCosIngToolStripMenuItem1});
+            this.cosIngToolStripMenuItem1.Name = "cosIngToolStripMenuItem1";
+            this.cosIngToolStripMenuItem1.Size = new System.Drawing.Size(370, 38);
+            this.cosIngToolStripMenuItem1.Text = "CosIng";
+            // 
             // chứcNăngCosIngToolStripMenuItem1
             // 
             this.chứcNăngCosIngToolStripMenuItem1.Name = "chứcNăngCosIngToolStripMenuItem1";
@@ -188,19 +191,16 @@
             this.chứcNăngCosIngToolStripMenuItem1.Text = "Chức năng CosIng";
             this.chứcNăngCosIngToolStripMenuItem1.Click += new System.EventHandler(this.chứcNăngCosIngToolStripMenuItem1_Click);
             // 
-            // thànhPhầnCosIngToolStripMenuItem
+            // panelContainer
             // 
-            this.thànhPhầnCosIngToolStripMenuItem.Name = "thànhPhầnCosIngToolStripMenuItem";
-            this.thànhPhầnCosIngToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
-            this.thànhPhầnCosIngToolStripMenuItem.Text = "Thành phần CosIng";
-            this.thànhPhầnCosIngToolStripMenuItem.Click += new System.EventHandler(this.thànhPhầnCosIngToolStripMenuItem_Click);
-            // 
-            // quyĐịnhCosIngToolStripMenuItem
-            // 
-            this.quyĐịnhCosIngToolStripMenuItem.Name = "quyĐịnhCosIngToolStripMenuItem";
-            this.quyĐịnhCosIngToolStripMenuItem.Size = new System.Drawing.Size(322, 38);
-            this.quyĐịnhCosIngToolStripMenuItem.Text = "Quy định CosIng";
-            this.quyĐịnhCosIngToolStripMenuItem.Click += new System.EventHandler(this.quyĐịnhCosIngToolStripMenuItem_Click);
+            this.panelContainer.BackColor = System.Drawing.SystemColors.Control;
+            this.panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContainer.Location = new System.Drawing.Point(0, 40);
+            this.panelContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelContainer.Name = "panelContainer";
+            this.panelContainer.Size = new System.Drawing.Size(1548, 824);
+            this.panelContainer.TabIndex = 3;
             // 
             // quanHệCosIngHOPEToolStripMenuItem
             // 

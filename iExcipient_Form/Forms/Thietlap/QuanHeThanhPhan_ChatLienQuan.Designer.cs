@@ -98,7 +98,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 20);
+            this.label2.Size = new System.Drawing.Size(177, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Chọn thành phần";
             // 
@@ -154,7 +154,7 @@
             this.comboBoxChatLienQuan.FormattingEnabled = true;
             this.comboBoxChatLienQuan.Location = new System.Drawing.Point(498, 29);
             this.comboBoxChatLienQuan.Name = "comboBoxChatLienQuan";
-            this.comboBoxChatLienQuan.Size = new System.Drawing.Size(524, 28);
+            this.comboBoxChatLienQuan.Size = new System.Drawing.Size(524, 33);
             this.comboBoxChatLienQuan.TabIndex = 10;
             // 
             // label5
@@ -162,7 +162,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(498, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(111, 20);
+            this.label5.Size = new System.Drawing.Size(151, 25);
             this.label5.TabIndex = 9;
             this.label5.Text = "Chất liên quan";
             // 
@@ -171,7 +171,7 @@
             this.comboBoxThanhPhan.FormattingEnabled = true;
             this.comboBoxThanhPhan.Location = new System.Drawing.Point(12, 29);
             this.comboBoxThanhPhan.Name = "comboBoxThanhPhan";
-            this.comboBoxThanhPhan.Size = new System.Drawing.Size(433, 28);
+            this.comboBoxThanhPhan.Size = new System.Drawing.Size(433, 33);
             this.comboBoxThanhPhan.TabIndex = 8;
             this.comboBoxThanhPhan.SelectedIndexChanged += new System.EventHandler(this.comboBoxThanhPhan_SelectedIndexChanged);
             // 
@@ -200,7 +200,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1010, 420);
+            this.dataGridView1.Size = new System.Drawing.Size(1010, 365);
             this.dataGridView1.TabIndex = 8;
             // 
             // QuanHeThanhPhan_ChatLienQuan

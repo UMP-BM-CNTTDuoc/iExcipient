@@ -41,7 +41,7 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                List<ThanhPhan> dsThanhPhan = getdata.GetDSThanhPhan();
+                List<ThanhPhan> dsThanhPhan = getdata.GetDSThanhPhanTop(200);
                 comboBoxTenThanhPhan.DataSource = dsThanhPhan;
                 comboBoxTenThanhPhan.DisplayMember = "Ten_INCI";
                 comboBoxTenThanhPhan.ValueMember = "IDThanhphan";
@@ -84,15 +84,15 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                // Get data from database
-                List<QuyDinh> dsQuyDinh = getdata.GetDSQuyDinh();
+                int tongSo = getdata.CountQuyDinh();
+                labelTongSo.Text = string.Format("Tổng: {0} quy định", tongSo);
 
-                // Create display list with ThanhPhan name
+                List<QuyDinh> dsQuyDinh = getdata.GetDSQuyDinhTop(200);
+
                 var displayList = dsQuyDinh.Select(qd => new
                 {
                     qd.IDQuydinh,
                     qd.IDThanhphan,
-                    TenThanhPhan = GetTenThanhPhan(qd.IDThanhphan),
                     qd.AnnexII,
                     qd.AnnexIII,
                     qd.AnnexIV,
@@ -144,16 +144,7 @@ namespace iExcipient_Form.Forms.Danhmuc
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                // Populate textboxes
-                textBoxIDQuyDinh.Text = row.Cells["IDQuydinh"].Value != null
-                    ? row.Cells["IDQuydinh"].Value.ToString()
-                    : "";
-
-                textBoxIDThanhPhan.Text = row.Cells["IDThanhphan"].Value != null
-                    ? row.Cells["IDThanhphan"].Value.ToString()
-                    : "";
-
-                // Set combobox by IDThanhphan
+                // Set combobox TRƯỚC
                 if (row.Cells["IDThanhphan"].Value != null &&
                     row.Cells["IDThanhphan"].Value != DBNull.Value)
                 {
@@ -164,6 +155,13 @@ namespace iExcipient_Form.Forms.Danhmuc
                 {
                     comboBoxTenThanhPhan.SelectedIndex = -1;
                 }
+
+                // Set textbox SAU — ghi đè nếu SelectedIndexChanged vừa xóa
+                textBoxIDQuyDinh.Text = row.Cells["IDQuydinh"].Value != null
+                    ? row.Cells["IDQuydinh"].Value.ToString() : "";
+
+                textBoxIDThanhPhan.Text = row.Cells["IDThanhphan"].Value != null
+                    ? row.Cells["IDThanhphan"].Value.ToString() : "";
 
                 // Set checkboxes
                 checkBoxAnnexII.Checked = row.Cells["AnnexII"].Value != null &&
@@ -204,27 +202,58 @@ namespace iExcipient_Form.Forms.Danhmuc
                     return;
                 }
 
-                QuyDinh item = new QuyDinh
-                {
-                    IDThanhphan = int.Parse(textBoxIDThanhPhan.Text),
-                    AnnexII = checkBoxAnnexII.Checked ? (bool?)true : null,
-                    AnnexIII = checkBoxAnnexIII.Checked ? (bool?)true : null,
-                    AnnexIV = checkBoxAnnexIV.Checked ? (bool?)true : null,
-                    AnnexV = checkBoxAnnexV.Checked ? (bool?)true : null,
-                    AnnexVI = checkBoxAnnexVI.Checked ? (bool?)true : null,
-                };
+                int idThanhPhan = int.Parse(textBoxIDThanhPhan.Text);
 
-                if (insertdata.InsertQuyDinh(item))
+                // Kiểm tra đã tồn tại chưa
+                List<QuyDinh> dshienco = getdata.GetQuyDinhByThanhPhan(idThanhPhan);
+
+                if (dshienco != null && dshienco.Count > 0)
                 {
-                    MessageBox.Show("Thêm mới thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearTextBoxes();
-                    refreshDatagrid();
+                    // Đã có → hỏi có muốn cập nhật không
+                    DialogResult confirm = MessageBox.Show(
+                        "Thành phần này đã có quy định. Bạn có muốn cập nhật lại?",
+                        "Xác nhận",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (confirm == DialogResult.Yes)
+                    {
+                        int idQuyDinh = dshienco[0].IDQuydinh;
+                        if (updatedata.UpdateQuyDinh(
+                            idQuyDinh, idThanhPhan,
+                            checkBoxAnnexII.Checked ? (bool?)true : null,
+                            checkBoxAnnexIII.Checked ? (bool?)true : null,
+                            checkBoxAnnexIV.Checked ? (bool?)true : null,
+                            checkBoxAnnexV.Checked ? (bool?)true : null,
+                            checkBoxAnnexVI.Checked ? (bool?)true : null))
+                        {
+                            MessageBox.Show("Cập nhật thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ClearTextBoxes();
+                            refreshDatagrid();
+                        }
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Thêm mới thất bại!", "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Chưa có → thêm mới
+                    QuyDinh item = new QuyDinh
+                    {
+                        IDThanhphan = idThanhPhan,
+                        AnnexII = checkBoxAnnexII.Checked ? (bool?)true : null,
+                        AnnexIII = checkBoxAnnexIII.Checked ? (bool?)true : null,
+                        AnnexIV = checkBoxAnnexIV.Checked ? (bool?)true : null,
+                        AnnexV = checkBoxAnnexV.Checked ? (bool?)true : null,
+                        AnnexVI = checkBoxAnnexVI.Checked ? (bool?)true : null,
+                    };
+
+                    if (insertdata.InsertQuyDinh(item))
+                    {
+                        MessageBox.Show("Thêm mới thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearTextBoxes();
+                        refreshDatagrid();
+                    }
                 }
             }
             catch (Exception ex)

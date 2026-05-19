@@ -105,7 +105,7 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void LoadThanhPhanCosing()
         {
-            _listThanhPhanCosing = getdata.GetDSThanhPhanCosing().OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(200).OrderBy(tp => tp.Ten_INCI).ToList();
             comboBoxThanhPhan.DataSource = _listThanhPhanCosing.ToList();
             comboBoxThanhPhan.DisplayMember = "Ten_INCI";
             comboBoxThanhPhan.ValueMember = "IDThanhphan_Cosing";
@@ -153,20 +153,17 @@ namespace iExcipient_Form.Forms.Danhmuc
                 }
 
                 int idThanhPhanCosing = (int)comboBoxThanhPhan.SelectedValue;
-                workingTP = getdata.GetThanhPhanCosing(idThanhPhanCosing);
+                workingTP = _listThanhPhanCosing.FirstOrDefault(tp => tp.IDThanhphan_Cosing == idThanhPhanCosing);
 
                 _listLienKet.Clear();
 
-                if (workingTP != null && workingTP.dsChucNangCosing != null)
+                List<ThanhPhan_ChucNangCosing> dshienco = getdata.GetDSThanhPhan_ChucNangCosing()
+                    .Where(x => x.IDThanhphan_Cosing == idThanhPhanCosing)
+                    .ToList();
+
+                foreach (ThanhPhan_ChucNangCosing lk in dshienco)
                 {
-                    foreach (ChucNangCosing cn in workingTP.dsChucNangCosing)
-                    {
-                        _listLienKet.Add(new ThanhPhan_ChucNangCosing
-                        {
-                            IDThanhphan_Cosing = idThanhPhanCosing,
-                            IDChucnangcosing = cn.IDChucnangcosing
-                        });
-                    }
+                    _listLienKet.Add(lk);
                 }
 
                 LoadLinkedList();

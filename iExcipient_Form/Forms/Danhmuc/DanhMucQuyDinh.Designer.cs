@@ -49,6 +49,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonImport = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelTongSo = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -236,6 +237,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.labelTongSo);
             this.panel3.Controls.Add(this.dataGridView1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -288,6 +290,14 @@
             this.panel2.Size = new System.Drawing.Size(1034, 55);
             this.panel2.TabIndex = 22;
             // 
+            // labelTongSo
+            // 
+            this.labelTongSo.AutoSize = true;
+            this.labelTongSo.Location = new System.Drawing.Point(12, 141);
+            this.labelTongSo.Name = "labelTongSo";
+            this.labelTongSo.Size = new System.Drawing.Size(0, 25);
+            this.labelTongSo.TabIndex = 19;
+            // 
             // DanhMucQuyDinh
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -305,6 +315,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -334,5 +345,6 @@
         private System.Windows.Forms.CheckBox checkBoxAnnexVI;
         private System.Windows.Forms.CheckBox checkBoxAnnexV;
         private System.Windows.Forms.CheckBox checkBoxAnnexIV;
+        private System.Windows.Forms.Label labelTongSo;
     }
 }

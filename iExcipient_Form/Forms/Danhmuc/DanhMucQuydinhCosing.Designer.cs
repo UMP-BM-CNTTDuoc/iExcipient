@@ -38,6 +38,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.labelTongSo = new System.Windows.Forms.Label();
             this.checkBoxAnnexVI = new System.Windows.Forms.CheckBox();
             this.checkBoxAnnexV = new System.Windows.Forms.CheckBox();
             this.checkBoxAnnexIV = new System.Windows.Forms.CheckBox();
@@ -153,18 +154,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 169);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 53);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1010, 214);
+            this.dataGridView1.Size = new System.Drawing.Size(1010, 275);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.labelTongSo);
             this.panel3.Controls.Add(this.dataGridView1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 137);
@@ -172,6 +174,14 @@
             this.panel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel3.Size = new System.Drawing.Size(1034, 389);
             this.panel3.TabIndex = 26;
+            // 
+            // labelTongSo
+            // 
+            this.labelTongSo.AutoSize = true;
+            this.labelTongSo.Location = new System.Drawing.Point(12, 19);
+            this.labelTongSo.Name = "labelTongSo";
+            this.labelTongSo.Size = new System.Drawing.Size(0, 25);
+            this.labelTongSo.TabIndex = 20;
             // 
             // checkBoxAnnexVI
             // 
@@ -305,6 +315,7 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -334,5 +345,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxIDQuydinhCosing;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelTongSo;
     }
 }

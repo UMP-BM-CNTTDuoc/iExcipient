@@ -63,7 +63,7 @@
             // buttonImport
             // 
             this.buttonImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonImport.Location = new System.Drawing.Point(581, 9);
+            this.buttonImport.Location = new System.Drawing.Point(581, 0);
             this.buttonImport.Name = "buttonImport";
             this.buttonImport.Size = new System.Drawing.Size(143, 60);
             this.buttonImport.TabIndex = 13;
@@ -74,7 +74,7 @@
             // buttonThoat
             // 
             this.buttonThoat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonThoat.Location = new System.Drawing.Point(879, 9);
+            this.buttonThoat.Location = new System.Drawing.Point(879, 0);
             this.buttonThoat.Name = "buttonThoat";
             this.buttonThoat.Size = new System.Drawing.Size(143, 60);
             this.buttonThoat.TabIndex = 8;
@@ -85,7 +85,7 @@
             // buttonSua
             // 
             this.buttonSua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSua.Location = new System.Drawing.Point(730, 9);
+            this.buttonSua.Location = new System.Drawing.Point(730, 0);
             this.buttonSua.Name = "buttonSua";
             this.buttonSua.Size = new System.Drawing.Size(143, 60);
             this.buttonSua.TabIndex = 9;
@@ -200,7 +200,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1010, 408);
+            this.dataGridView1.Size = new System.Drawing.Size(1010, 353);
             this.dataGridView1.TabIndex = 8;
             // 
             // QuanHeLinkCosingVaSach

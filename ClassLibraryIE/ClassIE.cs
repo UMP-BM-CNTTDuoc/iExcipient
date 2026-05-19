@@ -9,10 +9,10 @@ namespace ClassLibraryIE
     #region Kết nối CSDL
     public class KetnoiDB
     {
-        protected static KetnoiCSDLDataContext db = new KetnoiCSDLDataContext();
         #region Nhập liệu đơn
         public class InsertData
         {
+            private KetnoiCSDLDataContext db = new KetnoiCSDLDataContext();
             public bool InsertQuyDinh(QuyDinh item)
             {
                 try
@@ -226,6 +226,7 @@ namespace ClassLibraryIE
         #region Nhập hàng loạt
         public class BulkInsertData
         {
+            private KetnoiCSDLDataContext db = new KetnoiCSDLDataContext();
             public bool BulkInsertQuyDinh(List<QuyDinh> list)
             {
                 try
@@ -541,6 +542,7 @@ namespace ClassLibraryIE
         #region Lấy dữ liệu
         public class GetData
         {
+            private KetnoiCSDLDataContext db = new KetnoiCSDLDataContext();
             // Lấy toàn bộ Quy Định
             public List<QuyDinh> GetDSQuyDinh()
             {
@@ -564,8 +566,7 @@ namespace ClassLibraryIE
                                         select data).ToList();
 
                 foreach (d_Thanhphan i in ds)
-                    kq.Add(ThanhPhan.fromThanhPhanDB(i));
-
+                    kq.Add(ThanhPhan.fromThanhPhanDBShallow(i));
                 return kq;
             }
 
@@ -650,6 +651,36 @@ namespace ClassLibraryIE
                     return kq;
                 }
             }
+            // Lấy thành phần theo ID (nhẹ)
+            public ThanhPhan GetThanhPhanShallow(int idThanhPhan)
+            {
+                d_Thanhphan item = db.d_Thanhphans
+                    .FirstOrDefault(x => x.IDThanhphan == idThanhPhan);
+
+                if (item == null) return null;
+
+                return new ThanhPhan
+                {
+                    IDThanhphan = item.IDThanhphan,
+                    Ten_INN = item.Ten_INN,
+                    Ten_INCI = item.Ten_INCI,
+                    Ten_IUPAC = item.Ten_IUPAC,
+                    TenKhac = item.TenKhac,
+                    CAS_No = item.CAS_No,
+                    CongThucHoaHoc = item.CongThucHoaHoc,
+                    KhoiLuongPhanTu = item.KhoiLuongPhanTu,
+                    CauTrucPhanTu = item.CauTrucPhanTu,
+                    TinhChatVatLy = item.TinhChatVatLy,
+                    MoTa = item.MoTa,
+                    BaoQuan = item.BaoQuan,
+                    TLTK = item.TLTK,
+                    UngDung = item.Ungdung,
+                    TuongKy = item.Tuongky,
+                    NgayTao = item.NgayTao,
+                    NgayCapNhat = item.NgayCapNhat
+                    // Không load dsQuyDinh, dsChucNang, dsThanhPhanLienQuan
+                };
+            }
 
             // Lấy danh sách Quy Định theo IDThanhPhan
             public List<QuyDinh> GetQuyDinhByThanhPhan(int idThanhPhan)
@@ -722,7 +753,7 @@ namespace ClassLibraryIE
                                                .ToList();
 
                     foreach (d_Thanhphan i in ds)
-                        kq.Add(ThanhPhan.fromThanhPhanDB(i));
+                        kq.Add(ThanhPhan.fromThanhPhanDBShallow(i));
 
                     return kq;
                 }
@@ -763,7 +794,7 @@ namespace ClassLibraryIE
                         .ToList();
 
                     foreach (d_Thanhphan i in ds)
-                        kq.Add(ThanhPhan.fromThanhPhanDB(i));
+                        kq.Add(ThanhPhan.fromThanhPhanDBShallow(i));
 
                     return kq;
                 }
@@ -786,7 +817,7 @@ namespace ClassLibraryIE
                                             select data).ToList();
 
                     foreach (d_Thanhphan i in ds)
-                        kq.Add(ThanhPhan.fromThanhPhanDB(i));
+                        kq.Add(ThanhPhan.fromThanhPhanDBShallow(i));
 
                     return kq;
                 }
@@ -914,6 +945,93 @@ namespace ClassLibraryIE
                     kq.Add(LinkCosingVaSach.fromLinkCosingVaSachDB(i));
                 return kq;
             }
+            public int CountThanhPhan()
+            {
+                return db.d_Thanhphans.Count();
+            }
+            public int CountThanhPhanCosing()
+            {
+                return db.d_Thanhphan_Cosings.Count();
+            }
+
+            public List<ThanhPhan> GetDSThanhPhanTop(int top = 200)
+            {
+                return db.d_Thanhphans
+                    .Take(top)
+                    .ToList()
+                    .Select(i => new ThanhPhan  // KHÔNG dùng fromThanhPhanDB
+                    {
+                        IDThanhphan = i.IDThanhphan,
+                        Ten_INN = i.Ten_INN,
+                        Ten_INCI = i.Ten_INCI,
+                        Ten_IUPAC = i.Ten_IUPAC,
+                        TenKhac = i.TenKhac,
+                        CAS_No = i.CAS_No,
+                        NgayTao = i.NgayTao,
+                        NgayCapNhat = i.NgayCapNhat
+                        // Không load dsQuyDinh, dsChucNang, v.v.
+                    })
+                    .ToList();
+            }
+            public List<ThanhPhanCosing> GetDSThanhPhanCosingTop(int top = 200)
+            {
+                return db.d_Thanhphan_Cosings
+                    .Take(top)
+                    .ToList()
+                    .Select(i => new ThanhPhanCosing
+                    {
+                        IDThanhphan_Cosing = i.IDThanhphan_Cosing,
+                        Ten_INCI = i.Ten_INCI,
+                        CAS_No = i.CAS_No,
+                        EC_No = i.EC_No
+                    })
+                    .ToList();
+            }
+            public int CountQuyDinh()
+            {
+                return db.d_Quydinhs.Count();
+            }
+
+            public List<QuyDinh> GetDSQuyDinhTop(int top = 200)
+            {
+                return db.d_Quydinhs
+                    .Take(top)
+                    .ToList()
+                    .Select(i => new QuyDinh
+                    {
+                        IDQuydinh = i.IDQuydinh,
+                        IDThanhphan = i.IDThanhphan,
+                        AnnexII = i.AnnexII,
+                        AnnexIII = i.AnnexIII,
+                        AnnexIV = i.AnnexIV,
+                        AnnexV = i.AnnexV,
+                        AnnexVI = i.AnnexVI
+                    })
+                    .ToList();
+            }
+
+            public int CountQuydinhCosing()
+            {
+                return db.d_Quydinh_Cosings.Count();
+            }
+
+            public List<QuydinhCosing> GetDSQuydinhCosingTop(int top = 200)
+            {
+                return db.d_Quydinh_Cosings
+                    .Take(top)
+                    .ToList()
+                    .Select(i => new QuydinhCosing
+                    {
+                        IDQuydinh_Cosing = i.IDQuydinh_Cosing,
+                        IDThanhphan_Cosing = i.IDThanhphan_Cosing,
+                        AnnexII = i.AnnexII,
+                        AnnexIII = i.AnnexIII,
+                        AnnexIV = i.AnnexIV,
+                        AnnexV = i.AnnexV,
+                        AnnexVI = i.AnnexVI
+                    })
+                    .ToList();
+            }
         }
 
         #endregion
@@ -921,6 +1039,7 @@ namespace ClassLibraryIE
         #region Update dữ liệu
         public class UpdateData
         {
+            private KetnoiCSDLDataContext db = new KetnoiCSDLDataContext();
             public bool UpdateQuyDinh(int idQuydinh, int idThanhphan, bool? annexII, bool? annexIII,
                                       bool? annexIV, bool? annexV, bool? annexVI)
             {
@@ -1143,6 +1262,7 @@ namespace ClassLibraryIE
         #region Xóa dữ liệu
         public class DeleteData
         {
+            private KetnoiCSDLDataContext db = new KetnoiCSDLDataContext();
             public bool DeleteQuyDinh(int idQuyDinh)
             {
                 try
@@ -1528,6 +1648,32 @@ namespace ClassLibraryIE
             kq.dsThanhPhanLienQuan = db.GetThanhPhanLienQuan(item.IDThanhphan);
             kq.dsChucNangCosing = db.GetChucNangCosingByThanhPhan(item.IDThanhphan);
             return kq;
+        }
+        //không gọi DB - dùng cho list/lienquan
+        public static ThanhPhan fromThanhPhanDBShallow(d_Thanhphan item)
+        {
+            if (item == null) return null;
+            return new ThanhPhan
+            {
+                IDThanhphan = item.IDThanhphan,
+                Ten_INN = item.Ten_INN,
+                Ten_INCI = item.Ten_INCI,
+                Ten_IUPAC = item.Ten_IUPAC,
+                TenKhac = item.TenKhac,
+                CAS_No = item.CAS_No,
+                CongThucHoaHoc = item.CongThucHoaHoc,
+                KhoiLuongPhanTu = item.KhoiLuongPhanTu,
+                CauTrucPhanTu = item.CauTrucPhanTu,
+                TinhChatVatLy = item.TinhChatVatLy,
+                MoTa = item.MoTa,
+                BaoQuan = item.BaoQuan,
+                TLTK = item.TLTK,
+                UngDung = item.Ungdung,
+                TuongKy = item.Tuongky,
+                NgayTao = item.NgayTao,
+                NgayCapNhat = item.NgayCapNhat
+                // KHÔNG gọi DB ở đây
+            };
         }
 
         public d_Thanhphan toThanhPhanDB()

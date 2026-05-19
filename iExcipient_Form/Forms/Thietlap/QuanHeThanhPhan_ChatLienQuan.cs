@@ -109,7 +109,7 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void LoadThanhPhan()
         {
-            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INN).ToList();
+            _listThanhPhan = getdata.GetDSThanhPhanTop(400).OrderBy(tp => tp.Ten_INN).ToList();
 
             // Load for main component ComboBox
             comboBoxThanhPhan.DataSource = _listThanhPhan.ToList();
@@ -164,20 +164,23 @@ namespace iExcipient_Form.Forms.Danhmuc
                 }
 
                 int idThanhPhan = (int)comboBoxThanhPhan.SelectedValue;
-                workingTP = getdata.GetThanhPhan(idThanhPhan);
+                workingTP = _listThanhPhan.FirstOrDefault(tp => tp.IDThanhphan == idThanhPhan);
 
                 _listLienKet.Clear();
 
-                if (workingTP != null && workingTP.dsThanhPhanLienQuan != null)
+                List<ChatLienQuan> dshienco = getdata.GetDSChatLienQuan()
+                    .Where(x => x.IDThanhphan == idThanhPhan || x.IDThanhphanLienquan == idThanhPhan)
+                    .ToList();
+
+                foreach (ChatLienQuan lk in dshienco)
                 {
-                    foreach (ThanhPhan tpLienQuan in workingTP.dsThanhPhanLienQuan)
+                    _listLienKet.Add(new ChatLienQuan
                     {
-                        _listLienKet.Add(new ChatLienQuan
-                        {
-                            IDThanhphan = idThanhPhan,
-                            IDThanhphanLienquan = tpLienQuan.IDThanhphan
-                        });
-                    }
+                        IDThanhphan = idThanhPhan,
+                        IDThanhphanLienquan = lk.IDThanhphan == idThanhPhan
+                            ? lk.IDThanhphanLienquan
+                            : lk.IDThanhphan
+                    });
                 }
 
                 LoadLinkedList();
