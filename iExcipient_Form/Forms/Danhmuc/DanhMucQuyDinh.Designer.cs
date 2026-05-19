@@ -28,14 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxGhiChu = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxDieuKienSuDung = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxIDQuyDinh = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxAnnexVI = new System.Windows.Forms.CheckBox();
             this.checkBoxAnnexV = new System.Windows.Forms.CheckBox();
@@ -59,15 +55,6 @@
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBoxGhiChu
-            // 
-            this.textBoxGhiChu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxGhiChu.Location = new System.Drawing.Point(474, 121);
-            this.textBoxGhiChu.Name = "textBoxGhiChu";
-            this.textBoxGhiChu.Size = new System.Drawing.Size(548, 31);
-            this.textBoxGhiChu.TabIndex = 26;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -76,22 +63,6 @@
             this.label11.Size = new System.Drawing.Size(163, 25);
             this.label11.TabIndex = 25;
             this.label11.Text = "Tên thành phần";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(470, 99);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(86, 25);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Ghi chú";
-            // 
-            // textBoxDieuKienSuDung
-            // 
-            this.textBoxDieuKienSuDung.Location = new System.Drawing.Point(12, 121);
-            this.textBoxDieuKienSuDung.Name = "textBoxDieuKienSuDung";
-            this.textBoxDieuKienSuDung.Size = new System.Drawing.Size(455, 31);
-            this.textBoxDieuKienSuDung.TabIndex = 4;
             // 
             // label1
             // 
@@ -119,37 +90,24 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Mã thành phần";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 101);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(185, 25);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Điều kiện sử dụng";
-            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.checkBoxAnnexVI);
             this.panel1.Controls.Add(this.checkBoxAnnexV);
             this.panel1.Controls.Add(this.checkBoxAnnexIV);
             this.panel1.Controls.Add(this.checkBoxAnnexIII);
             this.panel1.Controls.Add(this.checkBoxAnnexII);
             this.panel1.Controls.Add(this.comboBoxTenThanhPhan);
-            this.panel1.Controls.Add(this.textBoxGhiChu);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.textBoxDieuKienSuDung);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxIDQuyDinh);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBoxIDThanhPhan);
-            this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.panel1.Size = new System.Drawing.Size(1034, 163);
+            this.panel1.Size = new System.Drawing.Size(1034, 135);
             this.panel1.TabIndex = 21;
             // 
             // checkBoxAnnexVI
@@ -335,7 +293,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1034, 526);
-            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -356,14 +313,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxGhiChu;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBoxDieuKienSuDung;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxIDQuyDinh;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxAnnexIII;
         private System.Windows.Forms.CheckBox checkBoxAnnexII;

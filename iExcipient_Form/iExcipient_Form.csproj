@@ -51,11 +51,11 @@
     <Compile Include="Forms\Danhmuc\DanhMucChucNang.Designer.cs">
       <DependentUpon>DanhMucChucNang.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Danhmuc\DanhMucDangBaoChe.cs">
+    <Compile Include="Forms\Danhmuc\DanhMucChucNangCosing.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Danhmuc\DanhMucDangBaoChe.Designer.cs">
-      <DependentUpon>DanhMucDangBaoChe.cs</DependentUpon>
+    <Compile Include="Forms\Danhmuc\DanhMucChucNangCosing.Designer.cs">
+      <DependentUpon>DanhMucChucNangCosing.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Danhmuc\DanhMucQuyDinh.cs">
       <SubType>Form</SubType>
@@ -63,17 +63,47 @@
     <Compile Include="Forms\Danhmuc\DanhMucQuyDinh.Designer.cs">
       <DependentUpon>DanhMucQuyDinh.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucQuydinhCosing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucQuydinhCosing.Designer.cs">
+      <DependentUpon>DanhMucQuydinhCosing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Danhmuc\DanhMucThanhPhan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Danhmuc\DanhMucThanhPhan.Designer.cs">
       <DependentUpon>DanhMucThanhPhan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucThanhPhanCosing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Danhmuc\DanhMucThanhPhanCosing.Designer.cs">
+      <DependentUpon>DanhMucThanhPhanCosing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Thietlap\ChiTietThanhPhan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Thietlap\ChiTietThanhPhan.Designer.cs">
       <DependentUpon>ChiTietThanhPhan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_LinkCosingVaSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_LinkCosingVaSach.Designer.cs">
+      <DependentUpon>Import_LinkCosingVaSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChucNangCosing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChucNangCosing.Designer.cs">
+      <DependentUpon>Import_ThanhPhan_ChucNangCosing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeLinkCosingVaSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Thietlap\QuanHeLinkCosingVaSach.Designer.cs">
+      <DependentUpon>QuanHeLinkCosingVaSach.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChatLienQuan.cs">
       <SubType>Form</SubType>
@@ -87,11 +117,11 @@
     <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChucNang.Designer.cs">
       <DependentUpon>QuanHeThanhPhan_ChucNang.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_DangBaoChe.cs">
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChucNangCosing.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_DangBaoChe.Designer.cs">
-      <DependentUpon>QuanHeThanhPhan_DangBaoChe.cs</DependentUpon>
+    <Compile Include="Forms\Thietlap\QuanHeThanhPhan_ChucNangCosing.Designer.cs">
+      <DependentUpon>QuanHeThanhPhan_ChucNangCosing.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChatLienQuan.cs">
       <SubType>Form</SubType>
@@ -104,12 +134,6 @@
     </Compile>
     <Compile Include="Forms\Thietlap\Import_ThanhPhan_ChucNang.Designer.cs">
       <DependentUpon>Import_ThanhPhan_ChucNang.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.Designer.cs">
-      <DependentUpon>Import_ThanhPhan_DangBaoChe.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Thietlap\QuanHeThanhphan_EWGScore.cs">
       <SubType>Form</SubType>
@@ -134,17 +158,32 @@
     <EmbeddedResource Include="Forms\Danhmuc\DanhMucChucNang.resx">
       <DependentUpon>DanhMucChucNang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Danhmuc\DanhMucDangBaoChe.resx">
-      <DependentUpon>DanhMucDangBaoChe.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Danhmuc\DanhMucChucNangCosing.resx">
+      <DependentUpon>DanhMucChucNangCosing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Danhmuc\DanhMucQuyDinh.resx">
       <DependentUpon>DanhMucQuyDinh.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Danhmuc\DanhMucQuydinhCosing.resx">
+      <DependentUpon>DanhMucQuydinhCosing.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Danhmuc\DanhMucThanhPhan.resx">
       <DependentUpon>DanhMucThanhPhan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Danhmuc\DanhMucThanhPhanCosing.resx">
+      <DependentUpon>DanhMucThanhPhanCosing.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Thietlap\ChiTietThanhPhan.resx">
       <DependentUpon>ChiTietThanhPhan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\Import_LinkCosingVaSach.resx">
+      <DependentUpon>Import_LinkCosingVaSach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_ChucNangCosing.resx">
+      <DependentUpon>Import_ThanhPhan_ChucNangCosing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Thietlap\QuanHeLinkCosingVaSach.resx">
+      <DependentUpon>QuanHeLinkCosingVaSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_ChatLienQuan.resx">
       <DependentUpon>QuanHeThanhPhan_ChatLienQuan.cs</DependentUpon>
@@ -152,17 +191,14 @@
     <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_ChucNang.resx">
       <DependentUpon>QuanHeThanhPhan_ChucNang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_DangBaoChe.resx">
-      <DependentUpon>QuanHeThanhPhan_DangBaoChe.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhPhan_ChucNangCosing.resx">
+      <DependentUpon>QuanHeThanhPhan_ChucNangCosing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_ChatLienQuan.resx">
       <DependentUpon>Import_ThanhPhan_ChatLienQuan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_ChucNang.resx">
       <DependentUpon>Import_ThanhPhan_ChucNang.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Thietlap\Import_ThanhPhan_DangBaoChe.resx">
-      <DependentUpon>Import_ThanhPhan_DangBaoChe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Thietlap\QuanHeThanhphan_EWGScore.resx">
       <DependentUpon>QuanHeThanhphan_EWGScore.cs</DependentUpon>

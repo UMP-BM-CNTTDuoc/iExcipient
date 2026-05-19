@@ -41,21 +41,23 @@
             this.buttonThem = new System.Windows.Forms.Button();
             this.buttonXoa = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.dateTimePickerNgayCapNhat = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerNgayTao = new System.Windows.Forms.DateTimePicker();
-            this.label17 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxTen_INCI = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.textBoxTen_IUPAC = new System.Windows.Forms.TextBox();
-            this.textBoxCAS_No = new System.Windows.Forms.TextBox();
+            this.textBoxTenKhac = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxIDThanhphan = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxTen_INN = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxCAS_No = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -202,6 +204,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.textBoxCAS_No);
             this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.dateTimePickerNgayCapNhat);
@@ -210,18 +215,26 @@
             this.panel1.Controls.Add(this.textBoxTen_INCI);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.textBoxTen_IUPAC);
-            this.panel1.Controls.Add(this.textBoxCAS_No);
+            this.panel1.Controls.Add(this.textBoxTenKhac);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxIDThanhphan);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBoxTen_INN);
-            this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel1.Size = new System.Drawing.Size(1034, 227);
             this.panel1.TabIndex = 17;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 158);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 25);
+            this.label17.TabIndex = 32;
+            this.label17.Text = "Ngày tạo";
             // 
             // label18
             // 
@@ -247,15 +260,6 @@
             this.dateTimePickerNgayTao.Name = "dateTimePickerNgayTao";
             this.dateTimePickerNgayTao.Size = new System.Drawing.Size(455, 31);
             this.dateTimePickerNgayTao.TabIndex = 39;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 158);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(98, 25);
-            this.label17.TabIndex = 32;
-            this.label17.Text = "Ngày tạo";
             // 
             // label11
             // 
@@ -291,12 +295,12 @@
             this.textBoxTen_IUPAC.Size = new System.Drawing.Size(549, 31);
             this.textBoxTen_IUPAC.TabIndex = 2;
             // 
-            // textBoxCAS_No
+            // textBoxTenKhac
             // 
-            this.textBoxCAS_No.Location = new System.Drawing.Point(12, 128);
-            this.textBoxCAS_No.Name = "textBoxCAS_No";
-            this.textBoxCAS_No.Size = new System.Drawing.Size(455, 31);
-            this.textBoxCAS_No.TabIndex = 3;
+            this.textBoxTenKhac.Location = new System.Drawing.Point(12, 128);
+            this.textBoxTenKhac.Name = "textBoxTenKhac";
+            this.textBoxTenKhac.Size = new System.Drawing.Size(455, 31);
+            this.textBoxTenKhac.TabIndex = 3;
             // 
             // label1
             // 
@@ -339,9 +343,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 108);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 25);
+            this.label3.Size = new System.Drawing.Size(101, 25);
             this.label3.TabIndex = 4;
-            this.label3.Text = "CAS No";
+            this.label3.Text = "Tên khác";
             // 
             // label4
             // 
@@ -351,6 +355,24 @@
             this.label4.Size = new System.Drawing.Size(196, 25);
             this.label4.TabIndex = 16;
             this.label4.Text = "Danh sách chỉ định";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(473, 108);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(91, 25);
+            this.label5.TabIndex = 49;
+            this.label5.Text = "Mã CAS";
+            // 
+            // textBoxCAS_No
+            // 
+            this.textBoxCAS_No.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCAS_No.Location = new System.Drawing.Point(473, 128);
+            this.textBoxCAS_No.Name = "textBoxCAS_No";
+            this.textBoxCAS_No.Size = new System.Drawing.Size(549, 31);
+            this.textBoxCAS_No.TabIndex = 48;
             // 
             // DanhMucThanhPhan
             // 
@@ -393,7 +415,7 @@
         private System.Windows.Forms.TextBox textBoxTen_INCI;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxTen_IUPAC;
-        private System.Windows.Forms.TextBox textBoxCAS_No;
+        private System.Windows.Forms.TextBox textBoxTenKhac;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxIDThanhphan;
         private System.Windows.Forms.Label label2;
@@ -405,5 +427,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button buttonChitiet;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxCAS_No;
     }
 }

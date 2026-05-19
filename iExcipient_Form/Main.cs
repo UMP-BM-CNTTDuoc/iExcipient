@@ -47,12 +47,6 @@ namespace iExcipient_Form
             childForm.Show();
         }
 
-        private void dạngSửDụngToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Forms.Danhmuc.DanhMucDangBaoChe DMDangsudung = new Forms.Danhmuc.DanhMucDangBaoChe();
-            openChildForm(DMDangsudung);
-        }
-
         private void quyĐịnhToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Forms.Danhmuc.DanhMucQuyDinh DMQuydinh = new Forms.Danhmuc.DanhMucQuyDinh();
@@ -63,12 +57,6 @@ namespace iExcipient_Form
         {
             Forms.Danhmuc.QuanHeThanhPhan_ChucNang QuanHeThanhphan_Chucnang = new Forms.Danhmuc.QuanHeThanhPhan_ChucNang();
             openChildForm(QuanHeThanhphan_Chucnang);
-        }
-
-        private void thànhPhầnDạngSửDụngToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Forms.Danhmuc.QuanHeThanhPhan_DangBaoChe QuanHeThanhphan_Dangsudung = new Forms.Danhmuc.QuanHeThanhPhan_DangBaoChe();
-            openChildForm(QuanHeThanhphan_Dangsudung);
         }
 
         private void thànhPhầnChấtLiênQuaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,6 +81,36 @@ namespace iExcipient_Form
         {
             Forms.Thietlap.QuanHeThanhphan_EWGScore QuanHeThanhphan_EWGScore = new Forms.Thietlap.QuanHeThanhphan_EWGScore();
             openChildForm(QuanHeThanhphan_EWGScore);
+        }
+
+        private void chứcNăngCosingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.Danhmuc.DanhMucChucNangCosing DMChucnangcosing = new Forms.Danhmuc.DanhMucChucNangCosing();
+            openChildForm(DMChucnangcosing);
+        }
+
+        private void chứcNăngCosIngToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms.Danhmuc.QuanHeThanhPhan_ChucNangCosing QuanHeThanhphan_ChucnangCosing = new Forms.Danhmuc.QuanHeThanhPhan_ChucNangCosing();
+            openChildForm(QuanHeThanhphan_ChucnangCosing);
+        }
+
+        private void thànhPhầnCosIngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.Danhmuc.DanhMucThanhPhanCosing DanhMucThanhphancosing = new Forms.Danhmuc.DanhMucThanhPhanCosing();
+            openChildForm(DanhMucThanhphancosing);
+        }
+
+        private void quyĐịnhCosIngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.Danhmuc.DanhMucQuydinhCosing DanhMucQuydinhcosing = new Forms.Danhmuc.DanhMucQuydinhCosing();
+            openChildForm(DanhMucQuydinhcosing);
+        }
+
+        private void quanHệCosIngHOPEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.Thietlap.QuanHeLinkCosingVaSach QuanHeLinkcosingVasach = new Forms.Thietlap.QuanHeLinkCosingVaSach();
+            openChildForm(QuanHeLinkcosingVasach);
         }
 
     }

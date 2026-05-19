@@ -1,6 +1,6 @@
-﻿namespace iExcipient_Form.Forms.Danhmuc
+﻿namespace iExcipient_Form.Forms.Thietlap
 {
-    partial class QuanHeThanhPhan_ChucNang
+    partial class QuanHeLinkCosingVaSach
     {
         /// <summary>
         /// Required designer variable.
@@ -34,10 +34,10 @@
             this.buttonSua = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonXoaChucNang = new System.Windows.Forms.Button();
-            this.buttonThemChucNang = new System.Windows.Forms.Button();
+            this.buttonXoaThanhPhanCosing = new System.Windows.Forms.Button();
+            this.buttonThemThanhPhanCosing = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBoxChucNang = new System.Windows.Forms.ComboBox();
+            this.comboBoxThanhPhanCosing = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxThanhPhan = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -58,7 +58,7 @@
             this.panel2.Name = "panel2";
             this.panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel2.Size = new System.Drawing.Size(1034, 55);
-            this.panel2.TabIndex = 18;
+            this.panel2.TabIndex = 21;
             // 
             // buttonImport
             // 
@@ -104,10 +104,10 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonXoaChucNang);
-            this.panel1.Controls.Add(this.buttonThemChucNang);
+            this.panel1.Controls.Add(this.buttonXoaThanhPhanCosing);
+            this.panel1.Controls.Add(this.buttonThemThanhPhanCosing);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.comboBoxChucNang);
+            this.panel1.Controls.Add(this.comboBoxThanhPhanCosing);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.comboBoxThanhPhan);
             this.panel1.Controls.Add(this.label2);
@@ -116,27 +116,27 @@
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel1.Size = new System.Drawing.Size(1034, 94);
-            this.panel1.TabIndex = 17;
+            this.panel1.TabIndex = 20;
             // 
-            // buttonXoaChucNang
+            // buttonXoaThanhPhanCosing
             // 
-            this.buttonXoaChucNang.Location = new System.Drawing.Point(545, 59);
-            this.buttonXoaChucNang.Name = "buttonXoaChucNang";
-            this.buttonXoaChucNang.Size = new System.Drawing.Size(41, 23);
-            this.buttonXoaChucNang.TabIndex = 13;
-            this.buttonXoaChucNang.Text = "-";
-            this.buttonXoaChucNang.UseVisualStyleBackColor = true;
-            this.buttonXoaChucNang.Click += new System.EventHandler(this.buttonXoaChucNang_Click);
+            this.buttonXoaThanhPhanCosing.Location = new System.Drawing.Point(545, 59);
+            this.buttonXoaThanhPhanCosing.Name = "buttonXoaThanhPhanCosing";
+            this.buttonXoaThanhPhanCosing.Size = new System.Drawing.Size(41, 23);
+            this.buttonXoaThanhPhanCosing.TabIndex = 13;
+            this.buttonXoaThanhPhanCosing.Text = "-";
+            this.buttonXoaThanhPhanCosing.UseVisualStyleBackColor = true;
+            this.buttonXoaThanhPhanCosing.Click += new System.EventHandler(this.buttonXoaThanhPhanCosing_Click);
             // 
-            // buttonThemChucNang
+            // buttonThemThanhPhanCosing
             // 
-            this.buttonThemChucNang.Location = new System.Drawing.Point(498, 59);
-            this.buttonThemChucNang.Name = "buttonThemChucNang";
-            this.buttonThemChucNang.Size = new System.Drawing.Size(41, 23);
-            this.buttonThemChucNang.TabIndex = 12;
-            this.buttonThemChucNang.Text = "+";
-            this.buttonThemChucNang.UseVisualStyleBackColor = true;
-            this.buttonThemChucNang.Click += new System.EventHandler(this.buttonThemChucNang_Click);
+            this.buttonThemThanhPhanCosing.Location = new System.Drawing.Point(498, 59);
+            this.buttonThemThanhPhanCosing.Name = "buttonThemThanhPhanCosing";
+            this.buttonThemThanhPhanCosing.Size = new System.Drawing.Size(41, 23);
+            this.buttonThemThanhPhanCosing.TabIndex = 12;
+            this.buttonThemThanhPhanCosing.Text = "+";
+            this.buttonThemThanhPhanCosing.UseVisualStyleBackColor = true;
+            this.buttonThemThanhPhanCosing.Click += new System.EventHandler(this.buttonThemThanhPhanCosing_Click);
             // 
             // button1
             // 
@@ -147,24 +147,24 @@
             this.button1.Text = "...";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // comboBoxChucNang
+            // comboBoxThanhPhanCosing
             // 
-            this.comboBoxChucNang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxThanhPhanCosing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxChucNang.FormattingEnabled = true;
-            this.comboBoxChucNang.Location = new System.Drawing.Point(498, 29);
-            this.comboBoxChucNang.Name = "comboBoxChucNang";
-            this.comboBoxChucNang.Size = new System.Drawing.Size(524, 33);
-            this.comboBoxChucNang.TabIndex = 10;
+            this.comboBoxThanhPhanCosing.FormattingEnabled = true;
+            this.comboBoxThanhPhanCosing.Location = new System.Drawing.Point(498, 29);
+            this.comboBoxThanhPhanCosing.Name = "comboBoxThanhPhanCosing";
+            this.comboBoxThanhPhanCosing.Size = new System.Drawing.Size(524, 33);
+            this.comboBoxThanhPhanCosing.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(498, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 25);
+            this.label5.Size = new System.Drawing.Size(250, 25);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Chức năng";
+            this.label5.Text = "Chọn thành phần CosIng";
             // 
             // comboBoxThanhPhan
             // 
@@ -183,7 +183,7 @@
             this.panel3.Name = "panel3";
             this.panel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel3.Size = new System.Drawing.Size(1034, 526);
-            this.panel3.TabIndex = 19;
+            this.panel3.TabIndex = 22;
             // 
             // dataGridView1
             // 
@@ -203,7 +203,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(1010, 408);
             this.dataGridView1.TabIndex = 8;
             // 
-            // QuanHeThanhPhan_ChucNang
+            // QuanHeLinkCosingVaSach
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
@@ -212,11 +212,11 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "QuanHeThanhPhan_ChucNang";
+            this.Name = "QuanHeLinkCosingVaSach";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "FormQuanHeThanhPhan_ChucNang";
+            this.Text = "QuanHeLinkCosingVaSach";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.QuanHeThanhPhan_ChucNang_Load);
+            this.Load += new System.EventHandler(this.QuanHeLinkCosingVaSach_Load);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -234,10 +234,10 @@
         private System.Windows.Forms.Button buttonSua;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonXoaChucNang;
-        private System.Windows.Forms.Button buttonThemChucNang;
+        private System.Windows.Forms.Button buttonXoaThanhPhanCosing;
+        private System.Windows.Forms.Button buttonThemThanhPhanCosing;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBoxChucNang;
+        private System.Windows.Forms.ComboBox comboBoxThanhPhanCosing;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxThanhPhan;
         private System.Windows.Forms.Panel panel3;

@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ClassLibraryIE;
+using Microsoft.VisualBasic.FileIO;
 
 namespace iExcipient_Form.Forms.Danhmuc
 {
-    public partial class DanhMucDangBaoChe : Form
+    public partial class DanhMucChucNangCosing : Form
     {
         BindingSource grid1 = new BindingSource();
 
@@ -21,12 +22,13 @@ namespace iExcipient_Form.Forms.Danhmuc
         KetnoiDB.UpdateData updatedata = new KetnoiDB.UpdateData();
         KetnoiDB.DeleteData deletedata = new KetnoiDB.DeleteData();
         KetnoiDB.BulkInsertData bulkInsert = new KetnoiDB.BulkInsertData();
-        public DanhMucDangBaoChe()
+
+        public DanhMucChucNangCosing()
         {
             InitializeComponent();
         }
 
-        private void DanhMucDangBaoChe_Load(object sender, EventArgs e)
+        private void DanhMucChucNangCosing_Load(object sender, EventArgs e)
         {
             buttonThem.Enabled = false;
             buttonXoa.Enabled = false;
@@ -42,16 +44,12 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void ClearTextBoxes()
         {
-            textBoxIDDangBaoChe.Clear();
-            textBoxDangBaoChe.Clear();
-            textBoxDangBaoChe.Focus();
+            textBoxIDChucNangCosing.Clear();
+            textBoxChucNangCosing.Clear();
+            textBoxMoTa.Clear();
+            textBoxChucNangCosing.Focus();
         }
 
-        private void refreshDatagrid()
-        {
-            grid1.DataSource = getdata.GetDSDangBaoChe();
-            dataGridView1.AutoResizeColumns();
-        }
         private void buttonXoatrang_Click(object sender, EventArgs e)
         {
             buttonImport.Enabled = true;
@@ -60,47 +58,49 @@ namespace iExcipient_Form.Forms.Danhmuc
             ClearTextBoxes();
         }
 
-        private void textBoxDangBaoChe_TextChanged(object sender, EventArgs e)
+        private void textBoxChucNangCosing_TextChanged(object sender, EventArgs e)
         {
-            buttonThem.Enabled = !string.IsNullOrWhiteSpace(textBoxDangBaoChe.Text);
+            buttonThem.Enabled = !string.IsNullOrWhiteSpace(textBoxChucNangCosing.Text);
+        }
+
+        private void refreshDatagrid()
+        {
+            grid1.DataSource = getdata.GetDSChucNangCosing();
+            dataGridView1.AutoResizeColumns();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Check if clicked row is valid (not header row)
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-
-                // Populate textboxes with selected row data
-                textBoxIDDangBaoChe.Text = row.Cells["IDDangbaoche"].Value.ToString();
-                textBoxDangBaoChe.Text = row.Cells["TenDangbaoche"].Value.ToString();
-
-                // Enable buttons after selection
+                textBoxIDChucNangCosing.Text = row.Cells["IDChucnangcosing"].Value.ToString();
+                textBoxChucNangCosing.Text = row.Cells["Tenchucnangcosing"].Value.ToString();
+                textBoxMoTa.Text = row.Cells["Motachucnangcosing"].Value.ToString();
                 buttonXoa.Enabled = true;
                 buttonSua.Enabled = true;
             }
         }
+
         private void buttonThem_Click(object sender, EventArgs e)
         {
             try
             {
-                // Validate input
-                if (string.IsNullOrWhiteSpace(textBoxDangBaoChe.Text))
+                if (string.IsNullOrWhiteSpace(textBoxChucNangCosing.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập tên dạng bào chế!", "Thông báo",
+                    MessageBox.Show("Vui lòng nhập tên chức năng cosing!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    textBoxDangBaoChe.Focus();
+                    textBoxChucNangCosing.Focus();
                     return;
                 }
 
-                DangBaoChe item = new DangBaoChe
+                ChucNangCosing item = new ChucNangCosing
                 {
-                    TenDangbaoche = textBoxDangBaoChe.Text.Trim()
+                    Tenchucnangcosing = textBoxChucNangCosing.Text.Trim(),
+                    Motachucnangcosing = textBoxMoTa.Text.Trim()
                 };
 
-                // Insert new record using KetnoiDB.InsertData
-                if (insertdata.InsertDangBaoChe(item))
+                if (insertdata.InsertChucNangCosing(item))
                 {
                     MessageBox.Show("Thêm mới thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -109,7 +109,7 @@ namespace iExcipient_Form.Forms.Danhmuc
                 }
                 else
                 {
-                    MessageBox.Show("Thêm mới thất bại! Dạng bào chế có thể đã tồn tại.", "Lỗi",
+                    MessageBox.Show("Thêm mới thất bại! Chức năng cosing có thể đã tồn tại.", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -124,66 +124,50 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                // Validate ID
-                if (string.IsNullOrWhiteSpace(textBoxIDDangBaoChe.Text))
+                if (string.IsNullOrWhiteSpace(textBoxIDChucNangCosing.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn dạng bào chế cần xóa!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn chức năng cosing cần xóa!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                int idDangBaoChe = int.Parse(textBoxIDDangBaoChe.Text);
-                string tenDangBaoChe = textBoxDangBaoChe.Text.Trim();
+                int idChucNangCosing = int.Parse(textBoxIDChucNangCosing.Text);
+                string tenChucNangCosing = textBoxChucNangCosing.Text.Trim();
 
-                // BƯỚC 1: Kiểm tra có bao nhiêu thành phần đang dùng dạng bào chế này
-                int soLuongQuanHe = deletedata.GetRelatedCountDangBaoChe(idDangBaoChe);
+                int soLuongQuanHe = deletedata.GetRelatedCountChucNangCosing(idChucNangCosing);
 
-                // BƯỚC 2: Tạo thông báo phù hợp
                 string confirmMessage = "";
                 MessageBoxIcon icon = MessageBoxIcon.Question;
 
                 if (soLuongQuanHe > 0)
                 {
-                    // Có quan hệ - cảnh báo nghiêm trọng hơn
                     confirmMessage = string.Format(
-                        "CẢNH BÁO: Dạng bào chế '{0}' đang được sử dụng bởi {1} thành phần.\n\n" +
+                        "CẢNH BÁO: Chức năng cosing '{0}' đang được sử dụng bởi {1} thành phần.\n\n" +
                         "Nếu xóa, tất cả {1} quan hệ này sẽ BỊ XÓA VĨNH VIỄN.\n\n" +
                         "Bạn có CHẮC CHẮN muốn xóa?",
-                        tenDangBaoChe,
-                        soLuongQuanHe
-                    );
+                        tenChucNangCosing, soLuongQuanHe);
                     icon = MessageBoxIcon.Warning;
                 }
                 else
                 {
-                    // Không có quan hệ - xác nhận bình thường
                     confirmMessage = string.Format(
-                        "Bạn có chắc chắn muốn xóa dạng bào chế '{0}'?",
-                        tenDangBaoChe
-                    );
-                    icon = MessageBoxIcon.Question;
+                        "Bạn có chắc chắn muốn xóa chức năng cosing '{0}'?",
+                        tenChucNangCosing);
                 }
 
-                // BƯỚC 3: Hiển thị dialog xác nhận
-                DialogResult confirm = MessageBox.Show(
-                    confirmMessage,
-                    "Xác nhận xóa",
-                    MessageBoxButtons.YesNo,
-                    icon
-                );
+                DialogResult confirm = MessageBox.Show(confirmMessage, "Xác nhận xóa",
+                    MessageBoxButtons.YesNo, icon);
 
-                // BƯỚC 4: Thực hiện xóa nếu user chọn Yes
                 if (confirm == DialogResult.Yes)
                 {
-                    if (deletedata.DeleteDangBaoChe(idDangBaoChe))
+                    if (deletedata.DeleteChucNangCosing(idChucNangCosing))
                     {
                         string successMsg = soLuongQuanHe > 0
-                            ? string.Format("Đã xóa dạng bào chế '{0}' và {1} quan hệ liên quan!", tenDangBaoChe, soLuongQuanHe)
-                            : string.Format("Đã xóa dạng bào chế '{0}' thành công!", tenDangBaoChe);
+                            ? string.Format("Đã xóa chức năng cosing '{0}' và {1} quan hệ liên quan!", tenChucNangCosing, soLuongQuanHe)
+                            : string.Format("Đã xóa chức năng cosing '{0}' thành công!", tenChucNangCosing);
 
                         MessageBox.Show(successMsg, "Thành công",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                         ClearTextBoxes();
                         refreshDatagrid();
                         buttonXoa.Enabled = false;
@@ -207,27 +191,24 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                // Validate ID
-                if (string.IsNullOrWhiteSpace(textBoxIDDangBaoChe.Text))
+                if (string.IsNullOrWhiteSpace(textBoxIDChucNangCosing.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn dạng bào chế cần sửa!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn chức năng cosing cần sửa!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Validate input
-                if (string.IsNullOrWhiteSpace(textBoxDangBaoChe.Text))
+                if (string.IsNullOrWhiteSpace(textBoxChucNangCosing.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập tên dạng bào chế!", "Thông báo",
+                    MessageBox.Show("Vui lòng nhập tên chức năng cosing!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    textBoxDangBaoChe.Focus();
+                    textBoxChucNangCosing.Focus();
                     return;
                 }
 
-                // Update record using KetnoiDB.UpdateData
-                int idDangBaoChe = int.Parse(textBoxIDDangBaoChe.Text);
+                int idChucNangCosing = int.Parse(textBoxIDChucNangCosing.Text);
 
-                if (updatedata.UpdateDangBaoChe(idDangBaoChe, textBoxDangBaoChe.Text.Trim()))
+                if (updatedata.UpdateChucNangCosing(idChucNangCosing, textBoxChucNangCosing.Text.Trim(), textBoxMoTa.Text.Trim()))
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -256,30 +237,26 @@ namespace iExcipient_Form.Forms.Danhmuc
                 OpenFileDialog openFileDialog = new OpenFileDialog
                 {
                     Filter = "CSV Files|*.csv",
-                    Title = "Chọn file để import (Cột 1: TenDangBaoChe)"
+                    Title = "Chọn file để import (Cột 1: TenChucNangCosing, Cột 2: MoTaChucNangCosing)"
                 };
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
+                    List<ChucNangCosing> listChucNangCosing = new List<ChucNangCosing>();
+                    ImportFromCSV(filePath, listChucNangCosing);
 
-                    List<DangBaoChe> listDangBaoChe = new List<DangBaoChe>();
-
-                    ImportFromCSV(filePath, listDangBaoChe);
-
-                    if (listDangBaoChe.Count > 0)
+                    if (listChucNangCosing.Count > 0)
                     {
                         DialogResult result = MessageBox.Show(
-                            "Tìm thấy " + listDangBaoChe.Count.ToString() + " dòng dữ liệu. Bạn có muốn import?",
-                            "Xác nhận import",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question);
+                            "Tìm thấy " + listChucNangCosing.Count.ToString() + " dòng dữ liệu. Bạn có muốn import?",
+                            "Xác nhận import", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (result == DialogResult.Yes)
                         {
-                            if (bulkInsert.BulkInsertDangBaoChe(listDangBaoChe))
+                            if (bulkInsert.BulkInsertChucNangCosing(listChucNangCosing))
                             {
-                                MessageBox.Show("Import thành công " + listDangBaoChe.Count.ToString() + " bản ghi!", "Thông báo",
+                                MessageBox.Show("Import thành công " + listChucNangCosing.Count.ToString() + " bản ghi!", "Thông báo",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 refreshDatagrid();
                             }
@@ -304,31 +281,29 @@ namespace iExcipient_Form.Forms.Danhmuc
             }
         }
 
-        private void ImportFromCSV(string filePath, List<DangBaoChe> listDangBaoChe)
+        private void ImportFromCSV(string filePath, List<ChucNangCosing> listChucNangCosing)
         {
-            using (StreamReader sr = new StreamReader(filePath, Encoding.UTF8))
+            using (Microsoft.VisualBasic.FileIO.TextFieldParser parser =
+                   new Microsoft.VisualBasic.FileIO.TextFieldParser(filePath, Encoding.UTF8))
             {
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
                 bool isFirstRow = true;
-                while (!sr.EndOfStream)
+                while (!parser.EndOfData)
                 {
-                    string line = sr.ReadLine();
-
-                    // Skip header row
-                    if (isFirstRow)
-                    {
-                        isFirstRow = false;
-                        continue;
-                    }
-
-                    string[] values = line.Split(',');
+                    string[] values = parser.ReadFields();
+                    if (isFirstRow) { isFirstRow = false; continue; }
 
                     if (values.Length >= 1 && !string.IsNullOrWhiteSpace(values[0]))
                     {
-                        DangBaoChe dbc = new DangBaoChe
+                        ChucNangCosing cn = new ChucNangCosing
                         {
-                            TenDangbaoche = values[0].Trim().Trim('"')
+                            Tenchucnangcosing = values[0].Trim(),
+                            Motachucnangcosing = values.Length > 1 ? values[1].Trim() : ""
                         };
-                        listDangBaoChe.Add(dbc);
+                        listChucNangCosing.Add(cn);
                     }
                 }
             }

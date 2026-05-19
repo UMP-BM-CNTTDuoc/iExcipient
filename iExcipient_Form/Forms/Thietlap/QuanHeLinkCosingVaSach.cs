@@ -10,13 +10,13 @@ using System.Windows.Forms;
 using System.IO;
 using ClassLibraryIE;
 
-namespace iExcipient_Form.Forms.Danhmuc
+namespace iExcipient_Form.Forms.Thietlap
 {
-    public partial class QuanHeThanhPhan_DangBaoChe : Form
+    public partial class QuanHeLinkCosingVaSach : Form
     {
         private List<ThanhPhan> _listThanhPhan;
-        private List<DangBaoChe> _listDangBaoChe;
-        private BindingList<ThanhPhan_DangBaoChe> _listLienKet;
+        private List<ThanhPhanCosing> _listThanhPhanCosing;
+        private BindingList<LinkCosingVaSach> _listLienKet;
         ThanhPhan workingTP;
 
         BindingSource grid1 = new BindingSource();
@@ -27,19 +27,19 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private bool capnhat = false; // Flag to track unsaved changes
 
-        public QuanHeThanhPhan_DangBaoChe()
+        public QuanHeLinkCosingVaSach()
         {
             InitializeComponent();
         }
 
-        private void QuanHeThanhPhan_DangBaoChe_Load(object sender, EventArgs e)
+        private void QuanHeLinkCosingVaSach_Load(object sender, EventArgs e)
         {
             LoadThanhPhan();
-            LoadDangBaoChe();
+            LoadThanhPhanCosing();
             LoadListLienKet();
 
             comboBoxThanhPhan.SelectedIndex = -1;
-            comboBoxDangBaoChe.SelectedIndex = -1;
+            comboBoxThanhPhanCosing.SelectedIndex = -1;
 
             LoadLinkedList();
         }
@@ -79,13 +79,20 @@ namespace iExcipient_Form.Forms.Danhmuc
                     return;
                 }
 
-                // Xóa tất cả quan hệ cũ của thành phần này
-                deletedata.DeleteThanhPhan_DangBaoChe_ByThanhPhan(workingTP.IDThanhphan);
+                // Xóa tất cả quan hệ cũ của Sách này theo từng IDLink
+                List<LinkCosingVaSach> dsCu = getdata.GetDSLinkCosingVaSach()
+                    .Where(x => x.IDThanhphan == workingTP.IDThanhphan)
+                    .ToList();
+
+                foreach (LinkCosingVaSach old in dsCu)
+                {
+                    deletedata.DeleteLinkCosingVaSach(old.IDLink);
+                }
 
                 // Thêm lại các quan hệ mới
-                foreach (ThanhPhan_DangBaoChe i in _listLienKet)
+                foreach (LinkCosingVaSach i in _listLienKet)
                 {
-                    insertdata.InsertThanhPhan_DangBaoChe(i);
+                    insertdata.InsertLinkCosingVaSach(i);
                 }
 
                 capnhat = false; // Reset flag after successful save
@@ -99,44 +106,27 @@ namespace iExcipient_Form.Forms.Danhmuc
             }
         }
 
-        private void buttonImport_Click(object sender, EventArgs e)
-        {
-            using (Forms.Thietlap.Import_ThanhPhan_DangBaoChe formcon = new Forms.Thietlap.Import_ThanhPhan_DangBaoChe())
-            {
-                formcon.ShowDialog();
-                // Reload data after import
-                LoadThanhPhan();
-                LoadDangBaoChe();
-                if (workingTP != null)
-                {
-                    comboBoxThanhPhan.SelectedValue = workingTP.IDThanhphan;
-                }
-            }
-        }
-
         private void LoadThanhPhan()
         {
             _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INCI).ToList();
 
-            // Load for main component ComboBox
             comboBoxThanhPhan.DataSource = _listThanhPhan.ToList();
             comboBoxThanhPhan.DisplayMember = "Ten_INCI";
             comboBoxThanhPhan.ValueMember = "IDThanhphan";
         }
 
-        private void LoadDangBaoChe()
+        private void LoadThanhPhanCosing()
         {
-            _listDangBaoChe = getdata.GetDSDangBaoChe().OrderBy(dbc => dbc.TenDangbaoche).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosing().OrderBy(tc => tc.Ten_INCI).ToList();
 
-            // Load for DangBaoChe ComboBox
-            comboBoxDangBaoChe.DataSource = _listDangBaoChe.ToList();
-            comboBoxDangBaoChe.DisplayMember = "TenDangbaoche";
-            comboBoxDangBaoChe.ValueMember = "IDDangbaoche";
+            comboBoxThanhPhanCosing.DataSource = _listThanhPhanCosing.ToList();
+            comboBoxThanhPhanCosing.DisplayMember = "Ten_INCI";
+            comboBoxThanhPhanCosing.ValueMember = "IDThanhphan_Cosing";
         }
 
         private void LoadListLienKet()
         {
-            _listLienKet = new BindingList<ThanhPhan_DangBaoChe>();
+            _listLienKet = new BindingList<LinkCosingVaSach>();
         }
 
         private void comboBoxThanhPhan_SelectedIndexChanged(object sender, EventArgs e)
@@ -180,16 +170,14 @@ namespace iExcipient_Form.Forms.Danhmuc
 
                 _listLienKet.Clear();
 
-                if (workingTP != null && workingTP.dsDangBaoChe != null)
+                // Tải các liên kết hiện có từ DB theo IDThanhphan (Sách)
+                List<LinkCosingVaSach> dshienco = getdata.GetDSLinkCosingVaSach()
+                    .Where(x => x.IDThanhphan == idThanhPhan)
+                    .ToList();
+
+                foreach (LinkCosingVaSach lk in dshienco)
                 {
-                    foreach (DangBaoChe dbc in workingTP.dsDangBaoChe)
-                    {
-                        _listLienKet.Add(new ThanhPhan_DangBaoChe
-                        {
-                            IDThanhphan = idThanhPhan,
-                            IDDangbaoche = dbc.IDDangbaoche
-                        });
-                    }
+                    _listLienKet.Add(lk);
                 }
 
                 LoadLinkedList();
@@ -208,11 +196,13 @@ namespace iExcipient_Form.Forms.Danhmuc
 
             var displayList = _listLienKet.Select(l => new
             {
+                IDLink = l.IDLink,
                 IDThanhphan = l.IDThanhphan,
                 TenThanhPhan = GetTenThanhPhan(l.IDThanhphan),
                 CAS_No = GetCASNo(l.IDThanhphan),
-                IDDangbaoche = l.IDDangbaoche,
-                TenDangBaoChe = GetTenDangBaoChe(l.IDDangbaoche)
+                IDThanhphan_Cosing = l.IDThanhphan_Cosing,
+                TenThanhPhanCosing = GetTenThanhPhanCosing(l.IDThanhphan_Cosing),
+                CAS_No_Cosing = GetCASNoCosing(l.IDThanhphan_Cosing)
             }).ToList();
 
             grid1.DataSource = null;
@@ -233,44 +223,65 @@ namespace iExcipient_Form.Forms.Danhmuc
             return tp != null ? tp.CAS_No : "";
         }
 
-        private string GetTenDangBaoChe(int id)
+        private string GetTenThanhPhanCosing(int id)
         {
-            DangBaoChe dbc = _listDangBaoChe.FirstOrDefault(d => d.IDDangbaoche == id);
-            return dbc != null ? dbc.TenDangbaoche : "";
+            ThanhPhanCosing tpc = _listThanhPhanCosing.FirstOrDefault(t => t.IDThanhphan_Cosing == id);
+            return tpc != null ? tpc.Ten_INCI : "";
         }
 
-        private void buttonThemDangBaoChe_Click(object sender, EventArgs e)
+        private string GetCASNoCosing(int id)
         {
-            if (comboBoxThanhPhan.SelectedValue == null || comboBoxDangBaoChe.SelectedValue == null)
+            ThanhPhanCosing tpc = _listThanhPhanCosing.FirstOrDefault(t => t.IDThanhphan_Cosing == id);
+            return tpc != null ? tpc.CAS_No : "";
+        }
+
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            using (Forms.Thietlap.Import_LinkCosingVaSach formcon = new Forms.Thietlap.Import_LinkCosingVaSach())
             {
-                MessageBox.Show("Vui lòng chọn cả Thành Phần và Dạng Bào Chế.", "Thông báo",
+                formcon.ShowDialog();
+                // Reload data after import
+                LoadThanhPhan();
+                LoadThanhPhanCosing();
+                if (workingTP != null)
+                {
+                    comboBoxThanhPhan.SelectedValue = workingTP.IDThanhphan;
+                }
+            }
+        }
+
+        private void buttonThemThanhPhanCosing_Click(object sender, EventArgs e)
+        {
+            if (comboBoxThanhPhan.SelectedValue == null || comboBoxThanhPhanCosing.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn cả Thành Phần và Thành Phần Cosing.", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             int idThanhPhan = (int)comboBoxThanhPhan.SelectedValue;
-            int idDangBaoChe = (int)comboBoxDangBaoChe.SelectedValue;
+            int idThanhPhanCosing = (int)comboBoxThanhPhanCosing.SelectedValue;
 
             // Check if link already exists
             if (_listLienKet.Any(l => l.IDThanhphan == idThanhPhan &&
-                                     l.IDDangbaoche == idDangBaoChe))
+                                     l.IDThanhphan_Cosing == idThanhPhanCosing))
             {
                 MessageBox.Show("Liên kết này đã tồn tại.", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            _listLienKet.Add(new ThanhPhan_DangBaoChe
+            _listLienKet.Add(new LinkCosingVaSach
             {
                 IDThanhphan = idThanhPhan,
-                IDDangbaoche = idDangBaoChe
+                IDThanhphan_Cosing = idThanhPhanCosing
             });
 
             capnhat = true; // Mark as having unsaved changes
             LoadLinkedList();
         }
 
-        private void buttonXoaDangBaoChe_Click(object sender, EventArgs e)
+        private void buttonXoaThanhPhanCosing_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
             {
@@ -295,11 +306,11 @@ namespace iExcipient_Form.Forms.Danhmuc
                     {
                         var item = row.DataBoundItem;
                         int idThanhPhan = (int)item.GetType().GetProperty("IDThanhphan").GetValue(item);
-                        int idDangBaoChe = (int)item.GetType().GetProperty("IDDangbaoche").GetValue(item);
+                        int idThanhPhanCosing = (int)item.GetType().GetProperty("IDThanhphan_Cosing").GetValue(item);
 
                         var linkToRemove = _listLienKet.FirstOrDefault(l =>
                             l.IDThanhphan == idThanhPhan &&
-                            l.IDDangbaoche == idDangBaoChe);
+                            l.IDThanhphan_Cosing == idThanhPhanCosing);
 
                         if (linkToRemove != null)
                         {

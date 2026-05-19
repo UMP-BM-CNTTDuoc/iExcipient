@@ -13,7 +13,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace iExcipient_Form.Forms.Danhmuc
 {
-    public partial class DanhMucQuyDinh : Form
+    public partial class DanhMucQuydinhCosing : Form
     {
         BindingSource grid1 = new BindingSource();
 
@@ -22,34 +22,35 @@ namespace iExcipient_Form.Forms.Danhmuc
         KetnoiDB.UpdateData updatedata = new KetnoiDB.UpdateData();
         KetnoiDB.DeleteData deletedata = new KetnoiDB.DeleteData();
         KetnoiDB.BulkInsertData bulkInsert = new KetnoiDB.BulkInsertData();
-        public DanhMucQuyDinh()
+
+        public DanhMucQuydinhCosing()
         {
             InitializeComponent();
         }
 
-        private void DanhMucQuyDinh_Load(object sender, EventArgs e)
+        private void DanhMucQuydinhCosing_Load(object sender, EventArgs e)
         {
             buttonThem.Enabled = false;
             buttonXoa.Enabled = false;
             buttonSua.Enabled = false;
             dataGridView1.DataSource = grid1;
-            LoadComboBoxThanhPhan();
+            LoadComboBoxThanhPhanCosing();
             refreshDatagrid();
-
         }
-        private void LoadComboBoxThanhPhan()
+
+        private void LoadComboBoxThanhPhanCosing()
         {
             try
             {
-                List<ThanhPhan> dsThanhPhan = getdata.GetDSThanhPhan();
-                comboBoxTenThanhPhan.DataSource = dsThanhPhan;
-                comboBoxTenThanhPhan.DisplayMember = "Ten_INCI";
-                comboBoxTenThanhPhan.ValueMember = "IDThanhphan";
-                comboBoxTenThanhPhan.SelectedIndex = -1;
+                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosing();
+                comboBoxTenThanhPhanCosing.DataSource = dsThanhPhanCosing;
+                comboBoxTenThanhPhanCosing.DisplayMember = "Ten_INCI";
+                comboBoxTenThanhPhanCosing.ValueMember = "IDThanhphan_Cosing";
+                comboBoxTenThanhPhanCosing.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải danh sách thành phần: " + ex.Message, "Lỗi",
+                MessageBox.Show("Lỗi khi tải danh sách thành phần Cosing: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -61,15 +62,15 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void ClearTextBoxes()
         {
-            textBoxIDQuyDinh.Clear();
-            textBoxIDThanhPhan.Clear();
-            comboBoxTenThanhPhan.SelectedIndex = -1;
+            textBoxIDQuydinhCosing.Clear();
+            textBoxIDThanhPhanCosing.Clear();
+            comboBoxTenThanhPhanCosing.SelectedIndex = -1;
             checkBoxAnnexII.Checked = false;
             checkBoxAnnexIII.Checked = false;
             checkBoxAnnexIV.Checked = false;
             checkBoxAnnexV.Checked = false;
             checkBoxAnnexVI.Checked = false;
-            comboBoxTenThanhPhan.Focus();
+            comboBoxTenThanhPhanCosing.Focus();
         }
 
         private void buttonXoatrang_Click(object sender, EventArgs e)
@@ -80,19 +81,18 @@ namespace iExcipient_Form.Forms.Danhmuc
             buttonThem.Enabled = false;
             ClearTextBoxes();
         }
+
         private void refreshDatagrid()
         {
             try
             {
-                // Get data from database
-                List<QuyDinh> dsQuyDinh = getdata.GetDSQuyDinh();
+                List<QuydinhCosing> dsQuydinhCosing = getdata.GetDSQuydinhCosing();
 
-                // Create display list with ThanhPhan name
-                var displayList = dsQuyDinh.Select(qd => new
+                var displayList = dsQuydinhCosing.Select(qd => new
                 {
-                    qd.IDQuydinh,
-                    qd.IDThanhphan,
-                    TenThanhPhan = GetTenThanhPhan(qd.IDThanhphan),
+                    qd.IDQuydinh_Cosing,
+                    qd.IDThanhphan_Cosing,
+                    TenThanhPhanCosing = GetTenThanhPhanCosing(qd.IDThanhphan_Cosing),
                     qd.AnnexII,
                     qd.AnnexIII,
                     qd.AnnexIV,
@@ -109,11 +109,12 @@ namespace iExcipient_Form.Forms.Danhmuc
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private string GetTenThanhPhan(int idThanhPhan)
+
+        private string GetTenThanhPhanCosing(int idThanhPhanCosing)
         {
             try
             {
-                ThanhPhan tp = getdata.GetThanhPhan(idThanhPhan);
+                ThanhPhanCosing tp = getdata.GetThanhPhanCosing(idThanhPhanCosing);
                 return tp != null ? tp.Ten_INCI : "";
             }
             catch
@@ -121,51 +122,37 @@ namespace iExcipient_Form.Forms.Danhmuc
                 return "";
             }
         }
-        private void comboBoxTenThanhPhan_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int id;
 
-            if (comboBoxTenThanhPhan.SelectedValue != null &&
-                int.TryParse(comboBoxTenThanhPhan.SelectedValue.ToString(), out id))
-            {
-                textBoxIDThanhPhan.Text = id.ToString();
-                buttonThem.Enabled = true;
-            }
-            else
-            {
-                textBoxIDThanhPhan.Clear();
-                buttonThem.Enabled = false;
-            }
+        private void comboBoxTenThanhPhanCosing_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
-        private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                // Populate textboxes
-                textBoxIDQuyDinh.Text = row.Cells["IDQuydinh"].Value != null
-                    ? row.Cells["IDQuydinh"].Value.ToString()
+                textBoxIDQuydinhCosing.Text = row.Cells["IDQuydinh_Cosing"].Value != null
+                    ? row.Cells["IDQuydinh_Cosing"].Value.ToString()
                     : "";
 
-                textBoxIDThanhPhan.Text = row.Cells["IDThanhphan"].Value != null
-                    ? row.Cells["IDThanhphan"].Value.ToString()
+                textBoxIDThanhPhanCosing.Text = row.Cells["IDThanhphan_Cosing"].Value != null
+                    ? row.Cells["IDThanhphan_Cosing"].Value.ToString()
                     : "";
 
-                // Set combobox by IDThanhphan
-                if (row.Cells["IDThanhphan"].Value != null &&
-                    row.Cells["IDThanhphan"].Value != DBNull.Value)
+                if (row.Cells["IDThanhphan_Cosing"].Value != null &&
+                    row.Cells["IDThanhphan_Cosing"].Value != DBNull.Value)
                 {
-                    int idThanhPhan = Convert.ToInt32(row.Cells["IDThanhphan"].Value);
-                    comboBoxTenThanhPhan.SelectedValue = idThanhPhan;
+                    int idThanhPhanCosing = Convert.ToInt32(row.Cells["IDThanhphan_Cosing"].Value);
+                    comboBoxTenThanhPhanCosing.SelectedValue = idThanhPhanCosing;
                 }
                 else
                 {
-                    comboBoxTenThanhPhan.SelectedIndex = -1;
+                    comboBoxTenThanhPhanCosing.SelectedIndex = -1;
                 }
 
-                // Set checkboxes
                 checkBoxAnnexII.Checked = row.Cells["AnnexII"].Value != null &&
                     row.Cells["AnnexII"].Value != DBNull.Value &&
                     Convert.ToBoolean(row.Cells["AnnexII"].Value);
@@ -186,7 +173,6 @@ namespace iExcipient_Form.Forms.Danhmuc
                     row.Cells["AnnexVI"].Value != DBNull.Value &&
                     Convert.ToBoolean(row.Cells["AnnexVI"].Value);
 
-                // Enable buttons
                 buttonXoa.Enabled = true;
                 buttonSua.Enabled = true;
             }
@@ -196,17 +182,17 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                if (comboBoxTenThanhPhan.SelectedValue == null)
+                if (comboBoxTenThanhPhanCosing.SelectedValue == null)
                 {
-                    MessageBox.Show("Vui lòng chọn thành phần!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn thành phần Cosing!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    comboBoxTenThanhPhan.Focus();
+                    comboBoxTenThanhPhanCosing.Focus();
                     return;
                 }
 
-                QuyDinh item = new QuyDinh
+                QuydinhCosing item = new QuydinhCosing
                 {
-                    IDThanhphan = int.Parse(textBoxIDThanhPhan.Text),
+                    IDThanhphan_Cosing = int.Parse(textBoxIDThanhPhanCosing.Text),
                     AnnexII = checkBoxAnnexII.Checked ? (bool?)true : null,
                     AnnexIII = checkBoxAnnexIII.Checked ? (bool?)true : null,
                     AnnexIV = checkBoxAnnexIV.Checked ? (bool?)true : null,
@@ -214,7 +200,7 @@ namespace iExcipient_Form.Forms.Danhmuc
                     AnnexVI = checkBoxAnnexVI.Checked ? (bool?)true : null,
                 };
 
-                if (insertdata.InsertQuyDinh(item))
+                if (insertdata.InsertQuydinhCosing(item))
                 {
                     MessageBox.Show("Thêm mới thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -238,61 +224,31 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(textBoxIDQuyDinh.Text))
+                if (string.IsNullOrWhiteSpace(textBoxIDQuydinhCosing.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn quy định cần xóa!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn quy định Cosing cần xóa!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                int idQuyDinh = int.Parse(textBoxIDQuyDinh.Text);
-                string tenThanhPhan = comboBoxTenThanhPhan.Text.Trim();
+                int idQuydinhCosing = int.Parse(textBoxIDQuydinhCosing.Text);
+                string tenThanhPhanCosing = comboBoxTenThanhPhanCosing.Text.Trim();
 
-                // BƯỚC 1: Kiểm tra quan hệ liên quan
-                int soLuongQuanHe = deletedata.GetRelatedCountQuyDinh(idQuyDinh);
-
-                // BƯỚC 2: Tạo thông báo phù hợp
-                string confirmMessage = "";
-                MessageBoxIcon icon;
-
-                if (soLuongQuanHe > 0)
-                {
-                    confirmMessage = string.Format(
-                        "CẢNH BÁO: Quy định của thành phần '{0}' đang được sử dụng bởi {1} thành phần.\n\n" +
-                        "Nếu xóa, tất cả {1} quan hệ này sẽ BỊ XÓA VĨNH VIỄN.\n\n" +
-                        "Bạn có CHẮC CHẮN muốn xóa?",
-                        tenThanhPhan,
-                        soLuongQuanHe
-                    );
-                    icon = MessageBoxIcon.Warning;
-                }
-                else
-                {
-                    confirmMessage = string.Format(
-                        "Bạn có chắc chắn muốn xóa quy định của thành phần '{0}'?",
-                        tenThanhPhan
-                    );
-                    icon = MessageBoxIcon.Question;
-                }
-
-                // BƯỚC 3: Hiển thị dialog xác nhận
                 DialogResult confirm = MessageBox.Show(
-                    confirmMessage,
+                    string.Format("Bạn có chắc chắn muốn xóa quy định Cosing của thành phần '{0}'?",
+                        tenThanhPhanCosing),
                     "Xác nhận xóa",
                     MessageBoxButtons.YesNo,
-                    icon
+                    MessageBoxIcon.Question
                 );
 
-                // BƯỚC 4: Thực hiện xóa
                 if (confirm == DialogResult.Yes)
                 {
-                    if (deletedata.DeleteQuyDinh(idQuyDinh))
+                    if (deletedata.DeleteQuydinhCosing(idQuydinhCosing))
                     {
-                        string successMsg = soLuongQuanHe > 0
-                            ? string.Format("Đã xóa quy định của thành phần '{0}' và {1} quan hệ liên quan!", tenThanhPhan, soLuongQuanHe)
-                            : string.Format("Đã xóa quy định của thành phần '{0}' thành công!", tenThanhPhan);
-
-                        MessageBox.Show(successMsg, "Thành công",
+                        MessageBox.Show(
+                            string.Format("Đã xóa quy định Cosing của thành phần '{0}' thành công!", tenThanhPhanCosing),
+                            "Thành công",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         ClearTextBoxes();
@@ -318,39 +274,26 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                // Validate ID
-                if (string.IsNullOrWhiteSpace(textBoxIDQuyDinh.Text))
+                if (string.IsNullOrWhiteSpace(textBoxIDQuydinhCosing.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn quy định cần sửa!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn quy định Cosing cần sửa!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Validate thành phần
-                if (comboBoxTenThanhPhan.SelectedValue == null)
+                if (comboBoxTenThanhPhanCosing.SelectedValue == null)
                 {
-                    MessageBox.Show("Vui lòng chọn thành phần!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn thành phần Cosing!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    comboBoxTenThanhPhan.Focus();
+                    comboBoxTenThanhPhanCosing.Focus();
                     return;
                 }
 
-                int idQuyDinh = int.Parse(textBoxIDQuyDinh.Text);
+                int idQuydinhCosing = int.Parse(textBoxIDQuydinhCosing.Text);
 
-                QuyDinh item = new QuyDinh
-                {
-                    IDQuydinh = idQuyDinh,
-                    IDThanhphan = int.Parse(textBoxIDThanhPhan.Text),
-                    AnnexII = checkBoxAnnexII.Checked ? (bool?)true : null,
-                    AnnexIII = checkBoxAnnexIII.Checked ? (bool?)true : null,
-                    AnnexIV = checkBoxAnnexIV.Checked ? (bool?)true : null,
-                    AnnexV = checkBoxAnnexV.Checked ? (bool?)true : null,
-                    AnnexVI = checkBoxAnnexVI.Checked ? (bool?)true : null,
-                };
-
-                if (updatedata.UpdateQuyDinh(
-                    idQuyDinh,
-                    int.Parse(textBoxIDThanhPhan.Text),
+                if (updatedata.UpdateQuydinhCosing(
+                    idQuydinhCosing,
+                    int.Parse(textBoxIDThanhPhanCosing.Text),
                     checkBoxAnnexII.Checked ? (bool?)true : null,
                     checkBoxAnnexIII.Checked ? (bool?)true : null,
                     checkBoxAnnexIV.Checked ? (bool?)true : null,
@@ -384,29 +327,29 @@ namespace iExcipient_Form.Forms.Danhmuc
                 OpenFileDialog openFileDialog = new OpenFileDialog
                 {
                     Filter = "CSV Files|*.csv",
-                    Title = "Chọn file để import (Các cột: IDThanhPhan, AnnexII, AnnexIII, AnnexIV, AnnexV, AnnexVI)"
+                    Title = "Chọn file để import (Các cột: IDThanhPhan_Cosing, AnnexII, AnnexIII, AnnexIV, AnnexV, AnnexVI)"
                 };
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
-                    List<QuyDinh> listQuyDinh = new List<QuyDinh>();
+                    List<QuydinhCosing> listQuydinhCosing = new List<QuydinhCosing>();
 
-                    ImportFromCSV(filePath, listQuyDinh);
+                    ImportFromCSV(filePath, listQuydinhCosing);
 
-                    if (listQuyDinh.Count > 0)
+                    if (listQuydinhCosing.Count > 0)
                     {
                         DialogResult result = MessageBox.Show(
-                            "Tìm thấy " + listQuyDinh.Count.ToString() + " dòng dữ liệu. Bạn có muốn import?",
+                            "Tìm thấy " + listQuydinhCosing.Count.ToString() + " dòng dữ liệu. Bạn có muốn import?",
                             "Xác nhận import",
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question);
 
                         if (result == DialogResult.Yes)
                         {
-                            if (bulkInsert.BulkInsertQuyDinh(listQuyDinh))
+                            if (bulkInsert.BulkInsertQuydinhCosing(listQuydinhCosing))
                             {
-                                MessageBox.Show("Import thành công " + listQuyDinh.Count.ToString() + " bản ghi!",
+                                MessageBox.Show("Import thành công " + listQuydinhCosing.Count.ToString() + " bản ghi!",
                                     "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 refreshDatagrid();
                             }
@@ -431,7 +374,7 @@ namespace iExcipient_Form.Forms.Danhmuc
             }
         }
 
-        private void ImportFromCSV(string filePath, List<QuyDinh> listQuyDinh)
+        private void ImportFromCSV(string filePath, List<QuydinhCosing> listQuydinhCosing)
         {
             using (Microsoft.VisualBasic.FileIO.TextFieldParser parser =
                    new Microsoft.VisualBasic.FileIO.TextFieldParser(filePath, Encoding.UTF8))
@@ -453,20 +396,19 @@ namespace iExcipient_Form.Forms.Danhmuc
 
                     if (values.Length >= 1 && !string.IsNullOrWhiteSpace(values[0]))
                     {
-                        QuyDinh qd = new QuyDinh
+                        QuydinhCosing qd = new QuydinhCosing
                         {
-                            IDThanhphan = int.Parse(values[0].Trim()),
+                            IDThanhphan_Cosing = int.Parse(values[0].Trim()),
                             AnnexII = values.Length > 1 && values[1].Trim().ToLower() == "true" ? (bool?)true : null,
                             AnnexIII = values.Length > 2 && values[2].Trim().ToLower() == "true" ? (bool?)true : null,
                             AnnexIV = values.Length > 3 && values[3].Trim().ToLower() == "true" ? (bool?)true : null,
                             AnnexV = values.Length > 4 && values[4].Trim().ToLower() == "true" ? (bool?)true : null,
                             AnnexVI = values.Length > 5 && values[5].Trim().ToLower() == "true" ? (bool?)true : null
                         };
-                        listQuyDinh.Add(qd);
+                        listQuydinhCosing.Add(qd);
                     }
                 }
             }
         }
-
     }
 }

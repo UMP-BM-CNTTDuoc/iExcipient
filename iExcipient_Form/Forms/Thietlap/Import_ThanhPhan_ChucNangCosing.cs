@@ -12,12 +12,12 @@ using ClassLibraryIE;
 
 namespace iExcipient_Form.Forms.Thietlap
 {
-    public partial class Import_ThanhPhan_DangBaoChe : Form
+    public partial class Import_ThanhPhan_ChucNangCosing : Form
     {
-        private List<ThanhPhan> _listThanhPhan;
-        private List<DangBaoChe> _listDangBaoChe;
-        private List<ThanhPhan_DangBaoChe> _listLienKet;
-        private List<ThanhPhan_DangBaoChe> _listTong;
+        private List<ThanhPhanCosing> _listThanhPhanCosing;
+        private List<ChucNangCosing> _listChucNangCosing;
+        private List<ThanhPhan_ChucNangCosing> _listLienKet;
+        private List<ThanhPhan_ChucNangCosing> _listTong;
 
         BindingSource grid1 = new BindingSource();
         BindingSource gridTong = new BindingSource();
@@ -26,15 +26,15 @@ namespace iExcipient_Form.Forms.Thietlap
         KetnoiDB.BulkInsertData bulkInsert = new KetnoiDB.BulkInsertData();
         KetnoiDB.DeleteData deletedata = new KetnoiDB.DeleteData();
 
-        public Import_ThanhPhan_DangBaoChe()
+        public Import_ThanhPhan_ChucNangCosing()
         {
             InitializeComponent();
         }
 
-        private void Import_ThanhPhan_DangBaoChe_Load(object sender, EventArgs e)
+        private void Import_ThanhPhan_ChucNangCosing_Load(object sender, EventArgs e)
         {
-            LoadThanhPhan();
-            LoadDangBaoChe();
+            LoadThanhPhanCosing();
+            LoadChucNangCosing();
             LoadListLienKet();
 
             dataGridView1.DataSource = grid1;
@@ -57,25 +57,22 @@ namespace iExcipient_Form.Forms.Thietlap
                     return;
                 }
 
-                // Validate data before import
                 StringBuilder errors = new StringBuilder();
                 int errorCount = 0;
 
                 for (int i = 0; i < _listLienKet.Count; i++)
                 {
-                    ThanhPhan_DangBaoChe item = _listLienKet[i];
+                    ThanhPhan_ChucNangCosing item = _listLienKet[i];
 
-                    // Check if ThanhPhan exists
-                    if (!_listThanhPhan.Any(tp => tp.IDThanhphan == item.IDThanhphan))
+                    if (!_listThanhPhanCosing.Any(tp => tp.IDThanhphan_Cosing == item.IDThanhphan_Cosing))
                     {
-                        errors.AppendLine("Dòng " + (i + 1).ToString() + ": IDThanhphan " + item.IDThanhphan.ToString() + " không tồn tại");
+                        errors.AppendLine("Dòng " + (i + 1).ToString() + ": IDThanhphan " + item.IDThanhphan_Cosing.ToString() + " không tồn tại");
                         errorCount++;
                     }
 
-                    // Check if DangBaoChe exists
-                    if (!_listDangBaoChe.Any(dbc => dbc.IDDangbaoche == item.IDDangbaoche))
+                    if (!_listChucNangCosing.Any(cn => cn.IDChucnangcosing == item.IDChucnangcosing))
                     {
-                        errors.AppendLine("Dòng " + (i + 1).ToString() + ": IDDangbaoche " + item.IDDangbaoche.ToString() + " không tồn tại");
+                        errors.AppendLine("Dòng " + (i + 1).ToString() + ": IDChucnangcosing " + item.IDChucnangcosing.ToString() + " không tồn tại");
                         errorCount++;
                     }
                 }
@@ -91,27 +88,21 @@ namespace iExcipient_Form.Forms.Thietlap
                     "Tìm thấy " + _listLienKet.Count.ToString() + " dòng dữ liệu hợp lệ.\n\n" +
                     "Lưu ý: Các liên kết trùng lặp sẽ bị bỏ qua.\n\n" +
                     "Bạn có muốn import?",
-                    "Xác nhận import",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
+                    "Xác nhận import", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-                    if (bulkInsert.BulkInsertThanhPhan_DangBaoChe(_listLienKet))
+                    if (bulkInsert.BulkInsertThanhPhan_ChucNangCosing(_listLienKet))
                     {
                         MessageBox.Show("Import thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        // Clear the import grid
                         _listLienKet.Clear();
                         grid1.DataSource = null;
                         grid1.DataSource = _listLienKet;
 
-                        // Refresh the total grid if it's loaded
                         if (_listTong != null && _listTong.Count > 0)
-                        {
                             buttonGetTong_Click(null, null);
-                        }
                     }
                     else
                     {
@@ -140,15 +131,9 @@ namespace iExcipient_Form.Forms.Thietlap
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
-
-                    // Clear previous data
                     LoadListLienKet();
-
                     ImportFromCSV(filePath);
-
-                    // Display imported data with names
                     DisplayImportedData();
-
                     MessageBox.Show("Đã đọc " + _listLienKet.Count.ToString() + " dòng dữ liệu từ file.",
                         "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -162,18 +147,19 @@ namespace iExcipient_Form.Forms.Thietlap
 
         private void LoadListLienKet()
         {
-            _listLienKet = new List<ThanhPhan_DangBaoChe>();
+            _listLienKet = new List<ThanhPhan_ChucNangCosing>();
         }
 
         private void DisplayImportedData()
         {
             var displayList = _listLienKet.Select(l => new
             {
-                IDThanhphan = l.IDThanhphan,
-                TenThanhPhan = GetTenThanhPhan(l.IDThanhphan),
-                CAS_No = GetCASNo(l.IDThanhphan),
-                IDDangbaoche = l.IDDangbaoche,
-                TenDangBaoChe = GetTenDangBaoChe(l.IDDangbaoche)
+                IDThanhphan = l.IDThanhphan_Cosing,
+                TenThanhPhan = GetTenThanhPhanCosing(l.IDThanhphan_Cosing),
+                CAS_No = GetCASNo(l.IDThanhphan_Cosing),
+                IDChucnangcosing = l.IDChucnangcosing,
+                TenChucNangCosing = GetTenChucNangCosing(l.IDChucnangcosing),
+                MoTaChucNangCosing = GetMoTaChucNangCosing(l.IDChucnangcosing)
             }).ToList();
 
             grid1.DataSource = null;
@@ -192,30 +178,20 @@ namespace iExcipient_Form.Forms.Thietlap
                 {
                     lineNumber++;
                     string line = sr.ReadLine();
-
-                    // Skip header row
-                    if (isFirstRow)
-                    {
-                        isFirstRow = false;
-                        continue;
-                    }
-
-                    // Skip empty lines
-                    if (string.IsNullOrWhiteSpace(line))
-                        continue;
+                    if (isFirstRow) { isFirstRow = false; continue; }
+                    if (string.IsNullOrWhiteSpace(line)) continue;
 
                     try
                     {
                         string[] values = line.Split(',');
-
                         if (values.Length >= 2 &&
                             !string.IsNullOrWhiteSpace(values[0]) &&
                             !string.IsNullOrWhiteSpace(values[1]))
                         {
-                            ThanhPhan_DangBaoChe tpdbc = new ThanhPhan_DangBaoChe();
-                            tpdbc.IDThanhphan = Convert.ToInt32(values[0].Trim().Trim('"'));
-                            tpdbc.IDDangbaoche = Convert.ToInt32(values[1].Trim().Trim('"'));
-                            _listLienKet.Add(tpdbc);
+                            ThanhPhan_ChucNangCosing item = new ThanhPhan_ChucNangCosing();
+                            item.IDThanhphan_Cosing = Convert.ToInt32(values[0].Trim().Trim('"'));
+                            item.IDChucnangcosing = Convert.ToInt32(values[1].Trim().Trim('"'));
+                            _listLienKet.Add(item);
                         }
                     }
                     catch (Exception ex)
@@ -227,40 +203,45 @@ namespace iExcipient_Form.Forms.Thietlap
             }
         }
 
-        private void LoadThanhPhan()
+        private void LoadThanhPhanCosing()
         {
-            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosing().OrderBy(tp => tp.Ten_INCI).ToList();
         }
 
-        private void LoadDangBaoChe()
+        private void LoadChucNangCosing()
         {
-            _listDangBaoChe = getdata.GetDSDangBaoChe().OrderBy(dbc => dbc.TenDangbaoche).ToList();
+            _listChucNangCosing = getdata.GetDSChucNangCosing().OrderBy(cn => cn.Tenchucnangcosing).ToList();
         }
 
-        private string GetTenThanhPhan(int id)
+        private string GetTenThanhPhanCosing(int id)
         {
-            ThanhPhan tp = _listThanhPhan.FirstOrDefault(t => t.IDThanhphan == id);
+            ThanhPhanCosing tp = _listThanhPhanCosing.FirstOrDefault(t => t.IDThanhphan_Cosing == id);
             return tp != null ? tp.Ten_INCI : "(Không tìm thấy ID: " + id.ToString() + ")";
         }
 
         private string GetCASNo(int id)
         {
-            ThanhPhan tp = _listThanhPhan.FirstOrDefault(t => t.IDThanhphan == id);
+            ThanhPhanCosing tp = _listThanhPhanCosing.FirstOrDefault(t => t.IDThanhphan_Cosing == id);
             return tp != null ? tp.CAS_No : "";
         }
 
-        private string GetTenDangBaoChe(int id)
+        private string GetTenChucNangCosing(int id)
         {
-            DangBaoChe dbc = _listDangBaoChe.FirstOrDefault(d => d.IDDangbaoche == id);
-            return dbc != null ? dbc.TenDangbaoche : "(Không tìm thấy ID: " + id.ToString() + ")";
+            ChucNangCosing cn = _listChucNangCosing.FirstOrDefault(c => c.IDChucnangcosing == id);
+            return cn != null ? cn.Tenchucnangcosing : "(Không tìm thấy ID: " + id.ToString() + ")";
+        }
+
+        private string GetMoTaChucNangCosing(int id)
+        {
+            ChucNangCosing cn = _listChucNangCosing.FirstOrDefault(c => c.IDChucnangcosing == id);
+            return cn != null ? cn.Motachucnangcosing : "";
         }
 
         private void buttonGetTong_Click(object sender, EventArgs e)
         {
             try
             {
-                // Get all existing relationships from database
-                _listTong = getdata.GetDSThanhPhan_DangBaoChe();
+                _listTong = getdata.GetDSThanhPhan_ChucNangCosing();
 
                 if (_listTong == null || _listTong.Count == 0)
                 {
@@ -270,14 +251,14 @@ namespace iExcipient_Form.Forms.Thietlap
                     return;
                 }
 
-                // Display with names
                 var displayList = _listTong.Select(l => new
                 {
-                    IDThanhphan = l.IDThanhphan,
-                    TenThanhPhan = GetTenThanhPhan(l.IDThanhphan),
-                    CAS_No = GetCASNo(l.IDThanhphan),
-                    IDDangbaoche = l.IDDangbaoche,
-                    TenDangBaoChe = GetTenDangBaoChe(l.IDDangbaoche)
+                    IDThanhphan_Cosing = l.IDThanhphan_Cosing,
+                    TenThanhPhanCosing = GetTenThanhPhanCosing(l.IDThanhphan_Cosing),
+                    CAS_No = GetCASNo(l.IDThanhphan_Cosing),
+                    IDChucnangcosing = l.IDChucnangcosing,
+                    TenChucNangCosing = GetTenChucNangCosing(l.IDChucnangcosing),
+                    MoTaChucNangCosing = GetMoTaChucNangCosing(l.IDChucnangcosing)
                 }).ToList();
 
                 gridTong.DataSource = null;
@@ -309,29 +290,29 @@ namespace iExcipient_Form.Forms.Thietlap
                 {
                     Filter = "CSV Files (*.csv)|*.csv",
                     Title = "Lưu file CSV",
-                    FileName = "ThanhPhan_DangBaoChe_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".csv"
+                    FileName = "ThanhPhan_ChucNangCosing_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".csv"
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName, false, Encoding.UTF8))
                     {
-                        // Write header
-                        sw.WriteLine("IDThanhphan,TenThanhPhan,CAS_No,IDDangbaoche,TenDangBaoChe");
+                        sw.WriteLine("IDThanhphan_Cosing,TenThanhPhanCosing,CAS_No,IDChucnangcosing,TenChucNangCosing,MoTaChucNangCosing");
 
-                        // Write data
-                        foreach (ThanhPhan_DangBaoChe item in _listTong)
+                        foreach (ThanhPhan_ChucNangCosing item in _listTong)
                         {
-                            string tenTP = GetTenThanhPhan(item.IDThanhphan);
-                            string casTP = GetCASNo(item.IDThanhphan);
-                            string tenDBC = GetTenDangBaoChe(item.IDDangbaoche);
+                            string tenTP = GetTenThanhPhanCosing(item.IDThanhphan_Cosing);
+                            string casTP = GetCASNo(item.IDThanhphan_Cosing);
+                            string tenCN = GetTenChucNangCosing(item.IDChucnangcosing);
+                            string motaCN = GetMoTaChucNangCosing(item.IDChucnangcosing);
 
-                            sw.WriteLine(string.Format("{0},\"{1}\",\"{2}\",{3},\"{4}\"",
-                                item.IDThanhphan,
-                                tenTP.Replace("\"", "\"\""), // Escape quotes
+                            sw.WriteLine(string.Format("{0},\"{1}\",\"{2}\",{3},\"{4}\",\"{5}\"",
+                                item.IDThanhphan_Cosing,
+                                tenTP.Replace("\"", "\"\""),
                                 casTP.Replace("\"", "\"\""),
-                                item.IDDangbaoche,
-                                tenDBC.Replace("\"", "\"\"")));
+                                item.IDChucnangcosing,
+                                tenCN.Replace("\"", "\"\""),
+                                motaCN.Replace("\"", "\"\"")));
                         }
                     }
 

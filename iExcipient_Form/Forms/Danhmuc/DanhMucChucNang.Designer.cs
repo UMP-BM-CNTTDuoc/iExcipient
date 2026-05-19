@@ -253,6 +253,7 @@
             this.Name = "DanhMucChucNang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "DanhMucChucNang";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.DanhMucChucNang_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);

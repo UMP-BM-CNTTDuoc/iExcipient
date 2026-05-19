@@ -33,31 +33,40 @@ namespace ClassLibraryIE
     partial void Insertd_Chucnang(d_Chucnang instance);
     partial void Updated_Chucnang(d_Chucnang instance);
     partial void Deleted_Chucnang(d_Chucnang instance);
-    partial void Insertr_Thanhphan_EWGScore(r_Thanhphan_EWGScore instance);
-    partial void Updater_Thanhphan_EWGScore(r_Thanhphan_EWGScore instance);
-    partial void Deleter_Thanhphan_EWGScore(r_Thanhphan_EWGScore instance);
-    partial void Insertd_Dangbaoche(d_Dangbaoche instance);
-    partial void Updated_Dangbaoche(d_Dangbaoche instance);
-    partial void Deleted_Dangbaoche(d_Dangbaoche instance);
+    partial void Insertd_Chucnangcosing(d_Chucnangcosing instance);
+    partial void Updated_Chucnangcosing(d_Chucnangcosing instance);
+    partial void Deleted_Chucnangcosing(d_Chucnangcosing instance);
     partial void Insertd_Quydinh(d_Quydinh instance);
     partial void Updated_Quydinh(d_Quydinh instance);
     partial void Deleted_Quydinh(d_Quydinh instance);
+    partial void Insertd_Quydinh_Cosing(d_Quydinh_Cosing instance);
+    partial void Updated_Quydinh_Cosing(d_Quydinh_Cosing instance);
+    partial void Deleted_Quydinh_Cosing(d_Quydinh_Cosing instance);
     partial void Insertd_Thanhphan(d_Thanhphan instance);
     partial void Updated_Thanhphan(d_Thanhphan instance);
     partial void Deleted_Thanhphan(d_Thanhphan instance);
+    partial void Insertd_Thanhphan_Cosing(d_Thanhphan_Cosing instance);
+    partial void Updated_Thanhphan_Cosing(d_Thanhphan_Cosing instance);
+    partial void Deleted_Thanhphan_Cosing(d_Thanhphan_Cosing instance);
     partial void Insertr_Chatlienquan(r_Chatlienquan instance);
     partial void Updater_Chatlienquan(r_Chatlienquan instance);
     partial void Deleter_Chatlienquan(r_Chatlienquan instance);
+    partial void Insertr_Link_Cosing_Sach(r_Link_Cosing_Sach instance);
+    partial void Updater_Link_Cosing_Sach(r_Link_Cosing_Sach instance);
+    partial void Deleter_Link_Cosing_Sach(r_Link_Cosing_Sach instance);
     partial void Insertr_Thanhphan_Chucnang(r_Thanhphan_Chucnang instance);
     partial void Updater_Thanhphan_Chucnang(r_Thanhphan_Chucnang instance);
     partial void Deleter_Thanhphan_Chucnang(r_Thanhphan_Chucnang instance);
-    partial void Insertr_Thanhphan_Dangbaoche(r_Thanhphan_Dangbaoche instance);
-    partial void Updater_Thanhphan_Dangbaoche(r_Thanhphan_Dangbaoche instance);
-    partial void Deleter_Thanhphan_Dangbaoche(r_Thanhphan_Dangbaoche instance);
+    partial void Insertr_Thanhphan_Chucnangcosing(r_Thanhphan_Chucnangcosing instance);
+    partial void Updater_Thanhphan_Chucnangcosing(r_Thanhphan_Chucnangcosing instance);
+    partial void Deleter_Thanhphan_Chucnangcosing(r_Thanhphan_Chucnangcosing instance);
+    partial void Insertr_Thanhphan_EWGScore(r_Thanhphan_EWGScore instance);
+    partial void Updater_Thanhphan_EWGScore(r_Thanhphan_EWGScore instance);
+    partial void Deleter_Thanhphan_EWGScore(r_Thanhphan_EWGScore instance);
     #endregion
 		
 		public KetnoiCSDLDataContext() : 
-				base(global::ClassLibraryIE.Properties.Settings.Default.iExcipientConnectionString1, mappingSource)
+				base(global::ClassLibraryIE.Properties.Settings.Default.iExcipientConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -94,19 +103,11 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		public System.Data.Linq.Table<r_Thanhphan_EWGScore> r_Thanhphan_EWGScores
+		public System.Data.Linq.Table<d_Chucnangcosing> d_Chucnangcosings
 		{
 			get
 			{
-				return this.GetTable<r_Thanhphan_EWGScore>();
-			}
-		}
-		
-		public System.Data.Linq.Table<d_Dangbaoche> d_Dangbaoches
-		{
-			get
-			{
-				return this.GetTable<d_Dangbaoche>();
+				return this.GetTable<d_Chucnangcosing>();
 			}
 		}
 		
@@ -118,11 +119,27 @@ namespace ClassLibraryIE
 			}
 		}
 		
+		public System.Data.Linq.Table<d_Quydinh_Cosing> d_Quydinh_Cosings
+		{
+			get
+			{
+				return this.GetTable<d_Quydinh_Cosing>();
+			}
+		}
+		
 		public System.Data.Linq.Table<d_Thanhphan> d_Thanhphans
 		{
 			get
 			{
 				return this.GetTable<d_Thanhphan>();
+			}
+		}
+		
+		public System.Data.Linq.Table<d_Thanhphan_Cosing> d_Thanhphan_Cosings
+		{
+			get
+			{
+				return this.GetTable<d_Thanhphan_Cosing>();
 			}
 		}
 		
@@ -134,6 +151,14 @@ namespace ClassLibraryIE
 			}
 		}
 		
+		public System.Data.Linq.Table<r_Link_Cosing_Sach> r_Link_Cosing_Saches
+		{
+			get
+			{
+				return this.GetTable<r_Link_Cosing_Sach>();
+			}
+		}
+		
 		public System.Data.Linq.Table<r_Thanhphan_Chucnang> r_Thanhphan_Chucnangs
 		{
 			get
@@ -142,11 +167,19 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		public System.Data.Linq.Table<r_Thanhphan_Dangbaoche> r_Thanhphan_Dangbaoches
+		public System.Data.Linq.Table<r_Thanhphan_Chucnangcosing> r_Thanhphan_Chucnangcosings
 		{
 			get
 			{
-				return this.GetTable<r_Thanhphan_Dangbaoche>();
+				return this.GetTable<r_Thanhphan_Chucnangcosing>();
+			}
+		}
+		
+		public System.Data.Linq.Table<r_Thanhphan_EWGScore> r_Thanhphan_EWGScores
+		{
+			get
+			{
+				return this.GetTable<r_Thanhphan_EWGScore>();
 			}
 		}
 	}
@@ -223,7 +256,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motachucnang", DbType="NVarChar(500)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motachucnang", DbType="NVarChar(2000)")]
 		public string Motachucnang
 		{
 			get
@@ -289,307 +322,108 @@ namespace ClassLibraryIE
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.r_Thanhphan_EWGScore")]
-	public partial class r_Thanhphan_EWGScore : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.d_Chucnangcosing")]
+	public partial class d_Chucnangcosing : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IDEWGScore;
+		private int _IDChucnangcosing;
 		
-		private int _IDThanhphan;
+		private string _Tenchucnangcosing;
 		
-		private System.Nullable<int> _EWG_Score_from;
+		private string _Motachucnangcosing;
 		
-		private System.Nullable<int> _EWG_Score_to;
-		
-		private string _EWG_Score;
-		
-		private string _EWG_DataAvailability;
-		
-		private EntityRef<d_Thanhphan> _d_Thanhphan;
+		private EntitySet<r_Thanhphan_Chucnangcosing> _r_Thanhphan_Chucnangcosings;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIDEWGScoreChanging(int value);
-    partial void OnIDEWGScoreChanged();
-    partial void OnIDThanhphanChanging(int value);
-    partial void OnIDThanhphanChanged();
-    partial void OnEWG_Score_fromChanging(System.Nullable<int> value);
-    partial void OnEWG_Score_fromChanged();
-    partial void OnEWG_Score_toChanging(System.Nullable<int> value);
-    partial void OnEWG_Score_toChanged();
-    partial void OnEWG_ScoreChanging(string value);
-    partial void OnEWG_ScoreChanged();
-    partial void OnEWG_DataAvailabilityChanging(string value);
-    partial void OnEWG_DataAvailabilityChanged();
+    partial void OnIDChucnangcosingChanging(int value);
+    partial void OnIDChucnangcosingChanged();
+    partial void OnTenchucnangcosingChanging(string value);
+    partial void OnTenchucnangcosingChanged();
+    partial void OnMotachucnangcosingChanging(string value);
+    partial void OnMotachucnangcosingChanged();
     #endregion
 		
-		public r_Thanhphan_EWGScore()
+		public d_Chucnangcosing()
 		{
-			this._d_Thanhphan = default(EntityRef<d_Thanhphan>);
+			this._r_Thanhphan_Chucnangcosings = new EntitySet<r_Thanhphan_Chucnangcosing>(new Action<r_Thanhphan_Chucnangcosing>(this.attach_r_Thanhphan_Chucnangcosings), new Action<r_Thanhphan_Chucnangcosing>(this.detach_r_Thanhphan_Chucnangcosings));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDEWGScore", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IDEWGScore
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDChucnangcosing", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDChucnangcosing
 		{
 			get
 			{
-				return this._IDEWGScore;
+				return this._IDChucnangcosing;
 			}
 			set
 			{
-				if ((this._IDEWGScore != value))
+				if ((this._IDChucnangcosing != value))
 				{
-					this.OnIDEWGScoreChanging(value);
+					this.OnIDChucnangcosingChanging(value);
 					this.SendPropertyChanging();
-					this._IDEWGScore = value;
-					this.SendPropertyChanged("IDEWGScore");
-					this.OnIDEWGScoreChanged();
+					this._IDChucnangcosing = value;
+					this.SendPropertyChanged("IDChucnangcosing");
+					this.OnIDChucnangcosingChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan", DbType="Int NOT NULL")]
-		public int IDThanhphan
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tenchucnangcosing", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Tenchucnangcosing
 		{
 			get
 			{
-				return this._IDThanhphan;
+				return this._Tenchucnangcosing;
 			}
 			set
 			{
-				if ((this._IDThanhphan != value))
+				if ((this._Tenchucnangcosing != value))
 				{
-					if (this._d_Thanhphan.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIDThanhphanChanging(value);
+					this.OnTenchucnangcosingChanging(value);
 					this.SendPropertyChanging();
-					this._IDThanhphan = value;
-					this.SendPropertyChanged("IDThanhphan");
-					this.OnIDThanhphanChanged();
+					this._Tenchucnangcosing = value;
+					this.SendPropertyChanged("Tenchucnangcosing");
+					this.OnTenchucnangcosingChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_Score_from", DbType="Int")]
-		public System.Nullable<int> EWG_Score_from
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motachucnangcosing", DbType="NVarChar(2000)")]
+		public string Motachucnangcosing
 		{
 			get
 			{
-				return this._EWG_Score_from;
+				return this._Motachucnangcosing;
 			}
 			set
 			{
-				if ((this._EWG_Score_from != value))
+				if ((this._Motachucnangcosing != value))
 				{
-					this.OnEWG_Score_fromChanging(value);
+					this.OnMotachucnangcosingChanging(value);
 					this.SendPropertyChanging();
-					this._EWG_Score_from = value;
-					this.SendPropertyChanged("EWG_Score_from");
-					this.OnEWG_Score_fromChanged();
+					this._Motachucnangcosing = value;
+					this.SendPropertyChanged("Motachucnangcosing");
+					this.OnMotachucnangcosingChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_Score_to", DbType="Int")]
-		public System.Nullable<int> EWG_Score_to
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Chucnangcosing_r_Thanhphan_Chucnangcosing", Storage="_r_Thanhphan_Chucnangcosings", ThisKey="IDChucnangcosing", OtherKey="IDChucnangcosing")]
+		public EntitySet<r_Thanhphan_Chucnangcosing> r_Thanhphan_Chucnangcosings
 		{
 			get
 			{
-				return this._EWG_Score_to;
+				return this._r_Thanhphan_Chucnangcosings;
 			}
 			set
 			{
-				if ((this._EWG_Score_to != value))
-				{
-					this.OnEWG_Score_toChanging(value);
-					this.SendPropertyChanging();
-					this._EWG_Score_to = value;
-					this.SendPropertyChanged("EWG_Score_to");
-					this.OnEWG_Score_toChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_Score", DbType="NVarChar(100)")]
-		public string EWG_Score
-		{
-			get
-			{
-				return this._EWG_Score;
-			}
-			set
-			{
-				if ((this._EWG_Score != value))
-				{
-					this.OnEWG_ScoreChanging(value);
-					this.SendPropertyChanging();
-					this._EWG_Score = value;
-					this.SendPropertyChanged("EWG_Score");
-					this.OnEWG_ScoreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_DataAvailability", DbType="NVarChar(100)")]
-		public string EWG_DataAvailability
-		{
-			get
-			{
-				return this._EWG_DataAvailability;
-			}
-			set
-			{
-				if ((this._EWG_DataAvailability != value))
-				{
-					this.OnEWG_DataAvailabilityChanging(value);
-					this.SendPropertyChanging();
-					this._EWG_DataAvailability = value;
-					this.SendPropertyChanged("EWG_DataAvailability");
-					this.OnEWG_DataAvailabilityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Thanhphan_EWGScore", Storage="_d_Thanhphan", ThisKey="IDThanhphan", OtherKey="IDThanhphan", IsForeignKey=true)]
-		public d_Thanhphan d_Thanhphan
-		{
-			get
-			{
-				return this._d_Thanhphan.Entity;
-			}
-			set
-			{
-				d_Thanhphan previousValue = this._d_Thanhphan.Entity;
-				if (((previousValue != value) 
-							|| (this._d_Thanhphan.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._d_Thanhphan.Entity = null;
-						previousValue.r_Thanhphan_EWGScores.Remove(this);
-					}
-					this._d_Thanhphan.Entity = value;
-					if ((value != null))
-					{
-						value.r_Thanhphan_EWGScores.Add(this);
-						this._IDThanhphan = value.IDThanhphan;
-					}
-					else
-					{
-						this._IDThanhphan = default(int);
-					}
-					this.SendPropertyChanged("d_Thanhphan");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.d_Dangbaoche")]
-	public partial class d_Dangbaoche : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IDDangbaoche;
-		
-		private string _TenDangbaoche;
-		
-		private EntitySet<r_Thanhphan_Dangbaoche> _r_Thanhphan_Dangbaoches;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDDangbaocheChanging(int value);
-    partial void OnIDDangbaocheChanged();
-    partial void OnTenDangbaocheChanging(string value);
-    partial void OnTenDangbaocheChanged();
-    #endregion
-		
-		public d_Dangbaoche()
-		{
-			this._r_Thanhphan_Dangbaoches = new EntitySet<r_Thanhphan_Dangbaoche>(new Action<r_Thanhphan_Dangbaoche>(this.attach_r_Thanhphan_Dangbaoches), new Action<r_Thanhphan_Dangbaoche>(this.detach_r_Thanhphan_Dangbaoches));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDDangbaoche", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IDDangbaoche
-		{
-			get
-			{
-				return this._IDDangbaoche;
-			}
-			set
-			{
-				if ((this._IDDangbaoche != value))
-				{
-					this.OnIDDangbaocheChanging(value);
-					this.SendPropertyChanging();
-					this._IDDangbaoche = value;
-					this.SendPropertyChanged("IDDangbaoche");
-					this.OnIDDangbaocheChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenDangbaoche", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
-		public string TenDangbaoche
-		{
-			get
-			{
-				return this._TenDangbaoche;
-			}
-			set
-			{
-				if ((this._TenDangbaoche != value))
-				{
-					this.OnTenDangbaocheChanging(value);
-					this.SendPropertyChanging();
-					this._TenDangbaoche = value;
-					this.SendPropertyChanged("TenDangbaoche");
-					this.OnTenDangbaocheChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Dangbaoche_r_Thanhphan_Dangbaoche", Storage="_r_Thanhphan_Dangbaoches", ThisKey="IDDangbaoche", OtherKey="IDDangbaoche")]
-		public EntitySet<r_Thanhphan_Dangbaoche> r_Thanhphan_Dangbaoches
-		{
-			get
-			{
-				return this._r_Thanhphan_Dangbaoches;
-			}
-			set
-			{
-				this._r_Thanhphan_Dangbaoches.Assign(value);
+				this._r_Thanhphan_Chucnangcosings.Assign(value);
 			}
 		}
 		
@@ -613,16 +447,16 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		private void attach_r_Thanhphan_Dangbaoches(r_Thanhphan_Dangbaoche entity)
+		private void attach_r_Thanhphan_Chucnangcosings(r_Thanhphan_Chucnangcosing entity)
 		{
 			this.SendPropertyChanging();
-			entity.d_Dangbaoche = this;
+			entity.d_Chucnangcosing = this;
 		}
 		
-		private void detach_r_Thanhphan_Dangbaoches(r_Thanhphan_Dangbaoche entity)
+		private void detach_r_Thanhphan_Chucnangcosings(r_Thanhphan_Chucnangcosing entity)
 		{
 			this.SendPropertyChanging();
-			entity.d_Dangbaoche = null;
+			entity.d_Chucnangcosing = null;
 		}
 	}
 	
@@ -646,10 +480,6 @@ namespace ClassLibraryIE
 		
 		private System.Nullable<bool> _AnnexVI;
 		
-		private string _DieuKienSuDung;
-		
-		private string _Ghichu;
-		
 		private EntityRef<d_Thanhphan> _d_Thanhphan;
 		
     #region Extensibility Method Definitions
@@ -670,10 +500,6 @@ namespace ClassLibraryIE
     partial void OnAnnexVChanged();
     partial void OnAnnexVIChanging(System.Nullable<bool> value);
     partial void OnAnnexVIChanged();
-    partial void OnDieuKienSuDungChanging(string value);
-    partial void OnDieuKienSuDungChanged();
-    partial void OnGhichuChanging(string value);
-    partial void OnGhichuChanged();
     #endregion
 		
 		public d_Quydinh()
@@ -826,46 +652,6 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DieuKienSuDung", DbType="NVarChar(2000)")]
-		public string DieuKienSuDung
-		{
-			get
-			{
-				return this._DieuKienSuDung;
-			}
-			set
-			{
-				if ((this._DieuKienSuDung != value))
-				{
-					this.OnDieuKienSuDungChanging(value);
-					this.SendPropertyChanging();
-					this._DieuKienSuDung = value;
-					this.SendPropertyChanged("DieuKienSuDung");
-					this.OnDieuKienSuDungChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ghichu", DbType="NVarChar(2000)")]
-		public string Ghichu
-		{
-			get
-			{
-				return this._Ghichu;
-			}
-			set
-			{
-				if ((this._Ghichu != value))
-				{
-					this.OnGhichuChanging(value);
-					this.SendPropertyChanging();
-					this._Ghichu = value;
-					this.SendPropertyChanged("Ghichu");
-					this.OnGhichuChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_d_Quydinh", Storage="_d_Thanhphan", ThisKey="IDThanhphan", OtherKey="IDThanhphan", IsForeignKey=true)]
 		public d_Thanhphan d_Thanhphan
 		{
@@ -896,6 +682,253 @@ namespace ClassLibraryIE
 						this._IDThanhphan = default(int);
 					}
 					this.SendPropertyChanged("d_Thanhphan");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.d_Quydinh_Cosing")]
+	public partial class d_Quydinh_Cosing : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDQuydinh_Cosing;
+		
+		private int _IDThanhphan_Cosing;
+		
+		private System.Nullable<bool> _AnnexII;
+		
+		private System.Nullable<bool> _AnnexIII;
+		
+		private System.Nullable<bool> _AnnexIV;
+		
+		private System.Nullable<bool> _AnnexV;
+		
+		private System.Nullable<bool> _AnnexVI;
+		
+		private EntityRef<d_Thanhphan_Cosing> _d_Thanhphan_Cosing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDQuydinh_CosingChanging(int value);
+    partial void OnIDQuydinh_CosingChanged();
+    partial void OnIDThanhphan_CosingChanging(int value);
+    partial void OnIDThanhphan_CosingChanged();
+    partial void OnAnnexIIChanging(System.Nullable<bool> value);
+    partial void OnAnnexIIChanged();
+    partial void OnAnnexIIIChanging(System.Nullable<bool> value);
+    partial void OnAnnexIIIChanged();
+    partial void OnAnnexIVChanging(System.Nullable<bool> value);
+    partial void OnAnnexIVChanged();
+    partial void OnAnnexVChanging(System.Nullable<bool> value);
+    partial void OnAnnexVChanged();
+    partial void OnAnnexVIChanging(System.Nullable<bool> value);
+    partial void OnAnnexVIChanged();
+    #endregion
+		
+		public d_Quydinh_Cosing()
+		{
+			this._d_Thanhphan_Cosing = default(EntityRef<d_Thanhphan_Cosing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDQuydinh_Cosing", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDQuydinh_Cosing
+		{
+			get
+			{
+				return this._IDQuydinh_Cosing;
+			}
+			set
+			{
+				if ((this._IDQuydinh_Cosing != value))
+				{
+					this.OnIDQuydinh_CosingChanging(value);
+					this.SendPropertyChanging();
+					this._IDQuydinh_Cosing = value;
+					this.SendPropertyChanged("IDQuydinh_Cosing");
+					this.OnIDQuydinh_CosingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan_Cosing", DbType="Int NOT NULL")]
+		public int IDThanhphan_Cosing
+		{
+			get
+			{
+				return this._IDThanhphan_Cosing;
+			}
+			set
+			{
+				if ((this._IDThanhphan_Cosing != value))
+				{
+					if (this._d_Thanhphan_Cosing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDThanhphan_CosingChanging(value);
+					this.SendPropertyChanging();
+					this._IDThanhphan_Cosing = value;
+					this.SendPropertyChanged("IDThanhphan_Cosing");
+					this.OnIDThanhphan_CosingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnnexII", DbType="Bit")]
+		public System.Nullable<bool> AnnexII
+		{
+			get
+			{
+				return this._AnnexII;
+			}
+			set
+			{
+				if ((this._AnnexII != value))
+				{
+					this.OnAnnexIIChanging(value);
+					this.SendPropertyChanging();
+					this._AnnexII = value;
+					this.SendPropertyChanged("AnnexII");
+					this.OnAnnexIIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnnexIII", DbType="Bit")]
+		public System.Nullable<bool> AnnexIII
+		{
+			get
+			{
+				return this._AnnexIII;
+			}
+			set
+			{
+				if ((this._AnnexIII != value))
+				{
+					this.OnAnnexIIIChanging(value);
+					this.SendPropertyChanging();
+					this._AnnexIII = value;
+					this.SendPropertyChanged("AnnexIII");
+					this.OnAnnexIIIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnnexIV", DbType="Bit")]
+		public System.Nullable<bool> AnnexIV
+		{
+			get
+			{
+				return this._AnnexIV;
+			}
+			set
+			{
+				if ((this._AnnexIV != value))
+				{
+					this.OnAnnexIVChanging(value);
+					this.SendPropertyChanging();
+					this._AnnexIV = value;
+					this.SendPropertyChanged("AnnexIV");
+					this.OnAnnexIVChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnnexV", DbType="Bit")]
+		public System.Nullable<bool> AnnexV
+		{
+			get
+			{
+				return this._AnnexV;
+			}
+			set
+			{
+				if ((this._AnnexV != value))
+				{
+					this.OnAnnexVChanging(value);
+					this.SendPropertyChanging();
+					this._AnnexV = value;
+					this.SendPropertyChanged("AnnexV");
+					this.OnAnnexVChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnnexVI", DbType="Bit")]
+		public System.Nullable<bool> AnnexVI
+		{
+			get
+			{
+				return this._AnnexVI;
+			}
+			set
+			{
+				if ((this._AnnexVI != value))
+				{
+					this.OnAnnexVIChanging(value);
+					this.SendPropertyChanging();
+					this._AnnexVI = value;
+					this.SendPropertyChanged("AnnexVI");
+					this.OnAnnexVIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_Cosing_d_Quydinh_Cosing", Storage="_d_Thanhphan_Cosing", ThisKey="IDThanhphan_Cosing", OtherKey="IDThanhphan_Cosing", IsForeignKey=true)]
+		public d_Thanhphan_Cosing d_Thanhphan_Cosing
+		{
+			get
+			{
+				return this._d_Thanhphan_Cosing.Entity;
+			}
+			set
+			{
+				d_Thanhphan_Cosing previousValue = this._d_Thanhphan_Cosing.Entity;
+				if (((previousValue != value) 
+							|| (this._d_Thanhphan_Cosing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._d_Thanhphan_Cosing.Entity = null;
+						previousValue.d_Quydinh_Cosings.Remove(this);
+					}
+					this._d_Thanhphan_Cosing.Entity = value;
+					if ((value != null))
+					{
+						value.d_Quydinh_Cosings.Add(this);
+						this._IDThanhphan_Cosing = value.IDThanhphan_Cosing;
+					}
+					else
+					{
+						this._IDThanhphan_Cosing = default(int);
+					}
+					this.SendPropertyChanged("d_Thanhphan_Cosing");
 				}
 			}
 		}
@@ -961,15 +994,17 @@ namespace ClassLibraryIE
 		
 		private string _Tuongky;
 		
-		private EntitySet<r_Thanhphan_EWGScore> _r_Thanhphan_EWGScores;
+		private string _TenKhac;
 		
 		private EntitySet<d_Quydinh> _d_Quydinhs;
 		
 		private EntitySet<r_Chatlienquan> _r_Chatlienquans;
 		
+		private EntitySet<r_Link_Cosing_Sach> _r_Link_Cosing_Saches;
+		
 		private EntitySet<r_Thanhphan_Chucnang> _r_Thanhphan_Chucnangs;
 		
-		private EntitySet<r_Thanhphan_Dangbaoche> _r_Thanhphan_Dangbaoches;
+		private EntitySet<r_Thanhphan_EWGScore> _r_Thanhphan_EWGScores;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1009,15 +1044,17 @@ namespace ClassLibraryIE
     partial void OnUngdungChanged();
     partial void OnTuongkyChanging(string value);
     partial void OnTuongkyChanged();
+    partial void OnTenKhacChanging(string value);
+    partial void OnTenKhacChanged();
     #endregion
 		
 		public d_Thanhphan()
 		{
-			this._r_Thanhphan_EWGScores = new EntitySet<r_Thanhphan_EWGScore>(new Action<r_Thanhphan_EWGScore>(this.attach_r_Thanhphan_EWGScores), new Action<r_Thanhphan_EWGScore>(this.detach_r_Thanhphan_EWGScores));
 			this._d_Quydinhs = new EntitySet<d_Quydinh>(new Action<d_Quydinh>(this.attach_d_Quydinhs), new Action<d_Quydinh>(this.detach_d_Quydinhs));
 			this._r_Chatlienquans = new EntitySet<r_Chatlienquan>(new Action<r_Chatlienquan>(this.attach_r_Chatlienquans), new Action<r_Chatlienquan>(this.detach_r_Chatlienquans));
+			this._r_Link_Cosing_Saches = new EntitySet<r_Link_Cosing_Sach>(new Action<r_Link_Cosing_Sach>(this.attach_r_Link_Cosing_Saches), new Action<r_Link_Cosing_Sach>(this.detach_r_Link_Cosing_Saches));
 			this._r_Thanhphan_Chucnangs = new EntitySet<r_Thanhphan_Chucnang>(new Action<r_Thanhphan_Chucnang>(this.attach_r_Thanhphan_Chucnangs), new Action<r_Thanhphan_Chucnang>(this.detach_r_Thanhphan_Chucnangs));
-			this._r_Thanhphan_Dangbaoches = new EntitySet<r_Thanhphan_Dangbaoche>(new Action<r_Thanhphan_Dangbaoche>(this.attach_r_Thanhphan_Dangbaoches), new Action<r_Thanhphan_Dangbaoche>(this.detach_r_Thanhphan_Dangbaoches));
+			this._r_Thanhphan_EWGScores = new EntitySet<r_Thanhphan_EWGScore>(new Action<r_Thanhphan_EWGScore>(this.attach_r_Thanhphan_EWGScores), new Action<r_Thanhphan_EWGScore>(this.detach_r_Thanhphan_EWGScores));
 			OnCreated();
 		}
 		
@@ -1101,7 +1138,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CAS_No", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CAS_No", DbType="VarChar(500)")]
 		public string CAS_No
 		{
 			get
@@ -1121,7 +1158,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CongThucHoaHoc", DbType="VarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CongThucHoaHoc", DbType="NVarChar(1000)")]
 		public string CongThucHoaHoc
 		{
 			get
@@ -1141,7 +1178,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhoiLuongPhanTu", DbType="VarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhoiLuongPhanTu", DbType="NVarChar(500)")]
 		public string KhoiLuongPhanTu
 		{
 			get
@@ -1161,7 +1198,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CauTrucPhanTu", DbType="VarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CauTrucPhanTu", DbType="NVarChar(500)")]
 		public string CauTrucPhanTu
 		{
 			get
@@ -1221,7 +1258,7 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaoQuan", DbType="NVarChar(2000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaoQuan", DbType="NVarChar(4000)")]
 		public string BaoQuan
 		{
 			get
@@ -1361,16 +1398,23 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Thanhphan_EWGScore", Storage="_r_Thanhphan_EWGScores", ThisKey="IDThanhphan", OtherKey="IDThanhphan")]
-		public EntitySet<r_Thanhphan_EWGScore> r_Thanhphan_EWGScores
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenKhac", DbType="VarChar(4000)")]
+		public string TenKhac
 		{
 			get
 			{
-				return this._r_Thanhphan_EWGScores;
+				return this._TenKhac;
 			}
 			set
 			{
-				this._r_Thanhphan_EWGScores.Assign(value);
+				if ((this._TenKhac != value))
+				{
+					this.OnTenKhacChanging(value);
+					this.SendPropertyChanging();
+					this._TenKhac = value;
+					this.SendPropertyChanged("TenKhac");
+					this.OnTenKhacChanged();
+				}
 			}
 		}
 		
@@ -1400,6 +1444,19 @@ namespace ClassLibraryIE
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Link_Cosing_Sach", Storage="_r_Link_Cosing_Saches", ThisKey="IDThanhphan", OtherKey="IDThanhphan")]
+		public EntitySet<r_Link_Cosing_Sach> r_Link_Cosing_Saches
+		{
+			get
+			{
+				return this._r_Link_Cosing_Saches;
+			}
+			set
+			{
+				this._r_Link_Cosing_Saches.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Thanhphan_Chucnang", Storage="_r_Thanhphan_Chucnangs", ThisKey="IDThanhphan", OtherKey="IDThanhphan")]
 		public EntitySet<r_Thanhphan_Chucnang> r_Thanhphan_Chucnangs
 		{
@@ -1413,16 +1470,16 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Thanhphan_Dangbaoche", Storage="_r_Thanhphan_Dangbaoches", ThisKey="IDThanhphan", OtherKey="IDThanhphan")]
-		public EntitySet<r_Thanhphan_Dangbaoche> r_Thanhphan_Dangbaoches
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Thanhphan_EWGScore", Storage="_r_Thanhphan_EWGScores", ThisKey="IDThanhphan", OtherKey="IDThanhphan")]
+		public EntitySet<r_Thanhphan_EWGScore> r_Thanhphan_EWGScores
 		{
 			get
 			{
-				return this._r_Thanhphan_Dangbaoches;
+				return this._r_Thanhphan_EWGScores;
 			}
 			set
 			{
-				this._r_Thanhphan_Dangbaoches.Assign(value);
+				this._r_Thanhphan_EWGScores.Assign(value);
 			}
 		}
 		
@@ -1444,18 +1501,6 @@ namespace ClassLibraryIE
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_r_Thanhphan_EWGScores(r_Thanhphan_EWGScore entity)
-		{
-			this.SendPropertyChanging();
-			entity.d_Thanhphan = this;
-		}
-		
-		private void detach_r_Thanhphan_EWGScores(r_Thanhphan_EWGScore entity)
-		{
-			this.SendPropertyChanging();
-			entity.d_Thanhphan = null;
 		}
 		
 		private void attach_d_Quydinhs(d_Quydinh entity)
@@ -1482,6 +1527,18 @@ namespace ClassLibraryIE
 			entity.d_Thanhphan = null;
 		}
 		
+		private void attach_r_Link_Cosing_Saches(r_Link_Cosing_Sach entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan = this;
+		}
+		
+		private void detach_r_Link_Cosing_Saches(r_Link_Cosing_Sach entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan = null;
+		}
+		
 		private void attach_r_Thanhphan_Chucnangs(r_Thanhphan_Chucnang entity)
 		{
 			this.SendPropertyChanging();
@@ -1494,16 +1551,234 @@ namespace ClassLibraryIE
 			entity.d_Thanhphan = null;
 		}
 		
-		private void attach_r_Thanhphan_Dangbaoches(r_Thanhphan_Dangbaoche entity)
+		private void attach_r_Thanhphan_EWGScores(r_Thanhphan_EWGScore entity)
 		{
 			this.SendPropertyChanging();
 			entity.d_Thanhphan = this;
 		}
 		
-		private void detach_r_Thanhphan_Dangbaoches(r_Thanhphan_Dangbaoche entity)
+		private void detach_r_Thanhphan_EWGScores(r_Thanhphan_EWGScore entity)
 		{
 			this.SendPropertyChanging();
 			entity.d_Thanhphan = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.d_Thanhphan_Cosing")]
+	public partial class d_Thanhphan_Cosing : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDThanhphan_Cosing;
+		
+		private string _Ten_INCI;
+		
+		private string _CAS_No;
+		
+		private string _EC_No;
+		
+		private EntitySet<d_Quydinh_Cosing> _d_Quydinh_Cosings;
+		
+		private EntitySet<r_Link_Cosing_Sach> _r_Link_Cosing_Saches;
+		
+		private EntitySet<r_Thanhphan_Chucnangcosing> _r_Thanhphan_Chucnangcosings;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDThanhphan_CosingChanging(int value);
+    partial void OnIDThanhphan_CosingChanged();
+    partial void OnTen_INCIChanging(string value);
+    partial void OnTen_INCIChanged();
+    partial void OnCAS_NoChanging(string value);
+    partial void OnCAS_NoChanged();
+    partial void OnEC_NoChanging(string value);
+    partial void OnEC_NoChanged();
+    #endregion
+		
+		public d_Thanhphan_Cosing()
+		{
+			this._d_Quydinh_Cosings = new EntitySet<d_Quydinh_Cosing>(new Action<d_Quydinh_Cosing>(this.attach_d_Quydinh_Cosings), new Action<d_Quydinh_Cosing>(this.detach_d_Quydinh_Cosings));
+			this._r_Link_Cosing_Saches = new EntitySet<r_Link_Cosing_Sach>(new Action<r_Link_Cosing_Sach>(this.attach_r_Link_Cosing_Saches), new Action<r_Link_Cosing_Sach>(this.detach_r_Link_Cosing_Saches));
+			this._r_Thanhphan_Chucnangcosings = new EntitySet<r_Thanhphan_Chucnangcosing>(new Action<r_Thanhphan_Chucnangcosing>(this.attach_r_Thanhphan_Chucnangcosings), new Action<r_Thanhphan_Chucnangcosing>(this.detach_r_Thanhphan_Chucnangcosings));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan_Cosing", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDThanhphan_Cosing
+		{
+			get
+			{
+				return this._IDThanhphan_Cosing;
+			}
+			set
+			{
+				if ((this._IDThanhphan_Cosing != value))
+				{
+					this.OnIDThanhphan_CosingChanging(value);
+					this.SendPropertyChanging();
+					this._IDThanhphan_Cosing = value;
+					this.SendPropertyChanged("IDThanhphan_Cosing");
+					this.OnIDThanhphan_CosingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ten_INCI", DbType="NVarChar(MAX)")]
+		public string Ten_INCI
+		{
+			get
+			{
+				return this._Ten_INCI;
+			}
+			set
+			{
+				if ((this._Ten_INCI != value))
+				{
+					this.OnTen_INCIChanging(value);
+					this.SendPropertyChanging();
+					this._Ten_INCI = value;
+					this.SendPropertyChanged("Ten_INCI");
+					this.OnTen_INCIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CAS_No", DbType="VarChar(500)")]
+		public string CAS_No
+		{
+			get
+			{
+				return this._CAS_No;
+			}
+			set
+			{
+				if ((this._CAS_No != value))
+				{
+					this.OnCAS_NoChanging(value);
+					this.SendPropertyChanging();
+					this._CAS_No = value;
+					this.SendPropertyChanged("CAS_No");
+					this.OnCAS_NoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EC_No", DbType="VarChar(100)")]
+		public string EC_No
+		{
+			get
+			{
+				return this._EC_No;
+			}
+			set
+			{
+				if ((this._EC_No != value))
+				{
+					this.OnEC_NoChanging(value);
+					this.SendPropertyChanging();
+					this._EC_No = value;
+					this.SendPropertyChanged("EC_No");
+					this.OnEC_NoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_Cosing_d_Quydinh_Cosing", Storage="_d_Quydinh_Cosings", ThisKey="IDThanhphan_Cosing", OtherKey="IDThanhphan_Cosing")]
+		public EntitySet<d_Quydinh_Cosing> d_Quydinh_Cosings
+		{
+			get
+			{
+				return this._d_Quydinh_Cosings;
+			}
+			set
+			{
+				this._d_Quydinh_Cosings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_Cosing_r_Link_Cosing_Sach", Storage="_r_Link_Cosing_Saches", ThisKey="IDThanhphan_Cosing", OtherKey="IDThanhphan_Cosing")]
+		public EntitySet<r_Link_Cosing_Sach> r_Link_Cosing_Saches
+		{
+			get
+			{
+				return this._r_Link_Cosing_Saches;
+			}
+			set
+			{
+				this._r_Link_Cosing_Saches.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_Cosing_r_Thanhphan_Chucnangcosing", Storage="_r_Thanhphan_Chucnangcosings", ThisKey="IDThanhphan_Cosing", OtherKey="IDThanhphan_Cosing")]
+		public EntitySet<r_Thanhphan_Chucnangcosing> r_Thanhphan_Chucnangcosings
+		{
+			get
+			{
+				return this._r_Thanhphan_Chucnangcosings;
+			}
+			set
+			{
+				this._r_Thanhphan_Chucnangcosings.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_d_Quydinh_Cosings(d_Quydinh_Cosing entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan_Cosing = this;
+		}
+		
+		private void detach_d_Quydinh_Cosings(d_Quydinh_Cosing entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan_Cosing = null;
+		}
+		
+		private void attach_r_Link_Cosing_Saches(r_Link_Cosing_Sach entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan_Cosing = this;
+		}
+		
+		private void detach_r_Link_Cosing_Saches(r_Link_Cosing_Sach entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan_Cosing = null;
+		}
+		
+		private void attach_r_Thanhphan_Chucnangcosings(r_Thanhphan_Chucnangcosing entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan_Cosing = this;
+		}
+		
+		private void detach_r_Thanhphan_Chucnangcosings(r_Thanhphan_Chucnangcosing entity)
+		{
+			this.SendPropertyChanging();
+			entity.d_Thanhphan_Cosing = null;
 		}
 	}
 	
@@ -1626,6 +1901,198 @@ namespace ClassLibraryIE
 					if ((value != null))
 					{
 						value.r_Chatlienquans.Add(this);
+						this._IDThanhphan = value.IDThanhphan;
+					}
+					else
+					{
+						this._IDThanhphan = default(int);
+					}
+					this.SendPropertyChanged("d_Thanhphan");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.r_Link_Cosing_Sach")]
+	public partial class r_Link_Cosing_Sach : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDLink;
+		
+		private int _IDThanhphan_Cosing;
+		
+		private int _IDThanhphan;
+		
+		private EntityRef<d_Thanhphan_Cosing> _d_Thanhphan_Cosing;
+		
+		private EntityRef<d_Thanhphan> _d_Thanhphan;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDLinkChanging(int value);
+    partial void OnIDLinkChanged();
+    partial void OnIDThanhphan_CosingChanging(int value);
+    partial void OnIDThanhphan_CosingChanged();
+    partial void OnIDThanhphanChanging(int value);
+    partial void OnIDThanhphanChanged();
+    #endregion
+		
+		public r_Link_Cosing_Sach()
+		{
+			this._d_Thanhphan_Cosing = default(EntityRef<d_Thanhphan_Cosing>);
+			this._d_Thanhphan = default(EntityRef<d_Thanhphan>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLink", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDLink
+		{
+			get
+			{
+				return this._IDLink;
+			}
+			set
+			{
+				if ((this._IDLink != value))
+				{
+					this.OnIDLinkChanging(value);
+					this.SendPropertyChanging();
+					this._IDLink = value;
+					this.SendPropertyChanged("IDLink");
+					this.OnIDLinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan_Cosing", DbType="Int NOT NULL")]
+		public int IDThanhphan_Cosing
+		{
+			get
+			{
+				return this._IDThanhphan_Cosing;
+			}
+			set
+			{
+				if ((this._IDThanhphan_Cosing != value))
+				{
+					if (this._d_Thanhphan_Cosing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDThanhphan_CosingChanging(value);
+					this.SendPropertyChanging();
+					this._IDThanhphan_Cosing = value;
+					this.SendPropertyChanged("IDThanhphan_Cosing");
+					this.OnIDThanhphan_CosingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan", DbType="Int NOT NULL")]
+		public int IDThanhphan
+		{
+			get
+			{
+				return this._IDThanhphan;
+			}
+			set
+			{
+				if ((this._IDThanhphan != value))
+				{
+					if (this._d_Thanhphan.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDThanhphanChanging(value);
+					this.SendPropertyChanging();
+					this._IDThanhphan = value;
+					this.SendPropertyChanged("IDThanhphan");
+					this.OnIDThanhphanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_Cosing_r_Link_Cosing_Sach", Storage="_d_Thanhphan_Cosing", ThisKey="IDThanhphan_Cosing", OtherKey="IDThanhphan_Cosing", IsForeignKey=true)]
+		public d_Thanhphan_Cosing d_Thanhphan_Cosing
+		{
+			get
+			{
+				return this._d_Thanhphan_Cosing.Entity;
+			}
+			set
+			{
+				d_Thanhphan_Cosing previousValue = this._d_Thanhphan_Cosing.Entity;
+				if (((previousValue != value) 
+							|| (this._d_Thanhphan_Cosing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._d_Thanhphan_Cosing.Entity = null;
+						previousValue.r_Link_Cosing_Saches.Remove(this);
+					}
+					this._d_Thanhphan_Cosing.Entity = value;
+					if ((value != null))
+					{
+						value.r_Link_Cosing_Saches.Add(this);
+						this._IDThanhphan_Cosing = value.IDThanhphan_Cosing;
+					}
+					else
+					{
+						this._IDThanhphan_Cosing = default(int);
+					}
+					this.SendPropertyChanged("d_Thanhphan_Cosing");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Link_Cosing_Sach", Storage="_d_Thanhphan", ThisKey="IDThanhphan", OtherKey="IDThanhphan", IsForeignKey=true)]
+		public d_Thanhphan d_Thanhphan
+		{
+			get
+			{
+				return this._d_Thanhphan.Entity;
+			}
+			set
+			{
+				d_Thanhphan previousValue = this._d_Thanhphan.Entity;
+				if (((previousValue != value) 
+							|| (this._d_Thanhphan.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._d_Thanhphan.Entity = null;
+						previousValue.r_Link_Cosing_Saches.Remove(this);
+					}
+					this._d_Thanhphan.Entity = value;
+					if ((value != null))
+					{
+						value.r_Link_Cosing_Saches.Add(this);
 						this._IDThanhphan = value.IDThanhphan;
 					}
 					else
@@ -1850,19 +2317,215 @@ namespace ClassLibraryIE
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.r_Thanhphan_Dangbaoche")]
-	public partial class r_Thanhphan_Dangbaoche : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.r_Thanhphan_Chucnangcosing")]
+	public partial class r_Thanhphan_Chucnangcosing : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IDThanhphan_Dangbaoche;
+		private int _IDThanhphan_Chucnangcosing;
+		
+		private int _IDThanhphan_Cosing;
+		
+		private int _IDChucnangcosing;
+		
+		private EntityRef<d_Chucnangcosing> _d_Chucnangcosing;
+		
+		private EntityRef<d_Thanhphan_Cosing> _d_Thanhphan_Cosing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDThanhphan_ChucnangcosingChanging(int value);
+    partial void OnIDThanhphan_ChucnangcosingChanged();
+    partial void OnIDThanhphan_CosingChanging(int value);
+    partial void OnIDThanhphan_CosingChanged();
+    partial void OnIDChucnangcosingChanging(int value);
+    partial void OnIDChucnangcosingChanged();
+    #endregion
+		
+		public r_Thanhphan_Chucnangcosing()
+		{
+			this._d_Chucnangcosing = default(EntityRef<d_Chucnangcosing>);
+			this._d_Thanhphan_Cosing = default(EntityRef<d_Thanhphan_Cosing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan_Chucnangcosing", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDThanhphan_Chucnangcosing
+		{
+			get
+			{
+				return this._IDThanhphan_Chucnangcosing;
+			}
+			set
+			{
+				if ((this._IDThanhphan_Chucnangcosing != value))
+				{
+					this.OnIDThanhphan_ChucnangcosingChanging(value);
+					this.SendPropertyChanging();
+					this._IDThanhphan_Chucnangcosing = value;
+					this.SendPropertyChanged("IDThanhphan_Chucnangcosing");
+					this.OnIDThanhphan_ChucnangcosingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan_Cosing", DbType="Int NOT NULL")]
+		public int IDThanhphan_Cosing
+		{
+			get
+			{
+				return this._IDThanhphan_Cosing;
+			}
+			set
+			{
+				if ((this._IDThanhphan_Cosing != value))
+				{
+					if (this._d_Thanhphan_Cosing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDThanhphan_CosingChanging(value);
+					this.SendPropertyChanging();
+					this._IDThanhphan_Cosing = value;
+					this.SendPropertyChanged("IDThanhphan_Cosing");
+					this.OnIDThanhphan_CosingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDChucnangcosing", DbType="Int NOT NULL")]
+		public int IDChucnangcosing
+		{
+			get
+			{
+				return this._IDChucnangcosing;
+			}
+			set
+			{
+				if ((this._IDChucnangcosing != value))
+				{
+					if (this._d_Chucnangcosing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDChucnangcosingChanging(value);
+					this.SendPropertyChanging();
+					this._IDChucnangcosing = value;
+					this.SendPropertyChanged("IDChucnangcosing");
+					this.OnIDChucnangcosingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Chucnangcosing_r_Thanhphan_Chucnangcosing", Storage="_d_Chucnangcosing", ThisKey="IDChucnangcosing", OtherKey="IDChucnangcosing", IsForeignKey=true)]
+		public d_Chucnangcosing d_Chucnangcosing
+		{
+			get
+			{
+				return this._d_Chucnangcosing.Entity;
+			}
+			set
+			{
+				d_Chucnangcosing previousValue = this._d_Chucnangcosing.Entity;
+				if (((previousValue != value) 
+							|| (this._d_Chucnangcosing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._d_Chucnangcosing.Entity = null;
+						previousValue.r_Thanhphan_Chucnangcosings.Remove(this);
+					}
+					this._d_Chucnangcosing.Entity = value;
+					if ((value != null))
+					{
+						value.r_Thanhphan_Chucnangcosings.Add(this);
+						this._IDChucnangcosing = value.IDChucnangcosing;
+					}
+					else
+					{
+						this._IDChucnangcosing = default(int);
+					}
+					this.SendPropertyChanged("d_Chucnangcosing");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_Cosing_r_Thanhphan_Chucnangcosing", Storage="_d_Thanhphan_Cosing", ThisKey="IDThanhphan_Cosing", OtherKey="IDThanhphan_Cosing", IsForeignKey=true)]
+		public d_Thanhphan_Cosing d_Thanhphan_Cosing
+		{
+			get
+			{
+				return this._d_Thanhphan_Cosing.Entity;
+			}
+			set
+			{
+				d_Thanhphan_Cosing previousValue = this._d_Thanhphan_Cosing.Entity;
+				if (((previousValue != value) 
+							|| (this._d_Thanhphan_Cosing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._d_Thanhphan_Cosing.Entity = null;
+						previousValue.r_Thanhphan_Chucnangcosings.Remove(this);
+					}
+					this._d_Thanhphan_Cosing.Entity = value;
+					if ((value != null))
+					{
+						value.r_Thanhphan_Chucnangcosings.Add(this);
+						this._IDThanhphan_Cosing = value.IDThanhphan_Cosing;
+					}
+					else
+					{
+						this._IDThanhphan_Cosing = default(int);
+					}
+					this.SendPropertyChanged("d_Thanhphan_Cosing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.r_Thanhphan_EWGScore")]
+	public partial class r_Thanhphan_EWGScore : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IDEWGScore;
 		
 		private int _IDThanhphan;
 		
-		private int _IDDangbaoche;
+		private System.Nullable<int> _EWG_Score_from;
 		
-		private EntityRef<d_Dangbaoche> _d_Dangbaoche;
+		private System.Nullable<int> _EWG_Score_to;
+		
+		private string _EWG_Score;
+		
+		private string _EWG_DataAvailability;
 		
 		private EntityRef<d_Thanhphan> _d_Thanhphan;
 		
@@ -1870,37 +2533,42 @@ namespace ClassLibraryIE
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIDThanhphan_DangbaocheChanging(int value);
-    partial void OnIDThanhphan_DangbaocheChanged();
+    partial void OnIDEWGScoreChanging(int value);
+    partial void OnIDEWGScoreChanged();
     partial void OnIDThanhphanChanging(int value);
     partial void OnIDThanhphanChanged();
-    partial void OnIDDangbaocheChanging(int value);
-    partial void OnIDDangbaocheChanged();
+    partial void OnEWG_Score_fromChanging(System.Nullable<int> value);
+    partial void OnEWG_Score_fromChanged();
+    partial void OnEWG_Score_toChanging(System.Nullable<int> value);
+    partial void OnEWG_Score_toChanged();
+    partial void OnEWG_ScoreChanging(string value);
+    partial void OnEWG_ScoreChanged();
+    partial void OnEWG_DataAvailabilityChanging(string value);
+    partial void OnEWG_DataAvailabilityChanged();
     #endregion
 		
-		public r_Thanhphan_Dangbaoche()
+		public r_Thanhphan_EWGScore()
 		{
-			this._d_Dangbaoche = default(EntityRef<d_Dangbaoche>);
 			this._d_Thanhphan = default(EntityRef<d_Thanhphan>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDThanhphan_Dangbaoche", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IDThanhphan_Dangbaoche
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDEWGScore", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDEWGScore
 		{
 			get
 			{
-				return this._IDThanhphan_Dangbaoche;
+				return this._IDEWGScore;
 			}
 			set
 			{
-				if ((this._IDThanhphan_Dangbaoche != value))
+				if ((this._IDEWGScore != value))
 				{
-					this.OnIDThanhphan_DangbaocheChanging(value);
+					this.OnIDEWGScoreChanging(value);
 					this.SendPropertyChanging();
-					this._IDThanhphan_Dangbaoche = value;
-					this.SendPropertyChanged("IDThanhphan_Dangbaoche");
-					this.OnIDThanhphan_DangbaocheChanged();
+					this._IDEWGScore = value;
+					this.SendPropertyChanged("IDEWGScore");
+					this.OnIDEWGScoreChanged();
 				}
 			}
 		}
@@ -1929,65 +2597,87 @@ namespace ClassLibraryIE
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDDangbaoche", DbType="Int NOT NULL")]
-		public int IDDangbaoche
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_Score_from", DbType="Int")]
+		public System.Nullable<int> EWG_Score_from
 		{
 			get
 			{
-				return this._IDDangbaoche;
+				return this._EWG_Score_from;
 			}
 			set
 			{
-				if ((this._IDDangbaoche != value))
+				if ((this._EWG_Score_from != value))
 				{
-					if (this._d_Dangbaoche.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIDDangbaocheChanging(value);
+					this.OnEWG_Score_fromChanging(value);
 					this.SendPropertyChanging();
-					this._IDDangbaoche = value;
-					this.SendPropertyChanged("IDDangbaoche");
-					this.OnIDDangbaocheChanged();
+					this._EWG_Score_from = value;
+					this.SendPropertyChanged("EWG_Score_from");
+					this.OnEWG_Score_fromChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Dangbaoche_r_Thanhphan_Dangbaoche", Storage="_d_Dangbaoche", ThisKey="IDDangbaoche", OtherKey="IDDangbaoche", IsForeignKey=true)]
-		public d_Dangbaoche d_Dangbaoche
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_Score_to", DbType="Int")]
+		public System.Nullable<int> EWG_Score_to
 		{
 			get
 			{
-				return this._d_Dangbaoche.Entity;
+				return this._EWG_Score_to;
 			}
 			set
 			{
-				d_Dangbaoche previousValue = this._d_Dangbaoche.Entity;
-				if (((previousValue != value) 
-							|| (this._d_Dangbaoche.HasLoadedOrAssignedValue == false)))
+				if ((this._EWG_Score_to != value))
 				{
+					this.OnEWG_Score_toChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._d_Dangbaoche.Entity = null;
-						previousValue.r_Thanhphan_Dangbaoches.Remove(this);
-					}
-					this._d_Dangbaoche.Entity = value;
-					if ((value != null))
-					{
-						value.r_Thanhphan_Dangbaoches.Add(this);
-						this._IDDangbaoche = value.IDDangbaoche;
-					}
-					else
-					{
-						this._IDDangbaoche = default(int);
-					}
-					this.SendPropertyChanged("d_Dangbaoche");
+					this._EWG_Score_to = value;
+					this.SendPropertyChanged("EWG_Score_to");
+					this.OnEWG_Score_toChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Thanhphan_Dangbaoche", Storage="_d_Thanhphan", ThisKey="IDThanhphan", OtherKey="IDThanhphan", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_Score", DbType="NVarChar(100)")]
+		public string EWG_Score
+		{
+			get
+			{
+				return this._EWG_Score;
+			}
+			set
+			{
+				if ((this._EWG_Score != value))
+				{
+					this.OnEWG_ScoreChanging(value);
+					this.SendPropertyChanging();
+					this._EWG_Score = value;
+					this.SendPropertyChanged("EWG_Score");
+					this.OnEWG_ScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EWG_DataAvailability", DbType="NVarChar(100)")]
+		public string EWG_DataAvailability
+		{
+			get
+			{
+				return this._EWG_DataAvailability;
+			}
+			set
+			{
+				if ((this._EWG_DataAvailability != value))
+				{
+					this.OnEWG_DataAvailabilityChanging(value);
+					this.SendPropertyChanging();
+					this._EWG_DataAvailability = value;
+					this.SendPropertyChanged("EWG_DataAvailability");
+					this.OnEWG_DataAvailabilityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="d_Thanhphan_r_Thanhphan_EWGScore", Storage="_d_Thanhphan", ThisKey="IDThanhphan", OtherKey="IDThanhphan", IsForeignKey=true)]
 		public d_Thanhphan d_Thanhphan
 		{
 			get
@@ -2004,12 +2694,12 @@ namespace ClassLibraryIE
 					if ((previousValue != null))
 					{
 						this._d_Thanhphan.Entity = null;
-						previousValue.r_Thanhphan_Dangbaoches.Remove(this);
+						previousValue.r_Thanhphan_EWGScores.Remove(this);
 					}
 					this._d_Thanhphan.Entity = value;
 					if ((value != null))
 					{
-						value.r_Thanhphan_Dangbaoches.Add(this);
+						value.r_Thanhphan_EWGScores.Add(this);
 						this._IDThanhphan = value.IDThanhphan;
 					}
 					else

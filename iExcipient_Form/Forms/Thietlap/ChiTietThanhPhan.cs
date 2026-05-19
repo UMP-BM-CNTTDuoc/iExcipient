@@ -49,6 +49,7 @@ namespace iExcipient_Form.Forms.Thietlap
                     tp.Ten_INN,
                     tp.Ten_INCI,
                     tp.Ten_IUPAC,
+                    tp.TenKhac,  
                     tp.CAS_No
                 }).ToList();
 
@@ -185,6 +186,7 @@ namespace iExcipient_Form.Forms.Thietlap
                             TLTK = values.Length > 11 ? values[11].Trim().Trim('"') : "",
                             UngDung = values.Length > 12 ? values[12].Trim().Trim('"') : "",
                             TuongKy = values.Length > 13 ? values[13].Trim().Trim('"') : "",
+                            TenKhac = values.Length > 14 ? values[14].Trim().Trim('"') : "",
                             NgayTao = DateTime.Now,
                             NgayCapNhat = DateTime.Now
                         };
@@ -269,6 +271,7 @@ namespace iExcipient_Form.Forms.Thietlap
                     current.Ten_INN,                          // giữ nguyên
                     current.Ten_INCI,                         // giữ nguyên
                     current.Ten_IUPAC,                        // giữ nguyên
+                    current.TenKhac,
                     current.CAS_No,                           // giữ nguyên
                     textBoxCongThucHoaHoc.Text.Trim(),        
                     textBoxKhoiLuongPhanTu.Text.Trim(),                                

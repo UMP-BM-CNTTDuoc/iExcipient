@@ -53,29 +53,6 @@ namespace ClassLibraryIE
                 }
             }
 
-            public bool InsertDangBaoChe(DangBaoChe item)
-            {
-                try
-                {
-                    // kiểm tra tồn tại
-                    bool exists = db.d_Dangbaoches
-                                    .Any(x => x.TenDangbaoche.ToLower() == item.TenDangbaoche.ToLower());
-
-                    if (exists)
-                        return false; // đã tồn tại → không insert
-
-                    d_Dangbaoche dbc = item.toDangBaoCheDB();
-
-                    db.d_Dangbaoches.InsertOnSubmit(dbc);
-                    db.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
             public bool InsertChucNang(ChucNang item)
             {
                 try
@@ -111,30 +88,6 @@ namespace ClassLibraryIE
                     r_Thanhphan_Chucnang link = item.toThanhPhan_ChucNangDB();
 
                     db.r_Thanhphan_Chucnangs.InsertOnSubmit(link);
-                    db.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
-            public bool InsertThanhPhan_DangBaoChe(ThanhPhan_DangBaoChe item)
-            {
-                try
-                {
-                    // kiểm tra tồn tại
-                    bool exists = db.r_Thanhphan_Dangbaoches
-                                    .Any(x => x.IDThanhphan == item.IDThanhphan &&
-                                              x.IDDangbaoche == item.IDDangbaoche);
-
-                    if (exists)
-                        return false; // đã tồn tại → không insert
-
-                    r_Thanhphan_Dangbaoche link = item.toThanhPhan_DangBaoCheDB();
-
-                    db.r_Thanhphan_Dangbaoches.InsertOnSubmit(link);
                     db.SubmitChanges();
                     return true;
                 }
@@ -189,6 +142,83 @@ namespace ClassLibraryIE
                     return false;
                 }
             }
+            public bool InsertChucNangCosing(ChucNangCosing item)
+            {
+                try
+                {
+                    bool exists = db.d_Chucnangcosings
+                                    .Any(x => x.Tenchucnangcosing.ToLower() == item.Tenchucnangcosing.ToLower());
+                    if (exists)
+                        return false;
+                    d_Chucnangcosing cn = item.toChucNangCosingDB();
+                    db.d_Chucnangcosings.InsertOnSubmit(cn);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            public bool InsertThanhPhan_ChucNangCosing(ThanhPhan_ChucNangCosing item)
+            {
+                try
+                {
+                    bool exists = db.r_Thanhphan_Chucnangcosings
+                                    .Any(x => x.IDThanhphan_Cosing == item.IDThanhphan_Cosing &&
+                                              x.IDChucnangcosing == item.IDChucnangcosing);
+                    if (exists)
+                        return false;
+                    r_Thanhphan_Chucnangcosing link = item.toThanhPhan_ChucNangCosingDB();
+                    db.r_Thanhphan_Chucnangcosings.InsertOnSubmit(link);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            public bool InsertThanhPhanCosing(ThanhPhanCosing item)
+            {
+                try
+                {
+                    bool exists = db.d_Thanhphan_Cosings
+                        .Any(x => x.CAS_No != null && x.CAS_No.Trim() == item.CAS_No.Trim());
+                    if (exists) return false;
+                    db.d_Thanhphan_Cosings.InsertOnSubmit(item.toThanhPhanCosingDB());
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool InsertQuydinhCosing(QuydinhCosing item)
+            {
+                try
+                {
+                    db.d_Quydinh_Cosings.InsertOnSubmit(item.toQuydinhCosingDB());
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool InsertLinkCosingVaSach(LinkCosingVaSach item)
+            {
+                try
+                {
+                    bool exists = db.r_Link_Cosing_Saches
+                        .Any(x => x.IDThanhphan_Cosing == item.IDThanhphan_Cosing &&
+                                  x.IDThanhphan == item.IDThanhphan);
+                    if (exists) return false;
+                    db.r_Link_Cosing_Saches.InsertOnSubmit(item.toLinkCosingVaSachDB());
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
         }
 
         #endregion
@@ -241,42 +271,6 @@ namespace ClassLibraryIE
                     if (dsimport.Count == 0)
                         return false; // không có gì để insert
                     db.d_Thanhphans.InsertAllOnSubmit(dsimport);
-                    db.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-            public bool BulkInsertDangBaoChe(List<DangBaoChe> list)
-            {
-                try
-                {
-                    List<d_Dangbaoche> dsimport = new List<d_Dangbaoche>();
-                    foreach (DangBaoChe i in list)
-                    {
-                        d_Dangbaoche a = i.toDangBaoCheDB();
-                        dsimport.Add(a);
-                    }
-
-                    // 2. Lấy dữ liệu hiện có trong DB
-                    List<d_Dangbaoche> dshienco = db.d_Dangbaoches.ToList();
-
-                    // 3. Tạo HashSet để check trùng nhanh (O(1))
-                    HashSet<string> tapHienCo = new HashSet<string>(
-                        dshienco.Select(x => x.TenDangbaoche.Trim().ToLower())
-                    );
-
-                    // 4. Remove những phần tử bị trùng
-                    dsimport = dsimport
-                        .Where(x => !tapHienCo.Contains(x.TenDangbaoche.Trim().ToLower()))
-                        .ToList();
-
-                    if (dsimport.Count == 0)
-                        return false; // không có gì để insert
-
-                    db.d_Dangbaoches.InsertAllOnSubmit(dsimport);
                     db.SubmitChanges();
                     return true;
                 }
@@ -363,45 +357,6 @@ namespace ClassLibraryIE
                 }
             }
 
-            public bool BulkInsertThanhPhan_DangBaoChe(List<ThanhPhan_DangBaoChe> list)
-            {
-                try
-                {
-                    // 1. Chuyển đổi sang DB entities
-                    List<r_Thanhphan_Dangbaoche> dsimport = new List<r_Thanhphan_Dangbaoche>();
-                    foreach (ThanhPhan_DangBaoChe i in list)
-                    {
-                        r_Thanhphan_Dangbaoche a = i.toThanhPhan_DangBaoCheDB();
-                        dsimport.Add(a);
-                    }
-
-                    // 2. Lấy dữ liệu hiện có
-                    List<r_Thanhphan_Dangbaoche> dshienco = db.r_Thanhphan_Dangbaoches.ToList();
-
-                    // 3. Tạo HashSet composite key
-                    HashSet<string> tapHienCo = new HashSet<string>(
-                        dshienco.Select(x => x.IDThanhphan.ToString() + "_" + x.IDDangbaoche.ToString())
-                    );
-
-                    // 4. Lọc bỏ trùng lặp
-                    dsimport = dsimport
-                        .Where(x => !tapHienCo.Contains(x.IDThanhphan.ToString() + "_" + x.IDDangbaoche.ToString()))
-                        .ToList();
-
-                    if (dsimport.Count == 0)
-                        return false;
-
-                    // 5. Insert
-                    db.r_Thanhphan_Dangbaoches.InsertAllOnSubmit(dsimport);
-                    db.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
             public bool BulkInsertChatLienQuan(List<ChatLienQuan> list)
             {
                 try
@@ -478,32 +433,104 @@ namespace ClassLibraryIE
                     return false;
                 }
             }
-
-            public bool InsertEWGScore(Thanhphan_EWGScore ewg)
+            public bool BulkInsertChucNangCosing(List<ChucNangCosing> list)
             {
                 try
                 {
-                    using (var db = new KetnoiCSDLDataContext())
-                    {
-                        // Tránh trùng: nếu đã có thì update
-                        var existing = db.r_Thanhphan_EWGScores
-                            .FirstOrDefault(x => x.IDThanhphan == ewg.IDThanhphan);
+                    List<d_Chucnangcosing> dsimport = list
+                        .Select(i => i.toChucNangCosingDB()).ToList();
+                    List<d_Chucnangcosing> dshienco = db.d_Chucnangcosings.ToList();
+                    HashSet<string> tapHienCo = new HashSet<string>(
+                        dshienco.Select(x => x.Tenchucnangcosing.Trim().ToLower())
+                    );
+                    dsimport = dsimport
+                        .Where(x => !tapHienCo.Contains(x.Tenchucnangcosing.Trim().ToLower()))
+                        .ToList();
+                    if (dsimport.Count == 0) return false;
+                    db.d_Chucnangcosings.InsertAllOnSubmit(dsimport);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
 
-                        if (existing != null)
-                        {
-                            existing.EWG_Score_from = ewg.EWG_Score_from;
-                            existing.EWG_Score_to = ewg.EWG_Score_to;
-                            existing.EWG_Score = ewg.EWG_Score;
-                            existing.EWG_DataAvailability = ewg.EWG_DataAvailability;
-                        }
-                        else
-                        {
-                            db.r_Thanhphan_EWGScores.InsertOnSubmit(ewg.toThanhphan_EWGScore());
-                        }
+            public bool BulkInsertThanhPhan_ChucNangCosing(List<ThanhPhan_ChucNangCosing> list)
+            {
+                try
+                {
+                    List<r_Thanhphan_Chucnangcosing> dsimport = new List<r_Thanhphan_Chucnangcosing>();
+                    foreach (ThanhPhan_ChucNangCosing i in list)
+                        dsimport.Add(i.toThanhPhan_ChucNangCosingDB());
 
-                        db.SubmitChanges();
-                        return true;
-                    }
+                    List<r_Thanhphan_Chucnangcosing> dshienco = db.r_Thanhphan_Chucnangcosings.ToList();
+                    HashSet<string> tapHienCo = new HashSet<string>(dshienco.Select(x => x.IDThanhphan_Cosing + "_" + x.IDChucnangcosing));
+                    dsimport = dsimport
+                        .Where(x => !tapHienCo.Contains(x.IDThanhphan_Cosing + "_" + x.IDChucnangcosing))
+                        .ToList();
+
+                    if (dsimport.Count == 0)
+                        return false;
+
+                    db.r_Thanhphan_Chucnangcosings.InsertAllOnSubmit(dsimport);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            public bool BulkInsertThanhPhanCosing(List<ThanhPhanCosing> list)
+            {
+                try
+                {
+                    List<d_Thanhphan_Cosing> dsimport = list.Select(i => i.toThanhPhanCosingDB()).ToList();
+                    List<d_Thanhphan_Cosing> dshienco = db.d_Thanhphan_Cosings.ToList();
+                    HashSet<string> tapHienCo = new HashSet<string>(
+                        dshienco.Where(x => !string.IsNullOrEmpty(x.CAS_No))
+                                .Select(x => x.CAS_No.Trim().ToLower())
+                    );
+                    dsimport = dsimport
+                        .Where(x => string.IsNullOrEmpty(x.CAS_No) ||
+                                    !tapHienCo.Contains(x.CAS_No.Trim().ToLower()))
+                        .ToList();
+                    if (dsimport.Count == 0) return false;
+                    db.d_Thanhphan_Cosings.InsertAllOnSubmit(dsimport);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool BulkInsertQuydinhCosing(List<QuydinhCosing> list)
+            {
+                try
+                {
+                    List<d_Quydinh_Cosing> dsimport = list.Select(i => i.toQuydinhCosingDB()).ToList();
+                    db.d_Quydinh_Cosings.InsertAllOnSubmit(dsimport);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool BulkInsertLinkCosingVaSach(List<LinkCosingVaSach> list)
+            {
+                try
+                {
+                    List<r_Link_Cosing_Sach> dsimport = list.Select(i => i.toLinkCosingVaSachDB()).ToList();
+                    List<r_Link_Cosing_Sach> dshienco = db.r_Link_Cosing_Saches.ToList();
+                    HashSet<string> tapHienCo = new HashSet<string>(
+                        dshienco.Select(x => x.IDThanhphan_Cosing + "_" + x.IDThanhphan)
+                    );
+                    dsimport = dsimport
+                        .Where(x => !tapHienCo.Contains(x.IDThanhphan_Cosing + "_" + x.IDThanhphan))
+                        .ToList();
+                    if (dsimport.Count == 0) return false;
+                    db.r_Link_Cosing_Saches.InsertAllOnSubmit(dsimport);
+                    db.SubmitChanges();
+                    return true;
                 }
                 catch { return false; }
             }
@@ -538,19 +565,6 @@ namespace ClassLibraryIE
 
                 foreach (d_Thanhphan i in ds)
                     kq.Add(ThanhPhan.fromThanhPhanDB(i));
-
-                return kq;
-            }
-
-            // Lấy toàn bộ Dạng Bào Chế
-            public List<DangBaoChe> GetDSDangBaoChe()
-            {
-                List<DangBaoChe> kq = new List<DangBaoChe>();
-
-                List<d_Dangbaoche> ds = db.d_Dangbaoches.ToList();
-
-                foreach (d_Dangbaoche i in ds)
-                    kq.Add(DangBaoChe.fromDangBaoCheDB(i));
 
                 return kq;
             }
@@ -595,19 +609,6 @@ namespace ClassLibraryIE
                 return kq;
             }
 
-            // Lấy toàn bộ quan hệ Thành Phần - Dạng Bào Chế
-            public List<ThanhPhan_DangBaoChe> GetDSThanhPhan_DangBaoChe()
-            {
-                List<ThanhPhan_DangBaoChe> kq = new List<ThanhPhan_DangBaoChe>();
-
-                List<r_Thanhphan_Dangbaoche> ds = db.r_Thanhphan_Dangbaoches.ToList();
-
-                foreach (r_Thanhphan_Dangbaoche i in ds)
-                    kq.Add(ThanhPhan_DangBaoChe.fromThanhPhan_DangBaoCheDB(i));
-
-                return kq;
-            }
-
             // Lấy toàn bộ quan hệ Chất Liên Quan
             public List<ChatLienQuan> GetDSChatLienQuan()
             {
@@ -636,9 +637,6 @@ namespace ClassLibraryIE
                     // Lấy danh sách quy định của thành phần
                     kq.dsQuyDinh = GetQuyDinhByThanhPhan(idThanhPhan);
 
-                    // Lấy danh sách dạng bào chế của thành phần
-                    kq.dsDangBaoChe = GetDangBaoCheByThanhPhan(idThanhPhan);
-
                     // Lấy danh sách chức năng của thành phần
                     kq.dsChucNang = GetChucNangByThanhPhan(idThanhPhan);
 
@@ -665,29 +663,6 @@ namespace ClassLibraryIE
 
                     foreach (d_Quydinh i in ds)
                         kq.Add(QuyDinh.fromQuyDinhDB(i));
-
-                    return kq;
-                }
-                catch
-                {
-                    return kq;
-                }
-            }
-
-            // Lấy danh sách Dạng Bào Chế theo IDThanhPhan
-            public List<DangBaoChe> GetDangBaoCheByThanhPhan(int idThanhPhan)
-            {
-                List<DangBaoChe> kq = new List<DangBaoChe>();
-                try
-                {
-                    List<d_Dangbaoche> ds = (from data in db.d_Dangbaoches
-                                             join rela in db.r_Thanhphan_Dangbaoches
-                                                 on data.IDDangbaoche equals rela.IDDangbaoche
-                                             where rela.IDThanhphan == idThanhPhan
-                                             select data).ToList();
-
-                    foreach (d_Dangbaoche i in ds)
-                        kq.Add(DangBaoChe.fromDangBaoCheDB(i));
 
                     return kq;
                 }
@@ -821,20 +796,33 @@ namespace ClassLibraryIE
                 }
             }
 
-            // Tìm kiếm Thành Phần theo Dạng Bào Chế
-            public List<ThanhPhan> GetThanhPhanByDangBaoChe(int idDangBaoChe)
+            // Lấy toàn bộ Chức Năng Cosing
+            public List<ChucNangCosing> GetDSChucNangCosing()
             {
-                List<ThanhPhan> kq = new List<ThanhPhan>();
+                List<ChucNangCosing> kq = new List<ChucNangCosing>();
+
+                List<d_Chucnangcosing> ds = db.d_Chucnangcosings.ToList();
+
+                foreach (d_Chucnangcosing i in ds)
+                    kq.Add(ChucNangCosing.fromChucNangCosingDB(i));
+
+                return kq;
+            }
+
+            // Lấy danh sách Chức Năng Cosing theo IDThanhPhan
+            public List<ChucNangCosing> GetChucNangCosingByThanhPhan(int idThanhPhan)
+            {
+                List<ChucNangCosing> kq = new List<ChucNangCosing>();
                 try
                 {
-                    List<d_Thanhphan> ds = (from data in db.d_Thanhphans
-                                            join rela in db.r_Thanhphan_Dangbaoches
-                                                on data.IDThanhphan equals rela.IDThanhphan
-                                            where rela.IDDangbaoche == idDangBaoChe
-                                            select data).ToList();
+                    List<d_Chucnangcosing> ds = (from data in db.d_Chucnangcosings
+                                                 join rela in db.r_Thanhphan_Chucnangcosings
+                                                     on data.IDChucnangcosing equals rela.IDChucnangcosing
+                                                 where rela.IDThanhphan_Cosing == idThanhPhan
+                                                 select data).ToList();
 
-                    foreach (d_Thanhphan i in ds)
-                        kq.Add(ThanhPhan.fromThanhPhanDB(i));
+                    foreach (d_Chucnangcosing i in ds)
+                        kq.Add(ChucNangCosing.fromChucNangCosingDB(i));
 
                     return kq;
                 }
@@ -842,6 +830,89 @@ namespace ClassLibraryIE
                 {
                     return kq;
                 }
+            }
+
+            // Lấy toàn bộ quan hệ Thành Phần - Chức Năng Cosing
+            public List<ThanhPhan_ChucNangCosing> GetDSThanhPhan_ChucNangCosing()
+            {
+                List<ThanhPhan_ChucNangCosing> kq = new List<ThanhPhan_ChucNangCosing>();
+
+                List<r_Thanhphan_Chucnangcosing> ds = db.r_Thanhphan_Chucnangcosings.ToList();
+
+                foreach (r_Thanhphan_Chucnangcosing i in ds)
+                    kq.Add(ThanhPhan_ChucNangCosing.fromThanhPhan_ChucNangCosingDB(i));
+
+                return kq;
+            }
+            // Lấy toàn bộ ThanhPhanCosing
+            public List<ThanhPhanCosing> GetDSThanhPhanCosing()
+            {
+                List<ThanhPhanCosing> kq = new List<ThanhPhanCosing>();
+                List<d_Thanhphan_Cosing> ds = db.d_Thanhphan_Cosings.ToList();
+                foreach (d_Thanhphan_Cosing i in ds)
+                    kq.Add(ThanhPhanCosing.fromThanhPhanCosingDB(i));
+                return kq;
+            }
+
+            // Lấy 1 ThanhPhanCosing theo ID
+            public ThanhPhanCosing GetThanhPhanCosing(int id)
+            {
+                d_Thanhphan_Cosing item = db.d_Thanhphan_Cosings
+                    .SingleOrDefault(x => x.IDThanhphan_Cosing == id);
+                return ThanhPhanCosing.fromThanhPhanCosingDB(item);
+            }
+
+            // Lấy ChucNangCosing theo IDThanhphan_Cosing
+            public List<ChucNangCosing> GetChucNangCosingByThanhPhanCosing(int idThanhphanCosing)
+            {
+                List<ChucNangCosing> kq = new List<ChucNangCosing>();
+                try
+                {
+                    List<d_Chucnangcosing> ds = (from data in db.d_Chucnangcosings
+                                                 join rela in db.r_Thanhphan_Chucnangcosings
+                                                     on data.IDChucnangcosing equals rela.IDChucnangcosing
+                                                 where rela.IDThanhphan_Cosing == idThanhphanCosing
+                                                 select data).ToList();
+                    foreach (d_Chucnangcosing i in ds)
+                        kq.Add(ChucNangCosing.fromChucNangCosingDB(i));
+                    return kq;
+                }
+                catch { return kq; }
+            }
+
+            // Lấy QuydinhCosing theo IDThanhphan_Cosing
+            public List<QuydinhCosing> GetQuydinhCosingByThanhPhanCosing(int idThanhphanCosing)
+            {
+                List<QuydinhCosing> kq = new List<QuydinhCosing>();
+                try
+                {
+                    List<d_Quydinh_Cosing> ds = db.d_Quydinh_Cosings
+                        .Where(x => x.IDThanhphan_Cosing == idThanhphanCosing).ToList();
+                    foreach (d_Quydinh_Cosing i in ds)
+                        kq.Add(QuydinhCosing.fromQuydinhCosingDB(i));
+                    return kq;
+                }
+                catch { return kq; }
+            }
+
+            // Lấy toàn bộ QuydinhCosing
+            public List<QuydinhCosing> GetDSQuydinhCosing()
+            {
+                List<QuydinhCosing> kq = new List<QuydinhCosing>();
+                List<d_Quydinh_Cosing> ds = db.d_Quydinh_Cosings.ToList();
+                foreach (d_Quydinh_Cosing i in ds)
+                    kq.Add(QuydinhCosing.fromQuydinhCosingDB(i));
+                return kq;
+            }
+
+            // Lấy toàn bộ LinkCosingVaSach
+            public List<LinkCosingVaSach> GetDSLinkCosingVaSach()
+            {
+                List<LinkCosingVaSach> kq = new List<LinkCosingVaSach>();
+                List<r_Link_Cosing_Sach> ds = db.r_Link_Cosing_Saches.ToList();
+                foreach (r_Link_Cosing_Sach i in ds)
+                    kq.Add(LinkCosingVaSach.fromLinkCosingVaSachDB(i));
+                return kq;
             }
         }
 
@@ -851,8 +922,7 @@ namespace ClassLibraryIE
         public class UpdateData
         {
             public bool UpdateQuyDinh(int idQuydinh, int idThanhphan, bool? annexII, bool? annexIII,
-                                      bool? annexIV, bool? annexV, bool? annexVI,
-                                      string dieuKienSuDung, string ghichu)
+                                      bool? annexIV, bool? annexV, bool? annexVI)
             {
                 try
                 {
@@ -865,8 +935,6 @@ namespace ClassLibraryIE
                         qd.AnnexIV = annexIV;
                         qd.AnnexV = annexV;
                         qd.AnnexVI = annexVI;
-                        qd.DieuKienSuDung = dieuKienSuDung;
-                        qd.Ghichu = ghichu;
                         db.SubmitChanges();
                         return true;
                     }
@@ -878,7 +946,7 @@ namespace ClassLibraryIE
                 }
             }
 
-            public bool UpdateThanhPhan(int idThanhphan, string ten_INN, string ten_INCI, string ten_IUPAC,
+            public bool UpdateThanhPhan(int idThanhphan, string ten_INN, string ten_INCI, string ten_IUPAC, string tenKhac,
                                         string cas_No, string congThucHoaHoc, string khoiLuongPhanTu,
                                         string cauTrucPhanTu, string tinhChatVatLy, string moTa,
                                         string baoQuan, string tltk, string ungDung, string tuongKy)
@@ -891,6 +959,7 @@ namespace ClassLibraryIE
                         tp.Ten_INN = ten_INN;
                         tp.Ten_INCI = ten_INCI;
                         tp.Ten_IUPAC = ten_IUPAC;
+                        tp.TenKhac = tenKhac;
                         tp.CAS_No = cas_No;
                         tp.CongThucHoaHoc = congThucHoaHoc;
                         tp.KhoiLuongPhanTu = khoiLuongPhanTu;
@@ -902,25 +971,6 @@ namespace ClassLibraryIE
                         tp.NgayCapNhat = DateTime.Now;
                         tp.Ungdung = ungDung;
                         tp.Tuongky = tuongKy;
-                        db.SubmitChanges();
-                        return true;
-                    }
-                    return false;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
-            public bool UpdateDangBaoChe(int idDangbaoche, string tenDangbaoche)
-            {
-                try
-                {
-                    d_Dangbaoche dbc = db.d_Dangbaoches.SingleOrDefault(x => x.IDDangbaoche == idDangbaoche);
-                    if (dbc != null)
-                    {
-                        dbc.TenDangbaoche = tenDangbaoche;
                         db.SubmitChanges();
                         return true;
                     }
@@ -961,26 +1011,6 @@ namespace ClassLibraryIE
                     if (link != null)
                     {
                         link.IDChucnang = idChucnangNew;
-                        db.SubmitChanges();
-                        return true;
-                    }
-                    return false;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
-            public bool UpdateThanhPhan_DangBaoChe(int idThanhphan, int idDangbaocheOld, int idDangbaocheNew)
-            {
-                try
-                {
-                    r_Thanhphan_Dangbaoche link = db.r_Thanhphan_Dangbaoches.SingleOrDefault(x =>
-                        x.IDThanhphan == idThanhphan && x.IDDangbaoche == idDangbaocheOld);
-                    if (link != null)
-                    {
-                        link.IDDangbaoche = idDangbaocheNew;
                         db.SubmitChanges();
                         return true;
                     }
@@ -1033,6 +1063,80 @@ namespace ClassLibraryIE
                     return false;
                 }
             }
+            public bool UpdateChucNangCosing(int idChucnangcosing, string tenChucnangcosing, string motaChucnangcosing)
+            {
+                try
+                {
+                    d_Chucnangcosing cn = db.d_Chucnangcosings.SingleOrDefault(x => x.IDChucnangcosing == idChucnangcosing);
+                    if (cn != null)
+                    {
+                        cn.Tenchucnangcosing = tenChucnangcosing;
+                        cn.Motachucnangcosing = motaChucnangcosing;
+                        db.SubmitChanges();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            public bool UpdateThanhPhan_ChucNangCosing(int idThanhphan, int idChucnangcosingOld, int idChucnangcosingNew)
+            {
+                try
+                {
+                    r_Thanhphan_Chucnangcosing link = db.r_Thanhphan_Chucnangcosings.SingleOrDefault(x =>
+                        x.IDThanhphan_Cosing == idThanhphan && x.IDChucnangcosing == idChucnangcosingOld);
+                    if (link != null)
+                    {
+                        link.IDChucnangcosing = idChucnangcosingNew;
+                        db.SubmitChanges();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            public bool UpdateThanhPhanCosing(int id, string tenInci, string casNo, string ecNo)
+            {
+                try
+                {
+                    d_Thanhphan_Cosing item = db.d_Thanhphan_Cosings
+                        .SingleOrDefault(x => x.IDThanhphan_Cosing == id);
+                    if (item == null) return false;
+                    item.Ten_INCI = tenInci;
+                    item.CAS_No = casNo;
+                    item.EC_No = ecNo;
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool UpdateQuydinhCosing(int idQuydinhCosing, int idThanhphanCosing,
+                bool? annexII, bool? annexIII, bool? annexIV, bool? annexV, bool? annexVI)
+            {
+                try
+                {
+                    d_Quydinh_Cosing item = db.d_Quydinh_Cosings
+                        .SingleOrDefault(x => x.IDQuydinh_Cosing == idQuydinhCosing);
+                    if (item == null) return false;
+                    item.IDThanhphan_Cosing = idThanhphanCosing;
+                    item.AnnexII = annexII;
+                    item.AnnexIII = annexIII;
+                    item.AnnexIV = annexIV;
+                    item.AnnexV = annexV;
+                    item.AnnexVI = annexVI;
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
         }
         #endregion
 
@@ -1065,9 +1169,6 @@ namespace ClassLibraryIE
                     // Delete related records in r_Thanhphan_Chucnang
                     DeleteThanhPhan_ChucNang_ByThanhPhan(idThanhPhan);
 
-                    // Delete related records in r_Thanhphan_Dangbaoche
-                    DeleteThanhPhan_DangBaoChe_ByThanhPhan(idThanhPhan);
-
                     // Delete related records in r_Chatlienquan (as main component)
                     DeleteThanhPhan_ChatLienQuan_ByThanhPhan(idThanhPhan);
 
@@ -1096,33 +1197,6 @@ namespace ClassLibraryIE
                     if (tp != null)
                     {
                         db.d_Thanhphans.DeleteOnSubmit(tp);
-                        db.SubmitChanges();
-                        return true;
-                    }
-                    return false;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
-            public bool DeleteDangBaoChe(int idDangBaoChe)
-            {
-                try
-                {
-                    // Delete related records in r_Thanhphan_Dangbaoche first
-                    IQueryable<r_Thanhphan_Dangbaoche> relatedRecords = db.r_Thanhphan_Dangbaoches.Where(x => x.IDDangbaoche == idDangBaoChe);
-                    if (relatedRecords.Any())
-                    {
-                        db.r_Thanhphan_Dangbaoches.DeleteAllOnSubmit(relatedRecords);
-                    }
-
-                    // Delete the main record
-                    d_Dangbaoche dbc = db.d_Dangbaoches.SingleOrDefault(x => x.IDDangbaoche == idDangBaoChe);
-                    if (dbc != null)
-                    {
-                        db.d_Dangbaoches.DeleteOnSubmit(dbc);
                         db.SubmitChanges();
                         return true;
                     }
@@ -1183,27 +1257,6 @@ namespace ClassLibraryIE
                 }
             }
 
-            public bool DeleteThanhPhan_DangBaoChe_ByThanhPhan(int idThanhPhan)
-            {
-                try
-                {
-                    List<r_Thanhphan_Dangbaoche> links = (from data in db.r_Thanhphan_Dangbaoches
-                                                          where data.IDThanhphan == idThanhPhan
-                                                          select data).ToList();
-                    if (links != null && links.Any())
-                    {
-                        db.r_Thanhphan_Dangbaoches.DeleteAllOnSubmit(links);
-                        db.SubmitChanges();
-                        return true;
-                    }
-                    return false;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
             public bool DeleteThanhPhan_ChatLienQuan_ByThanhPhan(int idThanhPhan)
             {
                 try
@@ -1239,18 +1292,6 @@ namespace ClassLibraryIE
                     return 0;
                 }
             }
-            // Method đếm số lượng quan hệ cho DangBaoChe
-            public int GetRelatedCountDangBaoChe(int idDangBaoChe)
-            {
-                try
-                {
-                    return db.r_Thanhphan_Dangbaoches.Count(x => x.IDDangbaoche == idDangBaoChe);
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
 
             // Method đếm số lượng quan hệ cho ThanhPhan
             public class ThanhPhanRelationCount
@@ -1270,7 +1311,6 @@ namespace ClassLibraryIE
                     var result = new ThanhPhanRelationCount
                     {
                         ChucNangCount = db.r_Thanhphan_Chucnangs.Count(x => x.IDThanhphan == idThanhPhan),
-                        DangBaoCheCount = db.r_Thanhphan_Dangbaoches.Count(x => x.IDThanhphan == idThanhPhan),
                         ChatLienQuanCount = db.r_Chatlienquans.Count(x => x.IDThanhphan == idThanhPhan),
                         ChatLienQuanAsRelatedCount = db.r_Chatlienquans.Count(x => x.IDThanhphanLienquan == idThanhPhan),
                         QuyDinhCount = db.d_Quydinhs.Count(x => x.IDThanhphan == idThanhPhan)
@@ -1300,6 +1340,117 @@ namespace ClassLibraryIE
                     return 0;
                 }
             }
+            public bool DeleteChucNangCosing(int idChucNangCosing)
+            {
+                try
+                {
+                    IQueryable<r_Thanhphan_Chucnangcosing> relatedLinks = db.r_Thanhphan_Chucnangcosings
+                        .Where(x => x.IDChucnangcosing == idChucNangCosing);
+                    if (relatedLinks.Any())
+                        db.r_Thanhphan_Chucnangcosings.DeleteAllOnSubmit(relatedLinks);
+
+                    d_Chucnangcosing cn = db.d_Chucnangcosings.SingleOrDefault(x => x.IDChucnangcosing == idChucNangCosing);
+                    if (cn != null)
+                    {
+                        db.d_Chucnangcosings.DeleteOnSubmit(cn);
+                        db.SubmitChanges();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            public int GetRelatedCountChucNangCosing(int idChucNangCosing)
+            {
+                try
+                {
+                    return db.r_Thanhphan_Chucnangcosings.Count(x => x.IDChucnangcosing == idChucNangCosing);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+            public bool DeleteThanhPhanCosing(int id)
+            {
+                try
+                {
+                    // Xóa các quan hệ trước
+                    var links = db.r_Link_Cosing_Saches.Where(x => x.IDThanhphan_Cosing == id);
+                    db.r_Link_Cosing_Saches.DeleteAllOnSubmit(links);
+
+                    var chucnangs = db.r_Thanhphan_Chucnangcosings.Where(x => x.IDThanhphan_Cosing == id);
+                    db.r_Thanhphan_Chucnangcosings.DeleteAllOnSubmit(chucnangs);
+
+                    var quydinhs = db.d_Quydinh_Cosings.Where(x => x.IDThanhphan_Cosing == id);
+                    db.d_Quydinh_Cosings.DeleteAllOnSubmit(quydinhs);
+
+                    d_Thanhphan_Cosing item = db.d_Thanhphan_Cosings
+                        .SingleOrDefault(x => x.IDThanhphan_Cosing == id);
+                    if (item == null) return false;
+                    db.d_Thanhphan_Cosings.DeleteOnSubmit(item);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool DeleteQuydinhCosing(int idQuydinhCosing)
+            {
+                try
+                {
+                    d_Quydinh_Cosing item = db.d_Quydinh_Cosings
+                        .SingleOrDefault(x => x.IDQuydinh_Cosing == idQuydinhCosing);
+                    if (item == null) return false;
+                    db.d_Quydinh_Cosings.DeleteOnSubmit(item);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool DeleteLinkCosingVaSach(int idLink)
+            {
+                try
+                {
+                    r_Link_Cosing_Sach item = db.r_Link_Cosing_Saches
+                        .SingleOrDefault(x => x.IDLink == idLink);
+                    if (item == null) return false;
+                    db.r_Link_Cosing_Saches.DeleteOnSubmit(item);
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public bool DeleteThanhPhan_ChucNangCosing_ByThanhPhanCosing(int idThanhphanCosing)
+            {
+                try
+                {
+                    var links = db.r_Thanhphan_Chucnangcosings
+                        .Where(x => x.IDThanhphan_Cosing == idThanhphanCosing).ToList();
+                    if (links.Any())
+                    {
+                        db.r_Thanhphan_Chucnangcosings.DeleteAllOnSubmit(links);
+                        db.SubmitChanges();
+                    }
+                    return true;
+                }
+                catch { return false; }
+            }
+
+            public int GetRelatedCountThanhPhanCosing(int idThanhphanCosing)
+            {
+                try
+                {
+                    return db.r_Link_Cosing_Saches.Count(x => x.IDThanhphan_Cosing == idThanhphanCosing);
+                }
+                catch { return 0; }
+            }
         }
 
         #endregion
@@ -1322,18 +1473,20 @@ namespace ClassLibraryIE
         public string TLTK { get; set; }
         public string UngDung { get; set; }
         public string TuongKy { get; set; }
+        public string TenKhac { get; set; }
         public DateTime? NgayTao { get; set; }
         public DateTime? NgayCapNhat { get; set; }
         public List<QuyDinh> dsQuyDinh { get; set; }
-        public List<DangBaoChe> dsDangBaoChe { get; set; }
         public List<ChucNang> dsChucNang { get; set; }
         public List<ThanhPhan> dsThanhPhanLienQuan { get; set; }
+        public List<ChucNangCosing> dsChucNangCosing { get; set; }
 
         public ThanhPhan()
         {
             Ten_INN = "";
             Ten_INCI = "";
             Ten_IUPAC = "";
+            TenKhac = "";
             CAS_No = "";
             CongThucHoaHoc = "";
             CauTrucPhanTu = "";
@@ -1355,6 +1508,7 @@ namespace ClassLibraryIE
                 Ten_INN = item.Ten_INN,
                 Ten_INCI = item.Ten_INCI,
                 Ten_IUPAC = item.Ten_IUPAC,
+                TenKhac = item.TenKhac,
                 CAS_No = item.CAS_No,
                 CongThucHoaHoc = item.CongThucHoaHoc,
                 KhoiLuongPhanTu = item.KhoiLuongPhanTu,
@@ -1371,8 +1525,8 @@ namespace ClassLibraryIE
             KetnoiDB.GetData db = new KetnoiDB.GetData();
             kq.dsQuyDinh = db.GetQuyDinhByThanhPhan(item.IDThanhphan);
             kq.dsChucNang = db.GetChucNangByThanhPhan(item.IDThanhphan);
-            kq.dsDangBaoChe = db.GetDangBaoCheByThanhPhan(item.IDThanhphan);
             kq.dsThanhPhanLienQuan = db.GetThanhPhanLienQuan(item.IDThanhphan);
+            kq.dsChucNangCosing = db.GetChucNangCosingByThanhPhan(item.IDThanhphan);
             return kq;
         }
 
@@ -1384,6 +1538,7 @@ namespace ClassLibraryIE
                 Ten_INN = this.Ten_INN,
                 Ten_INCI = this.Ten_INCI,
                 Ten_IUPAC = this.Ten_IUPAC,
+                TenKhac = this.TenKhac,
                 CAS_No = this.CAS_No,
                 CongThucHoaHoc = this.CongThucHoaHoc,
                 KhoiLuongPhanTu = this.KhoiLuongPhanTu,
@@ -1410,13 +1565,9 @@ namespace ClassLibraryIE
         public bool? AnnexIV { get; set; }
         public bool? AnnexV { get; set; }
         public bool? AnnexVI { get; set; }
-        public string DieuKienSuDung { get; set; }
-        public string Ghichu { get; set; }
 
         public QuyDinh()
         {
-            DieuKienSuDung = "";
-            Ghichu = "";
         }
 
         public static QuyDinh fromQuyDinhDB(d_Quydinh item)
@@ -1432,8 +1583,6 @@ namespace ClassLibraryIE
                 AnnexIV = item.AnnexIV,
                 AnnexV = item.AnnexV,
                 AnnexVI = item.AnnexVI,
-                DieuKienSuDung = item.DieuKienSuDung,
-                Ghichu = item.Ghichu
             };
             return kq;
         }
@@ -1449,41 +1598,6 @@ namespace ClassLibraryIE
                 AnnexIV = this.AnnexIV,
                 AnnexV = this.AnnexV,
                 AnnexVI = this.AnnexVI,
-                DieuKienSuDung = this.DieuKienSuDung,
-                Ghichu = this.Ghichu
-            };
-            return kq;
-        }
-    }
-
-    public class DangBaoChe
-    {
-        public int IDDangbaoche { get; set; }
-        public string TenDangbaoche { get; set; }
-
-        public DangBaoChe()
-        {
-
-        }
-
-        public static DangBaoChe fromDangBaoCheDB(d_Dangbaoche item)
-        {
-            if (item == null)
-                return null;
-            DangBaoChe kq = new DangBaoChe
-            {
-                IDDangbaoche = item.IDDangbaoche,
-                TenDangbaoche = item.TenDangbaoche
-            };
-            return kq;
-        }
-
-        public d_Dangbaoche toDangBaoCheDB()
-        {
-            d_Dangbaoche kq = new d_Dangbaoche
-            {
-                IDDangbaoche = this.IDDangbaoche,
-                TenDangbaoche = this.TenDangbaoche
             };
             return kq;
         }
@@ -1525,34 +1639,37 @@ namespace ClassLibraryIE
         }
     }
 
-    public class ThanhPhan_DangBaoChe
+    public class ChucNangCosing
     {
-        public int IDThanhphan { get; set; }
-        public int IDDangbaoche { get; set; }
+        public int IDChucnangcosing { get; set; }
+        public string Tenchucnangcosing { get; set; }
+        public string Motachucnangcosing { get; set; }
 
-        public ThanhPhan_DangBaoChe()
+        public ChucNangCosing()
         {
-
+            Motachucnangcosing = "";
         }
 
-        public static ThanhPhan_DangBaoChe fromThanhPhan_DangBaoCheDB(r_Thanhphan_Dangbaoche item)
+        public static ChucNangCosing fromChucNangCosingDB(d_Chucnangcosing item)
         {
             if (item == null)
                 return null;
-            ThanhPhan_DangBaoChe kq = new ThanhPhan_DangBaoChe
+            ChucNangCosing kq = new ChucNangCosing
             {
-                IDThanhphan = item.IDThanhphan,
-                IDDangbaoche = item.IDDangbaoche
+                IDChucnangcosing = item.IDChucnangcosing,
+                Tenchucnangcosing = item.Tenchucnangcosing,
+                Motachucnangcosing = item.Motachucnangcosing
             };
             return kq;
         }
 
-        public r_Thanhphan_Dangbaoche toThanhPhan_DangBaoCheDB()
+        public d_Chucnangcosing toChucNangCosingDB()
         {
-            r_Thanhphan_Dangbaoche kq = new r_Thanhphan_Dangbaoche
+            d_Chucnangcosing kq = new d_Chucnangcosing
             {
-                IDThanhphan = this.IDThanhphan,
-                IDDangbaoche = this.IDDangbaoche
+                IDChucnangcosing = this.IDChucnangcosing,
+                Tenchucnangcosing = this.Tenchucnangcosing,
+                Motachucnangcosing = this.Motachucnangcosing
             };
             return kq;
         }
@@ -1588,6 +1705,153 @@ namespace ClassLibraryIE
                 IDChucnang = this.IDChucnang
             };
             return kq;
+        }
+    }
+
+    public class ThanhPhan_ChucNangCosing
+    {
+        public int IDThanhphan_Chucnangcosing { get; set; }
+        public int IDThanhphan_Cosing { get; set; }
+        public int IDChucnangcosing { get; set; }
+
+        public ThanhPhan_ChucNangCosing()
+        {
+
+        }
+
+        public static ThanhPhan_ChucNangCosing fromThanhPhan_ChucNangCosingDB(r_Thanhphan_Chucnangcosing item)
+        {
+            if (item == null)
+                return null;
+            ThanhPhan_ChucNangCosing kq = new ThanhPhan_ChucNangCosing
+            {
+                IDThanhphan_Cosing = item.IDThanhphan_Cosing,
+                IDChucnangcosing = item.IDChucnangcosing
+            };
+            return kq;
+        }
+
+        public r_Thanhphan_Chucnangcosing toThanhPhan_ChucNangCosingDB()
+        {
+            r_Thanhphan_Chucnangcosing kq = new r_Thanhphan_Chucnangcosing
+            {
+                IDThanhphan_Cosing = this.IDThanhphan_Cosing,
+                IDChucnangcosing = this.IDChucnangcosing
+            };
+            return kq;
+        }
+    }
+    public class ThanhPhanCosing
+    {
+        public int IDThanhphan_Cosing { get; set; }
+        public string Ten_INCI { get; set; }
+        public string CAS_No { get; set; }
+        public string EC_No { get; set; }
+        public List<ChucNangCosing> dsChucNangCosing { get; set; }
+        public List<QuydinhCosing> dsQuydinhCosing { get; set; }
+
+        public ThanhPhanCosing()
+        {
+            Ten_INCI = "";
+            CAS_No = "";
+            EC_No = "";
+        }
+
+        public static ThanhPhanCosing fromThanhPhanCosingDB(d_Thanhphan_Cosing item)
+        {
+            if (item == null) return null;
+            ThanhPhanCosing kq = new ThanhPhanCosing
+            {
+                IDThanhphan_Cosing = item.IDThanhphan_Cosing,
+                Ten_INCI = item.Ten_INCI,
+                CAS_No = item.CAS_No,
+                EC_No = item.EC_No
+            };
+            KetnoiDB.GetData db = new KetnoiDB.GetData();
+            kq.dsChucNangCosing = db.GetChucNangCosingByThanhPhanCosing(item.IDThanhphan_Cosing);
+            kq.dsQuydinhCosing = db.GetQuydinhCosingByThanhPhanCosing(item.IDThanhphan_Cosing);
+            return kq;
+        }
+
+        public d_Thanhphan_Cosing toThanhPhanCosingDB()
+        {
+            return new d_Thanhphan_Cosing
+            {
+                IDThanhphan_Cosing = this.IDThanhphan_Cosing,
+                Ten_INCI = this.Ten_INCI,
+                CAS_No = this.CAS_No,
+                EC_No = this.EC_No
+            };
+        }
+    }
+    public class QuydinhCosing
+    {
+        public int IDQuydinh_Cosing { get; set; }
+        public int IDThanhphan_Cosing { get; set; }
+        public bool? AnnexII { get; set; }
+        public bool? AnnexIII { get; set; }
+        public bool? AnnexIV { get; set; }
+        public bool? AnnexV { get; set; }
+        public bool? AnnexVI { get; set; }
+
+        public QuydinhCosing() { }
+
+        public static QuydinhCosing fromQuydinhCosingDB(d_Quydinh_Cosing item)
+        {
+            if (item == null) return null;
+            return new QuydinhCosing
+            {
+                IDQuydinh_Cosing = item.IDQuydinh_Cosing,
+                IDThanhphan_Cosing = item.IDThanhphan_Cosing,
+                AnnexII = item.AnnexII,
+                AnnexIII = item.AnnexIII,
+                AnnexIV = item.AnnexIV,
+                AnnexV = item.AnnexV,
+                AnnexVI = item.AnnexVI
+            };
+        }
+
+        public d_Quydinh_Cosing toQuydinhCosingDB()
+        {
+            return new d_Quydinh_Cosing
+            {
+                IDQuydinh_Cosing = this.IDQuydinh_Cosing,
+                IDThanhphan_Cosing = this.IDThanhphan_Cosing,
+                AnnexII = this.AnnexII,
+                AnnexIII = this.AnnexIII,
+                AnnexIV = this.AnnexIV,
+                AnnexV = this.AnnexV,
+                AnnexVI = this.AnnexVI
+            };
+        }
+    }
+    public class LinkCosingVaSach
+    {
+        public int IDLink { get; set; }
+        public int IDThanhphan_Cosing { get; set; }
+        public int IDThanhphan { get; set; }
+
+        public LinkCosingVaSach() { }
+
+        public static LinkCosingVaSach fromLinkCosingVaSachDB(r_Link_Cosing_Sach item)
+        {
+            if (item == null) return null;
+            return new LinkCosingVaSach
+            {
+                IDLink = item.IDLink,
+                IDThanhphan_Cosing = item.IDThanhphan_Cosing,
+                IDThanhphan = item.IDThanhphan
+            };
+        }
+
+        public r_Link_Cosing_Sach toLinkCosingVaSachDB()
+        {
+            return new r_Link_Cosing_Sach
+            {
+                IDLink = this.IDLink,
+                IDThanhphan_Cosing = this.IDThanhphan_Cosing,
+                IDThanhphan = this.IDThanhphan
+            };
         }
     }
 

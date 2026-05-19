@@ -13,7 +13,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace iExcipient_Form.Forms.Danhmuc
 {
-    public partial class DanhMucThanhPhan : Form
+    public partial class DanhMucThanhPhanCosing : Form
     {
         BindingSource grid1 = new BindingSource();
 
@@ -23,23 +23,17 @@ namespace iExcipient_Form.Forms.Danhmuc
         KetnoiDB.DeleteData deletedata = new KetnoiDB.DeleteData();
         KetnoiDB.BulkInsertData bulkInsert = new KetnoiDB.BulkInsertData();
 
-        public DanhMucThanhPhan()
+        public DanhMucThanhPhanCosing()
         {
             InitializeComponent();
         }
 
-        private void DanhMucThanhPhan_Load(object sender, EventArgs e)
+        private void DanhMucThanhPhanCosing_Load(object sender, EventArgs e)
         {
             buttonThem.Enabled = false;
             buttonXoa.Enabled = false;
             buttonSua.Enabled = false;
             dataGridView1.DataSource = grid1;
-
-            // Thiết lập DateTimePicker
-            dateTimePickerNgayTao.Format = DateTimePickerFormat.Custom;
-            dateTimePickerNgayTao.CustomFormat = "dd/MM/yyyy HH:mm:ss";
-            dateTimePickerNgayCapNhat.Format = DateTimePickerFormat.Custom;
-            dateTimePickerNgayCapNhat.CustomFormat = "dd/MM/yyyy HH:mm:ss";
 
             dataGridView1.ScrollBars = ScrollBars.Both;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
@@ -54,14 +48,10 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void ClearTextBoxes()
         {
-            textBoxIDThanhphan.Clear();
-            textBoxTen_INN.Clear();
+            textBoxIDThanhphan_Cosing.Clear();
             textBoxTen_INCI.Clear();
-            textBoxTen_IUPAC.Clear();
             textBoxCAS_No.Clear();
-            textBoxTenKhac.Clear();
-            dateTimePickerNgayTao.Value = DateTime.Now;
-            dateTimePickerNgayCapNhat.Value = DateTime.Now;
+            textBoxEC_No.Clear();
         }
 
         private void buttonXoatrang_Click(object sender, EventArgs e)
@@ -77,18 +67,14 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                List<ThanhPhan> dsThanhPhan = getdata.GetDSThanhPhan();
+                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosing();
 
-                var displayList = dsThanhPhan.Select(tp => new
+                var displayList = dsThanhPhanCosing.Select(tp => new
                 {
-                    tp.IDThanhphan,
-                    tp.Ten_INN,
+                    tp.IDThanhphan_Cosing,
                     tp.Ten_INCI,
-                    tp.Ten_IUPAC,
-                    tp.TenKhac,
                     tp.CAS_No,
-                    tp.NgayTao,
-                    tp.NgayCapNhat
+                    tp.EC_No
                 }).ToList();
 
                 grid1.DataSource = displayList;
@@ -107,45 +93,21 @@ namespace iExcipient_Form.Forms.Danhmuc
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                textBoxIDThanhphan.Text = row.Cells["IDThanhphan"].Value != null
-                    ? row.Cells["IDThanhphan"].Value.ToString()
-                    : "";
-
-                textBoxTen_INN.Text = row.Cells["Ten_INN"].Value != null
-                    ? row.Cells["Ten_INN"].Value.ToString()
+                textBoxIDThanhphan_Cosing.Text = row.Cells["IDThanhphan_Cosing"].Value != null
+                    ? row.Cells["IDThanhphan_Cosing"].Value.ToString()
                     : "";
 
                 textBoxTen_INCI.Text = row.Cells["Ten_INCI"].Value != null
                     ? row.Cells["Ten_INCI"].Value.ToString()
                     : "";
 
-                textBoxTen_IUPAC.Text = row.Cells["Ten_IUPAC"].Value != null
-                    ? row.Cells["Ten_IUPAC"].Value.ToString()
-                    : "";
-
                 textBoxCAS_No.Text = row.Cells["CAS_No"].Value != null
                     ? row.Cells["CAS_No"].Value.ToString()
                     : "";
-                textBoxTenKhac.Text = row.Cells["TenKhac"].Value != null
-                    ? row.Cells["TenKhac"].Value.ToString()
-                    : "";
-                if (row.Cells["NgayTao"].Value != null && row.Cells["NgayTao"].Value != DBNull.Value)
-                {
-                    dateTimePickerNgayTao.Value = Convert.ToDateTime(row.Cells["NgayTao"].Value);
-                }
-                else
-                {
-                    dateTimePickerNgayTao.Value = DateTime.Now;
-                }
 
-                if (row.Cells["NgayCapNhat"].Value != null && row.Cells["NgayCapNhat"].Value != DBNull.Value)
-                {
-                    dateTimePickerNgayCapNhat.Value = Convert.ToDateTime(row.Cells["NgayCapNhat"].Value);
-                }
-                else
-                {
-                    dateTimePickerNgayCapNhat.Value = DateTime.Now;
-                }
+                textBoxEC_No.Text = row.Cells["EC_No"].Value != null
+                    ? row.Cells["EC_No"].Value.ToString()
+                    : "";
 
                 buttonXoa.Enabled = true;
                 buttonSua.Enabled = true;
@@ -164,27 +126,22 @@ namespace iExcipient_Form.Forms.Danhmuc
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(textBoxTenKhac.Text))
+                if (string.IsNullOrWhiteSpace(textBoxCAS_No.Text))
                 {
                     MessageBox.Show("Vui lòng nhập CAS No!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    textBoxTenKhac.Focus();
+                    textBoxCAS_No.Focus();
                     return;
                 }
 
-
-                ThanhPhan item = new ThanhPhan
+                ThanhPhanCosing item = new ThanhPhanCosing
                 {
-                    Ten_INN = textBoxTen_INN.Text.Trim(),
                     Ten_INCI = textBoxTen_INCI.Text.Trim(),
-                    Ten_IUPAC = textBoxTen_IUPAC.Text.Trim(),
-                    TenKhac = textBoxTenKhac.Text.Trim(),
                     CAS_No = textBoxCAS_No.Text.Trim(),
-                    NgayTao = DateTime.Now,
-                    NgayCapNhat = DateTime.Now
+                    EC_No = textBoxEC_No.Text.Trim()
                 };
 
-                if (insertdata.InsertThanhPhan(item))
+                if (insertdata.InsertThanhPhanCosing(item))
                 {
                     MessageBox.Show("Thêm mới thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -208,59 +165,24 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(textBoxIDThanhphan.Text))
+                if (string.IsNullOrWhiteSpace(textBoxIDThanhphan_Cosing.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn thành phần cần xóa!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn thành phần Cosing cần xóa!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                int idThanhPhan = int.Parse(textBoxIDThanhphan.Text);
-                string tenThanhPhan = textBoxTen_INCI.Text;
+                int id = int.Parse(textBoxIDThanhphan_Cosing.Text);
 
-                // Kiểm tra số lượng quan hệ
-                KetnoiDB.DeleteData.ThanhPhanRelationCount relationCount =
-                    deletedata.GetRelatedCountThanhPhan(idThanhPhan);
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc muốn xóa thành phần Cosing này?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
 
-                if (relationCount.TotalCount > 0)
-                {
-                    string message = string.Format(
-                        "Thành phần '{0}' có {1} quan hệ liên kết:\n" +
-                        "- Chức năng: {2}\n" +
-                        "- Dạng bào chế: {3}\n" +
-                        "- Chất liên quan: {4}\n" +
-                        "- Là chất liên quan của: {5}\n" +
-                        "- Quy định: {6}\n\n" +
-                        "Bạn có chắc chắn muốn xóa? Tất cả quan hệ sẽ bị xóa!",
-                        tenThanhPhan,
-                        relationCount.TotalCount,
-                        relationCount.ChucNangCount,
-                        relationCount.DangBaoCheCount,
-                        relationCount.ChatLienQuanCount,
-                        relationCount.ChatLienQuanAsRelatedCount,
-                        relationCount.QuyDinhCount
-                    );
+                if (confirm != DialogResult.Yes) return;
 
-                    DialogResult confirm = MessageBox.Show(message, "Cảnh báo",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                    if (confirm != DialogResult.Yes)
-                        return;
-                }
-                else
-                {
-                    DialogResult confirm = MessageBox.Show(
-                        string.Format("Bạn có chắc chắn muốn xóa thành phần '{0}'?", tenThanhPhan),
-                        "Xác nhận xóa",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question
-                    );
-
-                    if (confirm != DialogResult.Yes)
-                        return;
-                }
-
-                if (deletedata.DeleteThanhPhan(idThanhPhan))
+                if (deletedata.DeleteThanhPhanCosing(id))
                 {
                     MessageBox.Show("Xóa thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -286,9 +208,9 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(textBoxIDThanhphan.Text))
+                if (string.IsNullOrWhiteSpace(textBoxIDThanhphan_Cosing.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn thành phần cần sửa!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn thành phần Cosing cần sửa!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -301,37 +223,21 @@ namespace iExcipient_Form.Forms.Danhmuc
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(textBoxTenKhac.Text))
+                if (string.IsNullOrWhiteSpace(textBoxCAS_No.Text))
                 {
                     MessageBox.Show("Vui lòng nhập CAS No!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    textBoxTenKhac.Focus();
+                    textBoxCAS_No.Focus();
                     return;
                 }
 
-                int idThanhPhan = int.Parse(textBoxIDThanhphan.Text);
+                int id = int.Parse(textBoxIDThanhphan_Cosing.Text);
 
-                // Lấy dữ liệu chi tiết hiện tại để giữ nguyên các field không sửa
-                ThanhPhan current = getdata.GetThanhPhan(idThanhPhan);
-                if (current == null) return;
-
-                if (updatedata.UpdateThanhPhan(
-                    idThanhPhan,
-                    textBoxTen_INN.Text.Trim(),
+                if (updatedata.UpdateThanhPhanCosing(
+                    id,
                     textBoxTen_INCI.Text.Trim(),
-                    textBoxTen_IUPAC.Text.Trim(),
                     textBoxCAS_No.Text.Trim(),
-                    textBoxTenKhac.Text.Trim(),
-                    current.CongThucHoaHoc,     // giữ nguyên
-                    current.KhoiLuongPhanTu,
-                    current.CauTrucPhanTu,
-                    current.TinhChatVatLy,
-                    current.MoTa,
-                    current.BaoQuan,
-                    current.TLTK,
-                    current.UngDung,
-                    current.TuongKy
-                ))
+                    textBoxEC_No.Text.Trim()))
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -360,27 +266,27 @@ namespace iExcipient_Form.Forms.Danhmuc
                 OpenFileDialog openFileDialog = new OpenFileDialog
                 {
                     Filter = "CSV Files|*.csv",
-                    Title = "Chọn file để import thành phần"
+                    Title = "Chọn file để import thành phần Cosing"
                 };
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
-                    List<ThanhPhan> listThanhPhan = new List<ThanhPhan>();
+                    List<ThanhPhanCosing> listThanhPhanCosing = new List<ThanhPhanCosing>();
 
-                    ImportFromCSV(filePath, listThanhPhan);
+                    ImportFromCSV(filePath, listThanhPhanCosing);
 
-                    if (listThanhPhan.Count > 0)
+                    if (listThanhPhanCosing.Count > 0)
                     {
                         DialogResult result = MessageBox.Show(
-                            "Tìm thấy " + listThanhPhan.Count.ToString() + " dòng dữ liệu. Bạn có muốn import?",
+                            "Tìm thấy " + listThanhPhanCosing.Count.ToString() + " dòng dữ liệu. Bạn có muốn import?",
                             "Xác nhận import",
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question);
 
                         if (result == DialogResult.Yes)
                         {
-                            if (bulkInsert.BulkInsertThanhPhan(listThanhPhan))
+                            if (bulkInsert.BulkInsertThanhPhanCosing(listThanhPhanCosing))
                             {
                                 MessageBox.Show("Import thành công!", "Thông báo",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -407,7 +313,7 @@ namespace iExcipient_Form.Forms.Danhmuc
             }
         }
 
-        private void ImportFromCSV(string filePath, List<ThanhPhan> listThanhPhan)
+        private void ImportFromCSV(string filePath, List<ThanhPhanCosing> listThanhPhanCosing)
         {
             using (Microsoft.VisualBasic.FileIO.TextFieldParser parser =
                    new Microsoft.VisualBasic.FileIO.TextFieldParser(filePath, Encoding.UTF8))
@@ -429,44 +335,21 @@ namespace iExcipient_Form.Forms.Danhmuc
 
                     if (values.Length >= 1 && !string.IsNullOrWhiteSpace(values[0]))
                     {
-                        ThanhPhan tp = new ThanhPhan
+                        ThanhPhanCosing tp = new ThanhPhanCosing
                         {
-                            Ten_INN = values.Length > 0 ? values[0].Trim() : "",
-                            Ten_INCI = values.Length > 1 ? values[1].Trim() : "",
-                            Ten_IUPAC = values.Length > 2 ? values[2].Trim() : "",
-                            CAS_No = values.Length > 3 ? values[3].Trim() : "",
-                            CongThucHoaHoc = values.Length > 4 ? values[4].Trim() : "",
-                            KhoiLuongPhanTu = values.Length > 5 ? values[5].Trim() : "",
-                            CauTrucPhanTu = values.Length > 6 ? values[6].Trim() : "",
-                            TinhChatVatLy = values.Length > 7 ? values[7].Trim().Replace("\n", "\r\n") : "",
-                            MoTa = values.Length > 8 ? values[8].Trim().Replace("\n", "\r\n") : "",
-                            BaoQuan = values.Length > 9 ? values[9].Trim().Replace("\n", "\r\n") : "",
-                            TLTK = values.Length > 11 ? values[11].Trim().Replace("\n", "\r\n") : "",
-                            UngDung = values.Length > 12 ? values[12].Trim().Replace("\n", "\r\n") : "",
-                            TuongKy = values.Length > 13 ? values[13].Trim().Replace("\n", "\r\n") : "",
-                            TenKhac = values.Length > 14 ? values[14].Trim() : "",
-                            NgayTao = DateTime.Now,
-                            NgayCapNhat = DateTime.Now
+                            Ten_INCI = values.Length > 0 ? values[0].Trim() : "",
+                            CAS_No = values.Length > 1 ? values[1].Trim() : "",
+                            EC_No = values.Length > 2 ? values[2].Trim() : ""
                         };
-                        listThanhPhan.Add(tp);
+                        listThanhPhanCosing.Add(tp);
                     }
                 }
             }
         }
-        private void textBoxTen_INN_TextChanged(object sender, EventArgs e)
-        {
-            buttonThem.Enabled = !string.IsNullOrWhiteSpace(textBoxTen_INN.Text);
-        }
 
-        private void buttonChitiet_Click(object sender, EventArgs e)
+        private void textBoxTen_INCI_TextChanged(object sender, EventArgs e)
         {
-            using (Forms.Thietlap.ChiTietThanhPhan formcon = new Forms.Thietlap.ChiTietThanhPhan())
-            {
-                if (formcon.ShowDialog() == DialogResult.OK)
-                {
-                    refreshDatagrid(); // Refresh nếu form con có thay đổi dữ liệu
-                }
-            }
+            buttonThem.Enabled = !string.IsNullOrWhiteSpace(textBoxTen_INCI.Text);
         }
     }
 }
