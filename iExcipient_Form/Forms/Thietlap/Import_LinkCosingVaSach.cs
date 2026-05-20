@@ -228,14 +228,15 @@ namespace iExcipient_Form.Forms.Thietlap
             }
         }
 
+        //Tạm load n hàng để tránh đơ app
         private void LoadThanhPhan()
         {
-            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhan = getdata.GetDSThanhPhanTop(5000).OrderBy(tp => tp.Ten_INCI).ToList();
         }
 
         private void LoadThanhPhanCosing()
         {
-            _listThanhPhanCosing = getdata.GetDSThanhPhanCosing().OrderBy(tc => tc.Ten_INCI).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(30100).OrderBy(tc => tc.Ten_INCI).ToList();
         }
 
         private string GetTenThanhPhan(int id)

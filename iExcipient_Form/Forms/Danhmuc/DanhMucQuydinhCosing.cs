@@ -42,7 +42,7 @@ namespace iExcipient_Form.Forms.Danhmuc
         {
             try
             {
-                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(200);
+                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(30100);
                 comboBoxTenThanhPhanCosing.DataSource = dsThanhPhanCosing;
                 comboBoxTenThanhPhanCosing.DisplayMember = "Ten_INCI";
                 comboBoxTenThanhPhanCosing.ValueMember = "IDThanhphan_Cosing";

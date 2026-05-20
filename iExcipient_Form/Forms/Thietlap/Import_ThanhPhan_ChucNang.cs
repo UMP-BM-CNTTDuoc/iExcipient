@@ -230,7 +230,7 @@ namespace iExcipient_Form.Forms.Thietlap
 
         private void LoadThanhPhan()
         {
-            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhan = getdata.GetDSThanhPhan().OrderBy(tp => tp.Ten_INN).ToList();
         }
 
         private void LoadChucNang()
@@ -241,7 +241,7 @@ namespace iExcipient_Form.Forms.Thietlap
         private string GetTenThanhPhan(int id)
         {
             ThanhPhan tp = _listThanhPhan.FirstOrDefault(t => t.IDThanhphan == id);
-            return tp != null ? tp.Ten_INCI : "(Không tìm thấy ID: " + id.ToString() + ")";
+            return tp != null ? tp.Ten_INN : "(Không tìm thấy ID: " + id.ToString() + ")";
         }
 
         private string GetCASNo(int id)

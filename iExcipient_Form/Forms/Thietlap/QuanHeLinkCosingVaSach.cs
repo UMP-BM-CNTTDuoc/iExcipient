@@ -117,7 +117,7 @@ namespace iExcipient_Form.Forms.Thietlap
 
         private void LoadThanhPhanCosing()
         {
-            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(200).OrderBy(tc => tc.Ten_INCI).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(30100).OrderBy(tc => tc.Ten_INCI).ToList();
 
             comboBoxThanhPhanCosing.DataSource = _listThanhPhanCosing.ToList();
             comboBoxThanhPhanCosing.DisplayMember = "Ten_INCI";

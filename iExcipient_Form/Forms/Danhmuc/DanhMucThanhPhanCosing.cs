@@ -70,7 +70,7 @@ namespace iExcipient_Form.Forms.Danhmuc
                 int tongSo = getdata.CountThanhPhanCosing();
                 labelTongSo.Text = string.Format("Tổng: {0} thành phần", tongSo);
 
-                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(200);
+                List<ThanhPhanCosing> dsThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(30100);
 
                 var displayList = dsThanhPhanCosing.Select(tp => new
                 {

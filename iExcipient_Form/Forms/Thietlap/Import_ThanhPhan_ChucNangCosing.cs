@@ -202,10 +202,10 @@ namespace iExcipient_Form.Forms.Thietlap
                 }
             }
         }
-
+        //Tạm load n hàng để tránh đơ app
         private void LoadThanhPhanCosing()
         {
-            _listThanhPhanCosing = getdata.GetDSThanhPhanCosing().OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(30100).OrderBy(tp => tp.Ten_INCI).ToList();
         }
 
         private void LoadChucNangCosing()

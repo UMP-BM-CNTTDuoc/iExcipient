@@ -105,7 +105,7 @@ namespace iExcipient_Form.Forms.Danhmuc
 
         private void LoadThanhPhanCosing()
         {
-            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(200).OrderBy(tp => tp.Ten_INCI).ToList();
+            _listThanhPhanCosing = getdata.GetDSThanhPhanCosingTop(30100).OrderBy(tp => tp.Ten_INCI).ToList();
             comboBoxThanhPhan.DataSource = _listThanhPhanCosing.ToList();
             comboBoxThanhPhan.DisplayMember = "Ten_INCI";
             comboBoxThanhPhan.ValueMember = "IDThanhphan_Cosing";

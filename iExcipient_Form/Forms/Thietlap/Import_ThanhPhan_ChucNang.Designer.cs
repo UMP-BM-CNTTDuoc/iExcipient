@@ -147,7 +147,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 177);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 20);
+            this.label2.Size = new System.Drawing.Size(180, 25);
             this.label2.TabIndex = 11;
             this.label2.Text = "Danh sách import";
             // 
@@ -156,7 +156,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 20);
+            this.label1.Size = new System.Drawing.Size(163, 25);
             this.label1.TabIndex = 10;
             this.label1.Text = "Danh sách tổng";
             // 
@@ -166,7 +166,7 @@
             this.dataGridViewTong.AllowUserToDeleteRows = false;
             this.dataGridViewTong.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewTong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewTong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewTong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTong.Location = new System.Drawing.Point(15, 29);
             this.dataGridViewTong.Name = "dataGridViewTong";
