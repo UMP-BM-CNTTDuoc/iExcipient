@@ -19,7 +19,7 @@
         margin-bottom: 25px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
-    
+
     .box-title {
         font-weight: bold;
         margin-top: 0;
@@ -30,14 +30,14 @@
         border-bottom: 1px solid var(--border-color);
         padding-bottom: 6px;
     }
-    
+
     .grid-3 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 15px;
         margin-bottom: 15px;
     }
-    
+
     .grid-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -50,19 +50,19 @@
             grid-template-columns: 1fr;
         }
     }
-    
+
     .form-group {
         display: flex;
         flex-direction: column;
         gap: 5px;
     }
-    
-    .form-group label {
-        font-size: 12.5px;
-        font-weight: 600;
-        color: #555;
-    }
-    
+
+        .form-group label {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #555;
+        }
+
     .form-control {
         padding: 8px 12px;
         border: 1px solid #ccc;
@@ -72,17 +72,17 @@
         box-sizing: border-box;
     }
 
-    .form-control:focus {
-        border-color: var(--btn-green);
-        outline: none;
-    }
-    
+        .form-control:focus {
+            border-color: var(--btn-green);
+            outline: none;
+        }
+
     .form-actions {
         display: flex;
         justify-content: flex-end;
         gap: 10px;
     }
-    
+
     .btn-clear {
         background-color: #b0b0b0;
         color: white;
@@ -95,10 +95,10 @@
         cursor: pointer;
     }
 
-    .btn-clear:hover {
-        background-color: #9c9c9c;
-    }
-    
+        .btn-clear:hover {
+            background-color: #9c9c9c;
+        }
+
     .btn-submit {
         background-color: var(--btn-green);
         color: white;
@@ -110,17 +110,17 @@
         cursor: pointer;
     }
 
-    .btn-submit:hover {
-        background-color: var(--btn-green-hover);
-    }
-    
+        .btn-submit:hover {
+            background-color: var(--btn-green-hover);
+        }
+
     .result-count {
         font-style: italic;
         margin-bottom: 15px;
         font-size: 15px;
         color: var(--text-light);
     }
-    
+
     .table-responsive {
         background-color: white;
         border-radius: 8px;
@@ -128,19 +128,19 @@
         border: 1px solid var(--border-color);
         box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-    
+
     table {
         width: 100%;
         border-collapse: collapse;
         text-align: left;
         font-size: 14px;
     }
-    
+
     th, td {
         padding: 12px 18px;
         border-bottom: 1px solid var(--border-color);
     }
-    
+
     th {
         background-color: #fafafa;
         font-weight: 600;
@@ -149,7 +149,7 @@
         font-size: 12px;
         letter-spacing: 0.5px;
     }
-    
+
     .badge {
         padding: 4px 10px;
         border-radius: 12px;
@@ -166,19 +166,19 @@
         color: var(--btn-green);
     }
 
-    .badge-allowed::before {
-        content: "●";
-    }
+        .badge-allowed::before {
+            content: "●";
+        }
 
     .badge-annex {
         background-color: #ffebee;
         color: var(--accent-red);
     }
 
-    .badge-annex::before {
-        content: "●";
-    }
-    
+        .badge-annex::before {
+            content: "●";
+        }
+
     .link-action {
         color: var(--btn-green);
         text-decoration: none;
@@ -188,11 +188,11 @@
         align-items: center;
         gap: 5px;
     }
-    
-    .link-action:hover {
-        color: var(--btn-green-hover);
-        text-decoration: underline;
-    }
+
+        .link-action:hover {
+            color: var(--btn-green-hover);
+            text-decoration: underline;
+        }
 
     .link-detail {
         color: #111;
@@ -201,25 +201,26 @@
         transition: color 0.15s;
     }
 
-    .link-detail:hover {
-        color: var(--btn-green);
-    }
+        .link-detail:hover {
+            color: var(--btn-green);
+        }
 </style>
+<!-- Top Search input (preserves active filters) -->
+<div class="search-bar-container">
+    <form action="@Url.Action("Index", "Cosing")" method="get" style="width: 100%; max-width: 700px;">
+        <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" name="q" value="@Model.Keyword" placeholder="Tìm kiếm theo danh pháp INCI, số CAS hoặc mã EC...">
 
-<!-- Top Search Box (preserves active filters) -->
-<div class="search-container" style="padding: 10px 0 25px 0;">
-    <form action="@Url.Action("Index", "Cosing")" method="get" style="position: relative;">
-        <i class="fa-solid fa-magnifying-glass search-icon" style="left: 20px;"></i>
-        <input type="text" name="q" value="@Model.Keyword" class="main-search" style="padding-left: 55px;" placeholder="Tìm kiếm theo danh pháp INCI, số CAS hoặc mã EC...">
-        
-        @if (Model.FunctionId.HasValue)
-        {
-            <input type="hidden" name="func" value="@Model.FunctionId" />
-        }
-        @foreach (var flag in Model.AnnexFilters)
-        {
-            <input type="hidden" name="annex" value="@flag" />
-        }
+            @if (Model.FunctionId.HasValue)
+            {
+                <input type="hidden" name="func" value="@Model.FunctionId" />
+            }
+            @foreach (var flag in Model.AnnexFilters)
+            {
+                <input type="hidden" name="annex" value="@flag" />
+            }
+        </div>
     </form>
 </div>
 

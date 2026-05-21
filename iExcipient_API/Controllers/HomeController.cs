@@ -18,7 +18,7 @@ namespace iExcipient_API.Controllers
                 var dataHelper = new KetnoiDB.GetData();
                 ViewBag.CountHope = dataHelper.CountThanhPhan();
                 ViewBag.CountCosing = dataHelper.CountThanhPhanCosing();
-                ViewBag.CountAnnex = dataHelper.CountQuyDinh() + dataHelper.CountQuydinhCosing();
+                ViewBag.CountAnnex = dataHelper.CountQuyDinh() + dataHelper.CountQuydinhCosingT();
                 ViewBag.CountEwg = dataHelper.GetDSEWGScore().Count;
             }
             catch (Exception)

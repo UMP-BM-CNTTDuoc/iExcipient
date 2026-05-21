@@ -1015,6 +1015,16 @@ namespace ClassLibraryIE
                 return db.d_Quydinh_Cosings.Count();
             }
 
+            public int CountQuydinhCosingT()
+            {
+                return db.d_Quydinh_Cosings
+                    .Count(i => i.AnnexII == true
+                             || i.AnnexIII == true
+                             || i.AnnexIV == true
+                             || i.AnnexV == true
+                             || i.AnnexVI == true);
+            }
+
             public List<QuydinhCosing> GetDSQuydinhCosingTop(int top = 200)
             {
                 return db.d_Quydinh_Cosings
