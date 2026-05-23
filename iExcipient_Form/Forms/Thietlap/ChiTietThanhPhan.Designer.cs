@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonSua = new System.Windows.Forms.Button();
             this.buttonThoat = new System.Windows.Forms.Button();
             this.buttonImport = new System.Windows.Forms.Button();
@@ -37,6 +37,7 @@
             this.buttonXoatrang = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.labelTongSo = new System.Windows.Forms.Label();
             this.textBoxIDThanhphan = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxKhoiLuongPhanTu = new System.Windows.Forms.TextBox();
@@ -57,15 +58,14 @@
             this.textBoxChatLienQuan = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxTuongKy = new System.Windows.Forms.TextBox();
             this.textBoxUngDung = new System.Windows.Forms.TextBox();
-            this.textBoxNgayCapNhat = new System.Windows.Forms.TextBox();
-            this.textBoxNgayTao = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.labelTongSo = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dateTimePickerNgayCapNhat = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerNgayTao = new System.Windows.Forms.DateTimePicker();
+            this.label17 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -136,30 +136,30 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 369);
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 384);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1010, 96);
+            this.dataGridView1.Size = new System.Drawing.Size(1010, 81);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -173,6 +173,14 @@
             this.panel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel3.Size = new System.Drawing.Size(1034, 471);
             this.panel3.TabIndex = 23;
+            // 
+            // labelTongSo
+            // 
+            this.labelTongSo.AutoSize = true;
+            this.labelTongSo.Location = new System.Drawing.Point(12, 350);
+            this.labelTongSo.Name = "labelTongSo";
+            this.labelTongSo.Size = new System.Drawing.Size(0, 25);
+            this.labelTongSo.TabIndex = 19;
             // 
             // textBoxIDThanhphan
             // 
@@ -248,7 +256,7 @@
             // 
             // textBoxMoTa
             // 
-            this.textBoxMoTa.Location = new System.Drawing.Point(12, 164);
+            this.textBoxMoTa.Location = new System.Drawing.Point(12, 170);
             this.textBoxMoTa.Multiline = true;
             this.textBoxMoTa.Name = "textBoxMoTa";
             this.textBoxMoTa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -258,7 +266,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 144);
+            this.label14.Location = new System.Drawing.Point(12, 148);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(66, 25);
             this.label14.TabIndex = 28;
@@ -268,7 +276,7 @@
             // 
             this.textBoxBaoQuan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxBaoQuan.Location = new System.Drawing.Point(473, 164);
+            this.textBoxBaoQuan.Location = new System.Drawing.Point(473, 170);
             this.textBoxBaoQuan.Multiline = true;
             this.textBoxBaoQuan.Name = "textBoxBaoQuan";
             this.textBoxBaoQuan.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -278,7 +286,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(473, 144);
+            this.label13.Location = new System.Drawing.Point(473, 148);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(375, 25);
             this.label13.TabIndex = 30;
@@ -288,7 +296,7 @@
             // 
             this.textBoxTLTK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTLTK.Location = new System.Drawing.Point(473, 254);
+            this.textBoxTLTK.Location = new System.Drawing.Point(473, 278);
             this.textBoxTLTK.Multiline = true;
             this.textBoxTLTK.Name = "textBoxTLTK";
             this.textBoxTLTK.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -298,7 +306,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(473, 234);
+            this.label15.Location = new System.Drawing.Point(473, 256);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(188, 25);
             this.label15.TabIndex = 35;
@@ -341,6 +349,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Controls.Add(this.dateTimePickerNgayCapNhat);
+            this.panel1.Controls.Add(this.dateTimePickerNgayTao);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label2);
@@ -348,15 +360,11 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.textBoxTuongKy);
             this.panel1.Controls.Add(this.textBoxUngDung);
-            this.panel1.Controls.Add(this.textBoxNgayCapNhat);
-            this.panel1.Controls.Add(this.textBoxNgayTao);
             this.panel1.Controls.Add(this.textBoxChatLienQuan);
             this.panel1.Controls.Add(this.textBoxCauTrucPhanTu);
             this.panel1.Controls.Add(this.textBoxTLTK);
@@ -372,40 +380,22 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.panel1.Size = new System.Drawing.Size(1034, 343);
+            this.panel1.Size = new System.Drawing.Size(1034, 375);
             this.panel1.TabIndex = 21;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 189);
+            this.label2.Location = new System.Drawing.Point(12, 202);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 25);
             this.label2.TabIndex = 52;
             this.label2.Text = "Ứng dụng";
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 279);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(98, 25);
-            this.label17.TabIndex = 47;
-            this.label17.Text = "Ngày tạo";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(473, 279);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(151, 25);
-            this.label16.TabIndex = 48;
-            this.label16.Text = "Ngày cập nhật";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(473, 189);
+            this.label3.Location = new System.Drawing.Point(473, 202);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 25);
             this.label3.TabIndex = 54;
@@ -415,7 +405,7 @@
             // 
             this.textBoxTuongKy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTuongKy.Location = new System.Drawing.Point(473, 209);
+            this.textBoxTuongKy.Location = new System.Drawing.Point(473, 224);
             this.textBoxTuongKy.Multiline = true;
             this.textBoxTuongKy.Name = "textBoxTuongKy";
             this.textBoxTuongKy.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -424,30 +414,12 @@
             // 
             // textBoxUngDung
             // 
-            this.textBoxUngDung.Location = new System.Drawing.Point(12, 209);
+            this.textBoxUngDung.Location = new System.Drawing.Point(12, 224);
             this.textBoxUngDung.Multiline = true;
             this.textBoxUngDung.Name = "textBoxUngDung";
             this.textBoxUngDung.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxUngDung.Size = new System.Drawing.Size(455, 31);
             this.textBoxUngDung.TabIndex = 51;
-            // 
-            // textBoxNgayCapNhat
-            // 
-            this.textBoxNgayCapNhat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNgayCapNhat.Location = new System.Drawing.Point(473, 299);
-            this.textBoxNgayCapNhat.Multiline = true;
-            this.textBoxNgayCapNhat.Name = "textBoxNgayCapNhat";
-            this.textBoxNgayCapNhat.Size = new System.Drawing.Size(549, 31);
-            this.textBoxNgayCapNhat.TabIndex = 50;
-            // 
-            // textBoxNgayTao
-            // 
-            this.textBoxNgayTao.Location = new System.Drawing.Point(12, 299);
-            this.textBoxNgayTao.Multiline = true;
-            this.textBoxNgayTao.Name = "textBoxNgayTao";
-            this.textBoxNgayTao.Size = new System.Drawing.Size(455, 31);
-            this.textBoxNgayTao.TabIndex = 49;
             // 
             // label10
             // 
@@ -458,13 +430,41 @@
             this.label10.TabIndex = 21;
             this.label10.Text = "Tính chất vật lý";
             // 
-            // labelTongSo
+            // label18
             // 
-            this.labelTongSo.AutoSize = true;
-            this.labelTongSo.Location = new System.Drawing.Point(12, 350);
-            this.labelTongSo.Name = "labelTongSo";
-            this.labelTongSo.Size = new System.Drawing.Size(0, 25);
-            this.labelTongSo.TabIndex = 19;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(473, 310);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(151, 25);
+            this.label18.TabIndex = 58;
+            this.label18.Text = "Ngày cập nhật";
+            // 
+            // dateTimePickerNgayCapNhat
+            // 
+            this.dateTimePickerNgayCapNhat.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePickerNgayCapNhat.Enabled = false;
+            this.dateTimePickerNgayCapNhat.Location = new System.Drawing.Point(473, 329);
+            this.dateTimePickerNgayCapNhat.Name = "dateTimePickerNgayCapNhat";
+            this.dateTimePickerNgayCapNhat.Size = new System.Drawing.Size(548, 31);
+            this.dateTimePickerNgayCapNhat.TabIndex = 57;
+            // 
+            // dateTimePickerNgayTao
+            // 
+            this.dateTimePickerNgayTao.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePickerNgayTao.Enabled = false;
+            this.dateTimePickerNgayTao.Location = new System.Drawing.Point(12, 329);
+            this.dateTimePickerNgayTao.Name = "dateTimePickerNgayTao";
+            this.dateTimePickerNgayTao.Size = new System.Drawing.Size(455, 31);
+            this.dateTimePickerNgayTao.TabIndex = 56;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 307);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 25);
+            this.label17.TabIndex = 55;
+            this.label17.Text = "Ngày tạo";
             // 
             // ChiTietThanhPhan
             // 
@@ -518,15 +518,15 @@
         private System.Windows.Forms.TextBox textBoxChatLienQuan;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonXoatrang;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBoxNgayCapNhat;
-        private System.Windows.Forms.TextBox textBoxNgayTao;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxTuongKy;
         private System.Windows.Forms.TextBox textBoxUngDung;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelTongSo;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DateTimePicker dateTimePickerNgayCapNhat;
+        private System.Windows.Forms.DateTimePicker dateTimePickerNgayTao;
     }
 }

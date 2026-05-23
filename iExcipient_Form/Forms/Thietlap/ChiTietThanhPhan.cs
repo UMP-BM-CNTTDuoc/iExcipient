@@ -31,6 +31,12 @@ namespace iExcipient_Form.Forms.Thietlap
             dataGridView1.ScrollBars = ScrollBars.Both;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
+            // Thiết lập DateTimePicker
+            dateTimePickerNgayTao.Format = DateTimePickerFormat.Custom;
+            dateTimePickerNgayTao.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerNgayCapNhat.Format = DateTimePickerFormat.Custom;
+            dateTimePickerNgayCapNhat.CustomFormat = "dd/MM/yyyy";
+
             SetPanelEnabled(false);
             refreshDatagrid();
 
@@ -168,11 +174,6 @@ namespace iExcipient_Form.Forms.Thietlap
 
                     if (values.Length >= 3 && !string.IsNullOrWhiteSpace(values[2]))
                     {
-                        double khoiLuong = 0;
-                        if (values.Length > 5 && !string.IsNullOrWhiteSpace(values[5]))
-                        {
-                            double.TryParse(values[5].Trim().Trim('"'), out khoiLuong);
-                        }
 
                         ThanhPhan tp = new ThanhPhan
                         {
@@ -225,12 +226,15 @@ namespace iExcipient_Form.Forms.Thietlap
                 textBoxTLTK.Text = tp.TLTK != null ? tp.TLTK.Replace("\n", "\r\n") : "";
                 textBoxUngDung.Text = tp.UngDung != null ? tp.UngDung.Replace("\n", "\r\n") : "";
                 textBoxTuongKy.Text = tp.TuongKy != null ? tp.TuongKy.Replace("\n", "\r\n") : "";
-                textBoxNgayTao.Text = tp.NgayTao != null
-                    ? tp.NgayTao.Value.ToString("dd/MM/yyyy HH:mm:ss")
-                    : "";
-                textBoxNgayCapNhat.Text = tp.NgayCapNhat != null
-                    ? tp.NgayCapNhat.Value.ToString("dd/MM/yyyy HH:mm:ss")
-                    : "";
+                if (tp.NgayTao != null)
+                    dateTimePickerNgayTao.Value = tp.NgayTao.Value;
+                else
+                    dateTimePickerNgayTao.Value = DateTime.Now;
+
+                if (tp.NgayCapNhat != null)
+                    dateTimePickerNgayCapNhat.Value = tp.NgayCapNhat.Value;
+                else
+                    dateTimePickerNgayCapNhat.Value = DateTime.Now;
 
                 List<ThanhPhan> dsCLQ = getdata.GetThanhPhanLienQuan(id);
                 textBoxChatLienQuan.Text = string.Join("; ", dsCLQ.Select(x => x.Ten_INN));
@@ -254,17 +258,6 @@ namespace iExcipient_Form.Forms.Thietlap
 
             try
             {
-                double khoiLuong = 0;
-                if (!string.IsNullOrWhiteSpace(textBoxKhoiLuongPhanTu.Text))
-                {
-                    if (!double.TryParse(textBoxKhoiLuongPhanTu.Text, out khoiLuong))
-                    {
-                        MessageBox.Show("Khối lượng phân tử phải là số!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        textBoxKhoiLuongPhanTu.Focus();
-                        return;
-                    }
-                }
 
                 ThanhPhan current = getdata.GetThanhPhan(_idDangChon);
                 if (current == null) return;

@@ -37,9 +37,9 @@ namespace iExcipient_Form.Forms.Danhmuc
 
             // Thiết lập DateTimePicker
             dateTimePickerNgayTao.Format = DateTimePickerFormat.Custom;
-            dateTimePickerNgayTao.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            dateTimePickerNgayTao.CustomFormat = "dd/MM/yyyy";
             dateTimePickerNgayCapNhat.Format = DateTimePickerFormat.Custom;
-            dateTimePickerNgayCapNhat.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            dateTimePickerNgayCapNhat.CustomFormat = "dd/MM/yyyy";
 
             dataGridView1.ScrollBars = ScrollBars.Both;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
