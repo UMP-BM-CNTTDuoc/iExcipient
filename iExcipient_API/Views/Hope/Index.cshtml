@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Tra cứu nâng cao - HOPE";
-    
+
     var activeDetail = ViewBag.ActiveDetail as ThanhPhan;
     var activeId = (int)(ViewBag.ActiveId ?? 0);
     var ewgScore = ViewBag.EwgScore as Thanhphan_EWGScore;
@@ -16,16 +16,16 @@
         @Html.Raw("Chưa có dữ liệu.")
         return;
     }
-    
-    string[] terms = new string[] { 
-        //"crom trioxide", "kali clorat", "kali permanganat", 
-        //"tác nhân oxy hóa mạnh", "chất oxy hóa mạnh", "chromium trioxide", 
+
+    string[] terms = new string[] {
+        //"crom trioxide", "kali clorat", "kali permanganat",
+        //"tác nhân oxy hóa mạnh", "chất oxy hóa mạnh", "chromium trioxide",
         //"potassium chlorate", "potassium permanganate", "strong oxidizing agents",
         //"acid mạnh", "kiềm mạnh", "acid", "kiềm"
     };
-    
+
     string result = text;
-    foreach(var term in terms)
+    foreach (var term in terms)
     {
         int index = 0;
         while ((index = result.IndexOf(term, index, StringComparison.OrdinalIgnoreCase)) != -1)
@@ -206,42 +206,141 @@
         margin-bottom: 15px;
         color: #ccc;
     }
+
+    .text-block-p {
+        white-space: pre-line;
+        margin-bottom: 10px;
+    }
+
+    /* CSS FIX CHO PHẢN HỒI KHI IN PDF */
+    @@media print {
+        /* Ép trình duyệt giữ nguyên màu nền và border của các Badge */
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        /* Ẩn thanh tìm kiếm, sidebar bộ lọc, nút bấm xuất PDF và layout ngoài hệ thống */
+        .search-bar-container,
+        .sidebar-left,
+        .btn-pdf,
+        header,
+        footer,
+        nav {
+            display: none !important;
+        }
+
+        /* Đẩy panel hiển thị chi tiết ra full khổ giấy in rộng rãi */
+        .main-layout {
+            display: block !important;
+        }
+        .content-body {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Ép giữ định dạng hiển thị cho các thẻ Badge và Link đối chiếu */
+        .tag {
+            display: inline-block !important;
+            background-color: #e8f0fe !important;
+            color: #1a73e8 !important;
+            padding: 4px 8px !important;
+            border-radius: 4px !important;
+        }
+
+        .ewg-badge {
+            display: inline-block !important;
+            padding: 6px 12px !important;
+            border-radius: 4px !important;
+        }
+        .ewg-badge.low { background-color: #e2f0d9 !important; color: #385723 !important; }
+        .ewg-badge.med { background-color: #fff2cc !important; color: #7f6000 !important; }
+        .ewg-badge.high { background-color: #fce4d6 !important; color: #c65911 !important; }
+
+        .law-badge-warning {
+            display: inline-block !important;
+            background-color: #fff2cc !important;
+            color: #b71c1c !important;
+            border: 1px solid #ffe082 !important;
+            padding: 4px 8px !important;
+        }
+
+        .law-badge-allowed {
+            display: inline-block !important;
+            background-color: #e2f0d9 !important;
+            color: #2e7d32 !important;
+            border: 1px solid #c8e6c9 !important;
+            padding: 4px 8px !important;
+        }
+
+        /* Ép hiển thị Badge Tá dược liên quan dạng viên thuốc (Pill) */
+        .related-substance-link {
+            display: inline-block !important;
+            background-color: #f1f3f4 !important;
+            color: #3c4043 !important;
+            border: 1px solid #dadce0 !important;
+            padding: 6px 14px !important;
+            border-radius: 20px !important;
+            text-decoration: none !important;
+        }
+
+        /* Ép hiển thị Block liên kết CosIng (Mỹ phẩm) giữ màu xanh lục */
+        .content-section.card[style*="background-color"] {
+            background-color: #f9fbfb !important;
+            border-color: #ccebe1 !important;
+        }
+        .section-heading[style*="color"] {
+            color: #1e835e !important;
+            border-color: #25a173 !important;
+        }
+        .btn-link {
+            display: inline-block !important;
+            background-color: #e6f4ea !important;
+            color: #137333 !important;
+            padding: 8px 16px !important;
+            border-radius: 4px !important;
+            text-decoration: none !important;
+        }
+    }
 </style>
 
-<!-- Top Search input (preserves active filters) -->
 <div class="search-bar-container">
     <form action="@Url.Action("Index", "Hope")" method="get" style="width: 100%; max-width: 700px;">
         <div class="search-input-wrapper">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" name="q" value="@Model.Keyword" placeholder="Nhập tên INN, INCI, IUPAC, CAS để tìm nhanh tá dược...">
-            @if (Model.FunctionId.HasValue)
+            <input type="text" name="q" value="@(Model != null ? Model.Keyword : "")" placeholder="Nhập tên INN, INCI, IUPAC, CAS để tìm nhanh tá dược...">
+
+            @if (Model != null && Model.FunctionId.HasValue)
             {
                 <input type="hidden" name="func" value="@Model.FunctionId" />
             }
-            @if (!string.IsNullOrEmpty(Model.EwgFilter))
+            @if (Model != null && !string.IsNullOrEmpty(Model.EwgFilter))
             {
                 <input type="hidden" name="ewg" value="@Model.EwgFilter" />
             }
-            @foreach (var flag in Model.AnnexFilters)
+
+            @if (Model != null && Model.AnnexFilters != null)
             {
-                <input type="hidden" name="annex" value="@flag" />
+                foreach (var flag in Model.AnnexFilters)
+                {
+                    <input type="hidden" name="annex" value="@flag" />
+                }
             }
         </div>
     </form>
 </div>
 
 <div class="main-layout">
-    
-    <!-- Sidebar Panel: Left column -->
+
     <div class="sidebar-left">
-        
-        <!-- Filters panel -->
+
         <div class="filter-panel">
             <h4>Bộ lọc nâng cao</h4>
             <form action="@Url.Action("Index", "Hope")" method="get">
                 <input type="hidden" name="q" value="@Model.Keyword" />
-                
-                <!-- Function Filter -->
+
                 <div class="form-group-filter">
                     <label>Nhóm chức năng (VN)</label>
                     <select name="func" class="form-control-filter">
@@ -253,7 +352,6 @@
                     </select>
                 </div>
 
-                <!-- EWG Safety score Filter -->
                 <div class="form-group-filter">
                     <label>Điểm an toàn EWG</label>
                     <select name="ewg" class="form-control-filter">
@@ -264,7 +362,6 @@
                     </select>
                 </div>
 
-                <!-- Annex EU limits Filter -->
                 <div class="form-group-filter">
                     <label>Quy định Annex EU</label>
                     <div class="checkbox-group">
@@ -286,14 +383,19 @@
             </form>
         </div>
 
-        <!-- Sidebar Results list -->
         <div class="sidebar-section-title">Kết quả (@Model.Results.Count)</div>
         <ul class="list-items">
             @foreach (var item in Model.Results)
             {
                 bool isActive = (item.IDThanhphan == activeId);
                 <li class="@(isActive ? "active" : "")">
-                    <a href="@Url.Action("Detail", "Hope", new { id = item.IDThanhphan, q = Model.Keyword, func = Model.FunctionId, ewg = Model.EwgFilter, annex = Model.AnnexFilters })">
+                    <a href="@Url.Action("Detail", "Hope", new {
+                        id = item.IDThanhphan,
+                        q = Model.Keyword,
+                        func = Model.FunctionId,
+                        ewg = Model.EwgFilter,
+                        annex = Model.AnnexFilters != null ? string.Join(",", Model.AnnexFilters) : ""
+                    })">
                         @item.Ten_INN
                     </a>
                 </li>
@@ -305,7 +407,6 @@
         </ul>
     </div>
 
-    <!-- Details View: Right column -->
     <div class="content-body">
         @if (activeDetail == null)
         {
@@ -334,7 +435,7 @@
                         }
                     </div>
                 </div>
-                
+
                 <div class="formula-img-box">
                     @if (!string.IsNullOrEmpty(activeDetail.CauTrucPhanTu))
                     {
@@ -348,10 +449,8 @@
                 </div>
             </div>
 
-            <!-- Export to PDF Button -->
             <button class="btn-pdf" onclick="window.print()"><i class="fa-solid fa-download"></i> TẢI PDF / XUẤT PDF</button>
 
-            <!-- Section 1: Overview Properties -->
             <div class="content-section card">
                 <div class="section-heading">Thông tin tổng quan</div>
                 <table class="meta-table">
@@ -395,7 +494,6 @@
                 </table>
             </div>
 
-            <!-- Section 2: Physical properties & storage -->
             <div class="content-section card">
                 <div class="section-heading">Mô tả & Tính chất vật lý</div>
                 <table class="meta-table">
@@ -420,7 +518,6 @@
                 </table>
             </div>
 
-            <!-- Section 3: Applications & Safety EWG -->
             <div class="content-section card">
                 <div class="section-heading">Ứng dụng & Độ an toàn EWG</div>
                 <table class="meta-table">
@@ -439,7 +536,7 @@
                                 string levelClass = "low";
                                 if (val >= 3 && val <= 6) { levelClass = "med"; }
                                 else if (val >= 7) { levelClass = "high"; }
-                                
+
                                 <div class="ewg-score-container">
                                     <div class="ewg-badge @levelClass">
                                         ● @ewgScore.EWG_Score_from - @ewgScore.EWG_Score_to : @ewgScore.EWG_Score
@@ -459,13 +556,11 @@
                 </table>
             </div>
 
-            <!-- Section 4: Incompatibilities -->
             <div class="content-section card">
                 <div class="section-heading">Tương kỵ hóa học</div>
                 <p class="text-block-p">@BoldIncompatibilities(activeDetail.TuongKy)</p>
             </div>
 
-            <!-- Section 5: Legal limits Annex EU -->
             <div class="content-section card">
                 <div class="section-heading">Quy định pháp lý - Annex EU</div>
                 <div style="padding: 5px 0;">
@@ -473,7 +568,7 @@
                     {
                         var rules = activeDetail.dsQuyDinh[0];
                         bool hasRestriction = false;
-                        
+
                         <div class="checkbox-group" style="gap: 12px;">
                             @if (rules.AnnexII == true)
                             {
@@ -515,7 +610,7 @@
                                     <span style="font-size: 14px; margin-left: 10px; color: var(--accent-red); font-weight: bold;">Danh sách các chất lọc tia tử ngoại (UV Filters).</span>
                                 </div>
                             }
-                            
+
                             @if (!hasRestriction)
                             {
                                 <span class="law-badge-allowed">● Được phép</span>
@@ -531,7 +626,6 @@
                 </div>
             </div>
 
-            <!-- Section 6: Related substances list -->
             <div class="content-section card">
                 <div class="section-heading">Tá dược liên quan</div>
                 @if (activeDetail.dsThanhPhanLienQuan != null && activeDetail.dsThanhPhanLienQuan.Count > 0)
@@ -540,8 +634,13 @@
                         @foreach (var item in activeDetail.dsThanhPhanLienQuan)
                         {
                             <li style="display: inline-block;">
-                                <a href="@Url.Action("Detail", "Hope", new { id = item.IDThanhphan, q = Model.Keyword, func = Model.FunctionId, ewg = Model.EwgFilter, annex = Model.AnnexFilters })" 
-                                   style="background-color: #f1f3f4; border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px; font-size: 13px;">
+                                <a href="@Url.Action("Detail", "Hope", new {
+                                    id = item.IDThanhphan,
+                                    q = Model.Keyword,
+                                    func = Model.FunctionId,
+                                    ewg = Model.EwgFilter,
+                                    annex = Model.AnnexFilters != null ? string.Join(",", Model.AnnexFilters) : ""
+                                })" class="related-substance-link">
                                     @item.Ten_INN
                                 </a>
                             </li>
@@ -554,11 +653,10 @@
                 }
             </div>
 
-            <!-- Section 7: CosIng link -->
             <div class="content-section card" style="background-color: #f9fbfb; border-color: #ccebe1;">
                 <div class="section-heading" style="border-color: #25a173; color: #1e835e;">Đối chiếu CosIng (Mỹ phẩm)</div>
                 <p class="text-block-p">
-                    Tá dược này có nằm trong danh mục nguyên liệu mỹ phẩm Châu Âu hay không? 
+                    Tá dược này có nằm trong danh mục nguyên liệu mỹ phẩm Châu Âu hay không?
                     Click vào liên kết bên dưới để xem chi tiết chức năng mỹ phẩm và phụ lục cảnh báo CosIng tương đương.
                 </p>
                 @if (ViewBag.CosingLinkId != null)

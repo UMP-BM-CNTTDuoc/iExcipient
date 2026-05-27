@@ -119,10 +119,26 @@
 </style>
 
 <!-- Top Search Redirect Bar -->
-<div class="search-container" style="padding: 10px 0 25px 0;">
-    <form action="@Url.Action("Index", "Cosing")" method="get" style="position: relative;">
-        <i class="fa-solid fa-magnifying-glass search-icon" style="left: 20px;"></i>
-        <input type="text" name="q" class="main-search" style="padding-left: 55px;" placeholder="Tìm kiếm theo danh pháp INCI, số CAS hoặc mã EC...">
+<div class="search-bar-container">
+    <form action="@Url.Action("Index", "Cosing")" method="get" style="width: 100%; max-width: 700px;">
+        <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input type="text" name="q" value="@(Model != null ? Model.Keyword : "")" placeholder="Tìm kiếm theo danh pháp INCI, số CAS hoặc mã EC...">
+
+            @if (Model != null && Model.FunctionId != null)
+            {
+                <input type="hidden" name="func" value="@Model.FunctionId" />
+            }
+
+            @if (Model != null && Model.AnnexFilters != null)
+            {
+                foreach (var flag in Model.AnnexFilters)
+                {
+                    <input type="hidden" name="annex" value="@flag" />
+                }
+            }
+        </div>
     </form>
 </div>
 
@@ -179,7 +195,7 @@
                         hasRestricted = true;
                         <div class="law-row">
                             <span class="law-badge annex-danger">ANNEX II</span>
-                            <div><strong>Bị cấm sử dụng</strong> trong các sản phẩm mỹ phẩm phân phối tại thị trường EU.</div>
+                            <div>Danh mục các chất không được phép sử dụng trong sản phẩm mỹ phẩm.</div>
                         </div>
                     }
                     if (r.AnnexIII == true)
@@ -187,7 +203,7 @@
                         hasRestricted = true;
                         <div class="law-row">
                             <span class="law-badge annex-danger">ANNEX III</span>
-                            <div><strong>Giới hạn nồng độ</strong>, tỷ lệ phần trăm tối đa và các cảnh báo bắt buộc khi ghi nhãn.</div>
+                            <div>Danh mục các chất có quy định giới hạn nồng độ, hàm lượng trong sản phẩm mỹ phẩm.</div>
                         </div>
                     }
                     if (r.AnnexIV == true)
@@ -195,7 +211,7 @@
                         hasRestricted = true;
                         <div class="law-row">
                             <span class="law-badge annex-danger">ANNEX IV</span>
-                            <div><strong>Danh mục chất màu</strong> được phép sử dụng có điều kiện trong mỹ phẩm.</div>
+                            <div>Danh mục các chất màu được phép dùng trong sản phẩm mỹ phẩm.</div>
                         </div>
                     }
                     if (r.AnnexV == true)
@@ -203,7 +219,7 @@
                         hasRestricted = true;
                         <div class="law-row">
                             <span class="law-badge annex-danger">ANNEX V</span>
-                            <div><strong>Chất bảo quản được phép dùng</strong> và giới hạn nồng độ an toàn tương ứng.</div>
+                            <div>Danh mục các chất bảo quản được phép sử dụng trong sản phẩm mỹ phẩm.</div>
                         </div>
                     }
                     if (r.AnnexVI == true)
@@ -211,7 +227,7 @@
                         hasRestricted = true;
                         <div class="law-row">
                             <span class="law-badge annex-danger">ANNEX VI</span>
-                            <div><strong>Màng lọc UV / Chất lọc tia tử ngoại</strong> được phê duyệt sử dụng trong kem chống nắng.</div>
+                            <div>Danh mục các chất lọc tia tử ngoại trong sản phẩm mỹ phẩm.</div>
                         </div>
                     }
                 }

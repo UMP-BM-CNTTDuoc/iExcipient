@@ -6,10 +6,10 @@
 <link href="~/Content/Home.css" rel="stylesheet" />
 
 <div class="hero-section">
-    <h1>Cơ sở dữ liệu Nguyên liệu & Tá dược</h1>
+    <h1>TRA CỨU THÀNH PHẦN CÔNG THỨC TRONG DƯỢC MỸ PHẨM</h1>
     <p>
-        Hệ thống tích hợp hỗ trợ nghiên cứu, tra cứu các thông số hóa lý, quy định an toàn pháp lý mỹ phẩm (CosIng) 
-        và tá dược y tế chuyên sâu (HOPE). Giúp định hình và chuẩn hóa công thức bào chế nhanh chóng.
+        Nền tảng tích hợp toàn diện dữ liệu thành phần mỹ phẩm (CosIng) và tá dược chuyên sâu (HOPE).
+        Hỗ trợ tra cứu thông số lý hóa, cập nhật quy định pháp lý và hỗ trợ định hình công thức bào chế hiện đại.
     </p>
 </div>
 
@@ -17,7 +17,7 @@
 <div class="stats-grid">
     <a href="@Url.Action("Index", "Hope")" class="stat-card">
         <div class="stat-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
-        <div class="stat-number">@ViewBag.CountHope</div>
+        <div class="stat-number">@(((long)ViewBag.CountHope).ToString("#,##0", new System.Globalization.CultureInfo("vi-VN")))</div>
         <div class="stat-label">chuyên luận HOPE</div>
     </a>
     <a href="@Url.Action("Index", "Cosing")" class="stat-card">
@@ -107,11 +107,11 @@
 <div class="table-section">
     <h2>Mô tả chi tiết chức năng</h2>
     <div class="function-switch">
-        <button id="btnCosing" class="active" onclick="switchFunctionTable('cosing')">
-            CosIng
+        <button id="btnCosing" class="active" onclick="switchFunctionTable('hope')">
+            Tra cứu trong CosIng
         </button>
-        <button id="btnHope" onclick="switchFunctionTable('hope')">
-            HOPE
+        <button id="btnHope" onclick="switchFunctionTable('cosing')">
+            Tra cứu trong sách HOPE
         </button>
     </div>
     <div class="function-table-wrapper">

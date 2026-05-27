@@ -1042,6 +1042,85 @@ namespace ClassLibraryIE
                     })
                     .ToList();
             }
+
+            public List<ThanhPhan> GetHopeIngredients(string q, int? func, string ewg, string[] annexArray)
+            {
+                List<ThanhPhan> resultList = new List<ThanhPhan>();
+
+                using (var db = new KetnoiCSDLDataContext())
+                {
+                    // 1. Khởi tạo query cơ bản trên bảng d_Thanhphan
+                    var query = db.d_Thanhphans.AsQueryable();
+
+                    // 2. Lọc các điều kiện cơ bản (Từ khóa, Chức năng, EWG) dưới DB
+                    if (!string.IsNullOrEmpty(q))
+                    {
+                        string keywordLower = q.Trim().ToLower();
+                        query = query.Where(tp => tp.Ten_INN.ToLower().Contains(keywordLower) ||
+                                                  tp.Ten_INCI.ToLower().Contains(keywordLower) ||
+                                                  tp.Ten_IUPAC.ToLower().Contains(keywordLower) ||
+                                                  tp.TenKhac.ToLower().Contains(keywordLower) ||
+                                                  tp.CAS_No.ToLower().Contains(keywordLower));
+                    }
+
+                    if (func.HasValue && func.Value > 0)
+                    {
+                        query = query.Where(tp => tp.r_Thanhphan_Chucnangs.Any(rc => rc.IDChucnang == func.Value));
+                    }
+
+                    if (!string.IsNullOrEmpty(ewg))
+                    {
+                        if (ewg == "low") query = query.Where(tp => tp.r_Thanhphan_EWGScores.Any(e => e.EWG_Score_to <= 2));
+                        else if (ewg == "med") query = query.Where(tp => tp.r_Thanhphan_EWGScores.Any(e => e.EWG_Score_from >= 3 && e.EWG_Score_to <= 6));
+                        else if (ewg == "high") query = query.Where(tp => tp.r_Thanhphan_EWGScores.Any(e => e.EWG_Score_from >= 7));
+                    }
+
+                    // 3. XỬ LÝ LỌC AND ANNEX: Dùng kỹ thuật truy vấn lồng nối tiếp (Chạy 100% dưới DB)
+                    if (annexArray != null && annexArray.Length > 0)
+                    {
+                        var cleanAnnex = annexArray.Select(a => a.Trim().ToUpper()).ToList();
+
+                        // Thay vì dùng GroupBy phức tạp dễ lỗi liên kết, ta ép điều kiện AND trực tiếp vào bảng d_Quydinhs.
+                        // Mỗi một Annex được chọn tương ứng với một mệnh đề .Where(Any(...)) nối tiếp.
+                        // SQL Server sẽ dịch thành các câu lệnh EXISTS lồng nhau, tận dụng Index cực tốt.
+                        if (cleanAnnex.Contains("II"))
+                        {
+                            query = query.Where(tp => tp.d_Quydinhs.Any(qd => qd.AnnexII == true));
+                        }
+                        if (cleanAnnex.Contains("III"))
+                        {
+                            query = query.Where(tp => tp.d_Quydinhs.Any(qd => qd.AnnexIII == true));
+                        }
+                        if (cleanAnnex.Contains("IV"))
+                        {
+                            query = query.Where(tp => tp.d_Quydinhs.Any(qd => qd.AnnexIV == true));
+                        }
+                        if (cleanAnnex.Contains("V"))
+                        {
+                            query = query.Where(tp => tp.d_Quydinhs.Any(qd => qd.AnnexV == true));
+                        }
+                        if (cleanAnnex.Contains("VI"))
+                        {
+                            query = query.Where(tp => tp.d_Quydinhs.Any(qd => qd.AnnexVI == true));
+                        }
+                    }
+
+                    // 4. Thực thi lấy dữ liệu sạch (Lúc này query đã chứa toàn bộ bộ lọc AND chuẩn SQL)
+                    var finalData = query.OrderBy(tp => tp.Ten_INN).Take(100).ToList();
+
+                    // 5. Chuyển đổi sang List<ThanhPhan> bằng hàm Shallow (Không tốn thêm câu truy vấn con nào)
+                    foreach (var item in finalData)
+                    {
+                        var tpShallow = ThanhPhan.fromThanhPhanDBShallow(item);
+                        if (tpShallow != null)
+                        {
+                            resultList.Add(tpShallow);
+                        }
+                    }
+                }
+
+                return resultList;
+            }
         }
 
         #endregion
@@ -1684,6 +1763,44 @@ namespace ClassLibraryIE
                 NgayCapNhat = item.NgayCapNhat
                 // KHÔNG gọi DB ở đây
             };
+        }
+        // Method tối ưu: Chỉ load thông tin cơ bản và Quy Định để phục vụ lọc danh sách/Annex
+        public static ThanhPhan fromThanhPhanDBWithAnnex(d_Thanhphan item)
+        {
+            if (item == null)
+                return null;
+
+            ThanhPhan kq = new ThanhPhan
+            {
+                IDThanhphan = item.IDThanhphan,
+                Ten_INN = item.Ten_INN,
+                Ten_INCI = item.Ten_INCI,
+                Ten_IUPAC = item.Ten_IUPAC,
+                TenKhac = item.TenKhac,
+                CAS_No = item.CAS_No,
+                CongThucHoaHoc = item.CongThucHoaHoc,
+                KhoiLuongPhanTu = item.KhoiLuongPhanTu,
+                CauTrucPhanTu = item.CauTrucPhanTu,
+                TinhChatVatLy = item.TinhChatVatLy,
+                MoTa = item.MoTa,
+                BaoQuan = item.BaoQuan,
+                TLTK = item.TLTK,
+                NgayTao = item.NgayTao,
+                NgayCapNhat = item.NgayCapNhat,
+                UngDung = item.Ungdung,
+                TuongKy = item.Tuongky
+            };
+
+            // CHỈ gọi duy nhất hàm lấy Quy định để phục vụ lọc Annex trên RAM
+            KetnoiDB.GetData db = new KetnoiDB.GetData();
+            kq.dsQuyDinh = db.GetQuyDinhByThanhPhan(item.IDThanhphan);
+
+            // Để trống các list khác để tiết kiệm tài nguyên
+            kq.dsChucNang = new List<ChucNang>();
+            kq.dsThanhPhanLienQuan = new List<ThanhPhan>();
+            kq.dsChucNangCosing = new List<ChucNangCosing>();
+
+            return kq;
         }
 
         public d_Thanhphan toThanhPhanDB()

@@ -277,12 +277,12 @@
 
 <div class="result-count">Hiển thị @Model.Results.Count kết quả tương thích</div>
 
-<!-- Grid Table of results -->
 <div class="table-responsive">
     <table>
         <thead>
             <tr>
-                <th style="width: 40px;"><input type="checkbox" id="check-all"></th>
+                <!-- Cột đầu tiên giờ là STT -->
+                <th style="width: 60px; text-align: center;">STT</th>
                 <th>Tên danh pháp INCI</th>
                 <th>Mã CAS</th>
                 <th>Mã EC</th>
@@ -292,6 +292,10 @@
             </tr>
         </thead>
         <tbody>
+            @{
+                // Khởi tạo biến đếm STT trước vòng lặp
+                int stt = 1;
+            }
             @foreach (var item in Model.Results)
             {
                 // Check if restricted in Annex
@@ -306,9 +310,10 @@
                     if (r.AnnexV == true) { isRestricted = true; activeAnnexes.Add("V"); }
                     if (r.AnnexVI == true) { isRestricted = true; activeAnnexes.Add("VI"); }
                 }
-                
+
                 <tr>
-                    <td><input type="checkbox" class="result-check"></td>
+                    <!-- Hiển thị STT -->
+                    <td style="text-align: center;">@(stt++)</td>
                     <td>
                         <a href="@Url.Action("Detail", "Cosing", new { id = item.IDThanhphan_Cosing })" class="link-detail">
                             @item.Ten_INCI
@@ -331,7 +336,7 @@
                         {
                             foreach (var a in activeAnnexes)
                             {
-                                <span class="badge badge-annex">Annex @a</span>
+                                <span class="badge badge-annex" style="margin-right: 5px; margin-bottom: 2px; display: inline-block;">Annex @a</span>
                             }
                         }
                         else
@@ -357,6 +362,7 @@
             @if (Model.Results.Count == 0)
             {
                 <tr>
+                    <!-- Đổi colspan thành 7 vì tổng số cột hiện tại là 7 -->
                     <td colspan="7" style="text-align: center; padding: 30px; color: #888; font-style: italic;">
                         Không tìm thấy chất mỹ phẩm nào khớp với bộ lọc tìm kiếm.
                     </td>
@@ -365,13 +371,3 @@
         </tbody>
     </table>
 </div>
-
-<script>
-    // Handle select all checkbox in grid
-    document.getElementById('check-all').addEventListener('change', function(e) {
-        var checks = document.querySelectorAll('.result-check');
-        checks.forEach(function(c) {
-            c.checked = e.target.checked;
-        });
-    });
-</script>
